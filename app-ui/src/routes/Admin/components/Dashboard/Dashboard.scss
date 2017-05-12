@@ -1,0 +1,9 @@
+.dashboard {
+  flex-grow: 1;
+  display: flex;
+
+  .panel-body {
+    height: inherit;
+    width: inherit;
+  }
+}

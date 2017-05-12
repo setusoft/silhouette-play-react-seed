@@ -1,0 +1,24 @@
+# #####################################
+# ##### Environment Configuration #####
+# #####################################
+
+# This file gets sourced before the actual bash script
+# gets executed. You can use this file to provide
+# environment variables
+
+# Available replacements
+# ------------------------------------------------
+# ${{author}}                   package author
+# ${{descr}}                    package description
+# ${{exec}}                     startup script name
+# ${{chdir}}                    app directory
+# ${{retries}}                  retries for startup
+# ${{retryTimeout}}             retry timeout
+# ${{app_name}}                 normalized app name
+# ${{daemon_user}}              daemon user
+# -------------------------------------------------
+
+# Setting JAVA_OPTS
+# -----------------
+# Do not let Play create a PID file and instead use the systemd mechanism
+JAVA_OPTS="-Dpidfile.path=/dev/null -Dconfig.file=/etc/${{app_name}}/__APP_CONFIG__ -Dlogger.file=/etc/${{app_name}}/__APP_LOGGER__"

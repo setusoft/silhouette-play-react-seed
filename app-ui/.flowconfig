@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/.*
+
+[libs]
+flow-libs
+flow-typed
+
+[options]
+module.system=haste
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+module.name_mapper='.*\(\.css\)$' -> 'CSSModule'
+module.name_mapper='.*\(\.scss\)$' -> 'CSSModule'
+module.name_mapper='\(redux-saga/.*\)' -> 'redux-saga'

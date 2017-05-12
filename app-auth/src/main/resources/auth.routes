@@ -1,0 +1,14 @@
+# Routes
+# This file defines all module routes (Higher priority routes first)
+# ~~~~
+POST        /sign-up                    auth.controllers.SignUpController.signUp
+POST        /sign-in                    auth.controllers.SignInController.signIn
+GET         /sign-out                   auth.controllers.SignOutController.signOut
+GET         /user                       auth.controllers.UserController.get
+
+POST        /password/recovery          auth.controllers.PasswordController.recover
+GET         /password/recovery/:token   auth.controllers.PasswordController.validate(token: java.util.UUID)
+POST        /password/recovery/:token   auth.controllers.PasswordController.reset(token: java.util.UUID)
+
+POST        /account/activation         auth.controllers.AccountController.send
+GET         /account/activation/:token  auth.controllers.AccountController.activate(token: java.util.UUID)

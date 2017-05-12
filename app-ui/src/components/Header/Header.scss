@@ -1,0 +1,31 @@
+#header {
+  border: 0 none;
+
+  .navbar-brand {
+    width: 54px;
+    position: relative;
+
+    img {
+      position: absolute;
+      top: 10px;
+      left: 13px;
+    }
+  }
+
+  .navbar-nav.authenticated .sign-out {
+    padding-top: 7px;
+  }
+
+  .navbar-nav.authenticated a {
+    padding: 5px;
+  }
+
+  .navbar-text.navbar-right.authenticated {
+    margin: 17px 15px 15px 13px;
+    font-size: 13px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+}

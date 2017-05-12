@@ -1,0 +1,32 @@
+@import '~normalize.css/normalize';
+@import 'partials/variables';
+@import 'vendor/bootstrap';
+@import 'partials/form';
+
+// Some best-practice CSS that's useful for most apps
+// Just remove them if they're not what you want
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: $body-bg-color;
+}
+
+#root {
+  height: 100vh;
+}
+
+*:focus {
+  outline: none; /* overrides chrome default focus outline */
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}

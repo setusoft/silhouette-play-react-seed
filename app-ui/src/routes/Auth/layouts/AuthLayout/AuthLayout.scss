@@ -1,0 +1,29 @@
+.auth-container {
+  height: 100%;
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+
+  .panel {
+    box-shadow: none;
+    border: 0 none;
+    width: 400px;
+
+    .panel-heading {
+      font-size: 18px;
+    }
+
+    .panel-body {
+      padding: 10px 20px 20px 20px;
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+      .btn {
+        margin-top: 20px;
+      }
+    }
+  }
+}

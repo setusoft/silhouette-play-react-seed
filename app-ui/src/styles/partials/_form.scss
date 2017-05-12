@@ -1,0 +1,26 @@
+form .form-group.input-field label {
+  font-size: 11px;
+}
+
+form .checkbox label,
+form label.checkbox-inline {
+  padding-top: 2px;
+
+  &.disabled {
+    color: #999;
+  }
+
+  input {
+    margin-top: 3px;
+  }
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  border-radius: 0;
+}
+
+form .has-feedback label~.form-control-feedback {
+  top: 22px!important;
+}

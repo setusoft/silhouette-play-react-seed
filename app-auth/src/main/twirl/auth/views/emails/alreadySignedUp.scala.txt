@@ -1,0 +1,4 @@
+@(user: _root_.auth.models.User, url: String)(implicit messages: Messages)
+@messages("auth.email.already.signed.up.hello", user.name.getOrElse("user"))
+
+@messages("auth.email.already.signed.up.txt.text", url)

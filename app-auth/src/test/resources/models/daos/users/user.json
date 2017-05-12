@@ -1,0 +1,22 @@
+{
+  "_id": { "$oid": "590998e65e00005e0095f1ce" },
+  "loginInfo": [
+    {
+      "providerID": "credentials",
+      "providerKey": "john@doe.com"
+    }
+  ],
+  "name": "John Doe",
+  "email": "john@doe.com",
+  "registration": {
+    "lang": "en-US",
+    "ip": "127.0.0.1",
+    "host": "localhost:9000",
+    "userAgent": "Chrome/58.0.3029.81 Safari/537.36",
+    "activated": true,
+    "dateTime": { "$date": 1493826799375 }
+  },
+  "settings": {
+    "lang": "en-US"
+  }
+}

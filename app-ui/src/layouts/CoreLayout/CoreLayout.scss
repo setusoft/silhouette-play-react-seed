@@ -1,0 +1,39 @@
+@import '../../styles/partials/variables';
+
+#core-layout {
+  min-height: 100vh;
+  display: flex;
+
+  .main-container {
+    padding-top: $header-height;
+    min-height: 100vh;
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .s-alert-box {
+    z-index: 1200!important;
+    box-shadow: 0 0 2px 1px rgba(42, 42, 42, 0.4);
+  }
+
+  .s-alert-bottom-right {
+    right: 40px!important;
+  }
+
+  .s-alert-info {
+    background: $alert-info-bg;
+    color: #fff;
+  }
+  .s-alert-success {
+    background: $alert-success-bg;
+    color: #fff;
+  }
+  .s-alert-warning {
+    background: $alert-warning-bg;
+    color: #fff;
+  }
+  .s-alert-error {
+    background: $alert-danger-bg;
+    color: #fff;
+  }
+}

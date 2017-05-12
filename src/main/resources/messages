@@ -1,0 +1,65 @@
+##########
+# Emails
+##########
+
+email.from = John Doe <john@doe.com>
+
+##########
+# DEFAULT
+##########
+
+error.email = Valid email required
+error.required = This field is required
+error.boolean = Must be true or false
+
+invalid.form = The form contains invalid data
+valid.result = Result successfully returned
+
+##########
+# AUTH
+##########
+
+auth.signed.in = Successfully signed in!
+auth.signed.out = Successfully signed out!
+auth.invalid.credentials = Invalid credentials!
+auth.forbidden = You don't have permission to access this endpoint!
+auth.unauthorized = You don't have permission to access this endpoint!
+
+auth.sign.up.email.sent = You''re almost done! We sent an activation mail to {0}. Please follow the instructions in the email to activate your account. If it doesn''t arrive, check your spam folder, or try to log in again to send another activation mail.
+auth.activation.email.invalid = We cannot send an email to an invalid email address!
+auth.activation.email.sent = We sent another activation email to you at {0}. It might take a few minutes for it to arrive; be sure to check your spam folder.
+auth.account.inactive = Your account is inactive! Please activate it first.
+auth.account.activated = Your account is now activated! Please sign in to use your new account.
+auth.invalid.activation.link = The link isn't valid anymore! Please sign in to send the activation email again.
+auth.invalid.reset.link = The link isn't valid anymore! Please request a new link to reset your password.
+auth.valid.reset.link = The link is valid! You are now able to reset the password.
+auth.reset.email.sent = We have sent you an email with further instructions to reset your password, on condition that the address was found in our system. If you do not receive an email within the next 5 minutes, then please recheck your entered email address and try it again.
+auth.password.reset = We have reset your password. You can now sign in with your credentials.
+
+##########
+# AUTH/Emails
+##########
+
+# Sign Up
+auth.email.sign.up.subject = Welcome
+auth.email.sign.up.hello = Hello {0},
+auth.email.sign.up.html.text = Please follow <a href="{0}">this link</a> to confirm and activate your new account.
+auth.email.sign.up.txt.text = Please follow the link to confirm and activate your new account: {0}
+
+# Already Signed Up
+auth.email.already.signed.up.subject = Welcome
+auth.email.already.signed.up.hello = Hello {0},
+auth.email.already.signed.up.html.text = You already have an account registered. Please follow <a href="{0}">this link</a> to sign in into your account.
+auth.email.already.signed.up.txt.text = You already have an account registered. Please follow the link to sign in into your account: {0}
+
+# Reset Password
+auth.email.reset.password.subject = Reset password
+auth.email.reset.password.hello = Hello {0},
+auth.email.reset.password.html.text = Please follow <a href="{0}">this link</a> to reset your password.
+auth.email.reset.password.txt.text = Please follow the link to reset your password: {0}
+
+# Activate Account
+auth.email.activate.account.subject = Activate account
+auth.email.activate.account.hello = Hello {0},
+auth.email.activate.account.html.text = Please follow <a href="{0}">this link</a> to confirm and activate your new account.
+auth.email.activate.account.txt.text = Please follow the link to confirm and activate your new account: {0}

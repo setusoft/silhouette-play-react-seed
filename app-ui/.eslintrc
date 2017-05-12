@@ -1,0 +1,45 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "flowtype"
+  ],
+  "env": {
+    "browser" : true
+  },
+  "globals": {
+    "__DEV__"      : false,
+    "__TEST__"     : false,
+    "__PROD__"     : false,
+    "__COVERAGE__" : false
+  },
+  "rules": {
+    "max-len": ["error", 120],
+    "react/no-unused-prop-types" : [2, {"skipShapeProps": true}],
+    "react/sort-comp": [1, {
+      "order": [
+        "type-annotations",
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render"
+      ]
+    }],
+    "no-constant-condition": ["error", { "checkLoops": false }],
+    "no-duplicate-imports": 0, // does not support flow type imports (https://github.com/babel/eslint-plugin-babel/issues/59)
+    "import/no-duplicates": 2  // does support flow type imports
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "config/webpack.config.js"
+      }
+    },
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  }
+}
