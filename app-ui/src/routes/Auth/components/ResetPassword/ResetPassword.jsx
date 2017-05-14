@@ -16,7 +16,7 @@ type Props = {
   $form: FormProps,
 }
 
-export default ({ token, password, isPending, onReset, $form }: Props) => (
+const ResetPassword = ({ token, password, isPending, onReset, $form }: Props) => (
   <Panel className="reset-password" header="Reset password">
     <p>
       Strong passwords include numbers, letters and punctuation marks.
@@ -38,3 +38,5 @@ export default ({ token, password, isPending, onReset, $form }: Props) => (
     </Form>
   </Panel>
 );
+
+export default ResetPassword;

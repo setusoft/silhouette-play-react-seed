@@ -11,7 +11,7 @@ type Props = {
   onSend: (email: string) => any,
 }
 
-export default ({ email, isPending, onSend }: Props) => (
+const ActivateAccount = ({ email, isPending, onSend }: Props) => (
   <Panel className="activate-account" header="Activate account">
     <p>You can&apos;t log in yet. We previously sent an activation email to you at:</p>
     <p className="email">{email}</p>
@@ -22,3 +22,5 @@ export default ({ email, isPending, onSend }: Props) => (
     </Button>
   </Panel>
 );
+
+export default ActivateAccount;

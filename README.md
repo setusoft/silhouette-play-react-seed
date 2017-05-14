@@ -65,9 +65,9 @@ SBT Commands       | NPM Tasks
 ------------------ | ------------
 `sbt "npm <arg>"`  | `npm run <arg>`
 `sbt npm:clean`    | `npm run clean`
-`sbt npm:compile`  | `npm run compile`
+`sbt npm:compile`  | `npm run build`
 `sbt npm:start`    | `npm run start`
-`sbt npm:dist`     | `npm run deploy:prod`
+`sbt npm:dist`     | `npm run build`
 `sbt npm:test`     | `npm run test`
 `sbt run`          | `npm run start`
 `sbt stage`        | `npm run deploy:prod`

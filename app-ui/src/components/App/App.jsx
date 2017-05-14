@@ -14,7 +14,7 @@ class App extends Component {
     routes: PropTypes.shape().isRequired,
     store: PropTypes.shape().isRequired,
     fetchUser: PropTypes.func.isRequired,
-  }
+  };
 
   /**
    * Handler which gets called after the component was applied to the DOM.

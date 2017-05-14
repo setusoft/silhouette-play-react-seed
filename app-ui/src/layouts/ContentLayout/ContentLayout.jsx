@@ -19,4 +19,8 @@ ContentLayout.propTypes = {
   headerNav: React.PropTypes.element,
 };
 
+ContentLayout.defaultProps = {
+  headerNav: null,
+};
+
 export default ContentLayout;

@@ -21,7 +21,7 @@ type Props = {
   $form: FormProps
 }
 
-export default ({ email, password, isPending, onSignIn, $form }: Props) => (
+const SignIn = ({ email, password, isPending, onSignIn, $form }: Props) => (
   <Panel className="sign-in" header="Sign in">
     <Form model={modelPath} onSubmit={onSignIn} autoComplete="off">
       <InputField
@@ -58,3 +58,5 @@ export default ({ email, password, isPending, onSignIn, $form }: Props) => (
     <p className="password-recovery"><Link to={config.route.auth.passwordRecovery}>Forgot your password?</Link></p>
   </Panel>
 );
+
+export default SignIn;

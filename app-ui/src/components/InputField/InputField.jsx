@@ -20,7 +20,7 @@ export const defaultMessages: { [string]: string } = {
   isEmail: 'Valid email required',
 };
 
-export default ({ id, type, label, formProps, validators, messages = {}, maxLength = 255 }: Props) => (
+const InputField = ({ id, type, label, formProps, validators, messages, maxLength = 255 }: Props) => (
   <FormGroup controlId={id} className="input-field" validationState={validationState(formProps)}>
     <ControlLabel>{label}</ControlLabel>
     <Control
@@ -44,3 +44,9 @@ export default ({ id, type, label, formProps, validators, messages = {}, maxLeng
     />
   </FormGroup>
 );
+
+InputField.defaultProps = {
+  messages: {},
+};
+
+export default InputField;

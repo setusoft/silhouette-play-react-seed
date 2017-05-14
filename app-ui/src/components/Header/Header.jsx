@@ -60,4 +60,8 @@ Header.propTypes = {
   ]),
 };
 
+Header.defaultProps = {
+  children: [],
+};
+
 export default Header;

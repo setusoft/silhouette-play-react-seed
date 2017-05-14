@@ -32,4 +32,8 @@ CoreLayout.propTypes = {
   headerNav: React.PropTypes.element,
 };
 
+CoreLayout.defaultProps = {
+  headerNav: null,
+};
+
 export default CoreLayout;
