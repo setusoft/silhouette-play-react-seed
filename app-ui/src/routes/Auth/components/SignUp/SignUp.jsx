@@ -22,7 +22,7 @@ type Props = {
   $form: FormProps
 }
 
-export default ({ name, email, password, isPending, onSignUp, $form }: Props) => (
+const SignUp = ({ name, email, password, isPending, onSignUp, $form }: Props) => (
   <Panel className="sign-up" header="Sign up">
     <Form model={modelPath} onSubmit={onSignUp} autoComplete="off">
       <InputField
@@ -63,3 +63,5 @@ export default ({ name, email, password, isPending, onSignUp, $form }: Props) =>
     <p className="sign-in">Already a member? <Link to={config.route.auth.signIn}>Sign in now</Link></p>
   </Panel>
 );
+
+export default SignUp;

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
 
@@ -14,7 +15,7 @@ class App extends Component {
     routes: PropTypes.shape().isRequired,
     store: PropTypes.shape().isRequired,
     fetchUser: PropTypes.func.isRequired,
-  }
+  };
 
   /**
    * Handler which gets called after the component was applied to the DOM.

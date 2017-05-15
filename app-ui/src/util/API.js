@@ -9,9 +9,9 @@ import config from 'config/index';
  * Needed to return always the same structure from a API method.
  */
 export class APIResponse {
-  code: string
-  description: string
-  details: any
+  code: string;
+  description: string;
+  details: any;
   constructor(code: string, description: string, details: any = []) {
     this.code = code;
     this.description = description;
@@ -23,7 +23,7 @@ export class APIResponse {
  * An API error that can transport an `APIResponse`.
  */
 export class APIError extends Error {
-  response: APIResponse
+  response: APIResponse;
   constructor(response: APIResponse) {
     super(response.description);
     this.response = response;
@@ -38,7 +38,7 @@ export default class API {
   /**
    * The default error message which will be displayed in production mode for an unexpected error.
    */
-  errorMsg: string = 'An error occurred, please try again later!'
+  errorMsg = 'An error occurred, please try again later!';
 
   /**
    * Executes a GET request.

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import FaSignOut from 'react-icons/lib/fa/sign-out';
 import config from 'config/index';
@@ -48,16 +49,20 @@ const Header = ({ current, user, route, onSignOut, children }) => (
 );
 
 Header.propTypes = {
-  current: React.PropTypes.string.isRequired,
-  user: React.PropTypes.shape({
-    name: React.PropTypes.string,
+  current: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string,
   }).isRequired,
-  route: React.PropTypes.func.isRequired,
-  onSignOut: React.PropTypes.func.isRequired,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  route: PropTypes.func.isRequired,
+  onSignOut: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]),
+};
+
+Header.defaultProps = {
+  children: [],
 };
 
 export default Header;

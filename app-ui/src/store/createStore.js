@@ -19,7 +19,7 @@ export default (initialState = {}) => {
   const enhancers = [];
   let composeEnhancers = compose;
 
-  if (__DEV__) {
+  if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-underscore-dangle
     const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
     if (typeof composeWithDevToolsExtension === 'function') {
@@ -35,8 +35,8 @@ export default (initialState = {}) => {
     initialState,
     composeEnhancers(
       applyMiddleware(...middleware),
-      ...enhancers
-    )
+      ...enhancers,
+    ),
   );
   store.asyncReducers = {};
 

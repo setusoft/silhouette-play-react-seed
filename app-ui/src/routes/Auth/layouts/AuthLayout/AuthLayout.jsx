@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CoreLayout from 'layouts/CoreLayout';
 import { unsecured } from 'routes/Auth/util/wrappers';
 
@@ -13,9 +14,9 @@ export const AuthLayoutComponent = ({ children }) => (
 );
 
 AuthLayoutComponent.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]).isRequired,
 };
 

@@ -21,19 +21,19 @@
   }
 
   .s-alert-info {
-    background: $alert-info-bg;
+    background: $alert-info-border;
     color: #fff;
   }
   .s-alert-success {
-    background: $alert-success-bg;
+    background: $alert-success-border;
     color: #fff;
   }
   .s-alert-warning {
-    background: $alert-warning-bg;
+    background: $alert-warning-border;
     color: #fff;
   }
   .s-alert-error {
-    background: $alert-danger-bg;
+    background: $alert-danger-border;
     color: #fff;
   }
 }

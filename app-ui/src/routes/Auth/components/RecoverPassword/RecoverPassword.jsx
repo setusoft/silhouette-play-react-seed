@@ -16,7 +16,7 @@ type Props = {
   $form: FormProps,
 }
 
-export default ({ email, isPending, onSend, $form }: Props) => (
+const RecoverPassword = ({ email, isPending, onSend, $form }: Props) => (
   <Panel className="recover-password" header="Recover password">
     <p>
       Please enter your email address and we will send you an email with further instructions to reset your password.
@@ -39,3 +39,5 @@ export default ({ email, isPending, onSend, $form }: Props) => (
     </Form>
   </Panel>
 );
+
+export default RecoverPassword;

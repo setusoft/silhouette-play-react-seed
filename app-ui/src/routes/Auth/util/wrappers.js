@@ -1,4 +1,4 @@
-/* eslint-disable new-cap */
+/* eslint-disable babel/new-cap */
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 import config from 'config/index';
 

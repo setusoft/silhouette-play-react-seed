@@ -97,9 +97,9 @@ object NpmPlugin extends AutoPlugin {
       case OS.Name.Mac     => "npm"
     }),
     npmClean := "clean",
-    npmCompile := "compile",
+    npmCompile := "build",
     npmStart := "start",
-    npmDist := "deploy:prod",
+    npmDist := "build",
     npmTest := "test",
     npmLogLevel := NpmLogLevel.Verbose,
 
