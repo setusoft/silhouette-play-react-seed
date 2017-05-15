@@ -1,4 +1,5 @@
 import config from 'config/index';
+import sinon from 'sinon';
 
 /**
  * A helper function which creates a store.

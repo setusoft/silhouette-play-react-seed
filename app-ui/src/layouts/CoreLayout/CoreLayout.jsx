@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import HeaderContainer from 'containers/HeaderContainer';
 
@@ -25,11 +26,11 @@ const CoreLayout = ({ headerNav, children }) => (
 );
 
 CoreLayout.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]).isRequired,
-  headerNav: React.PropTypes.element,
+  headerNav: PropTypes.element,
 };
 
 CoreLayout.defaultProps = {

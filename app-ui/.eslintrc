@@ -39,7 +39,7 @@
           "resolve": {
             "extensions": [".js", ".jsx"],
             "modules": [
-              "src/"
+              "src"
             ]
           }
         }

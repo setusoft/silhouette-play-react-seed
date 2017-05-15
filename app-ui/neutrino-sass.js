@@ -20,9 +20,7 @@ module.exports = (neutrino) => {
       .end()
     .use('css')
       .loader(CSS_LOADER)
-        .options({
-          sourceMap: true,
-        })
+        .options(sassOptions)
       .end()
     .use('sass')
       .loader(SASS_LOADER)

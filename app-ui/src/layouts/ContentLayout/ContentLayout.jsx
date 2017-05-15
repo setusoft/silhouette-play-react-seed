@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CoreLayout from 'layouts/CoreLayout';
 
 import './ContentLayout.scss';
@@ -12,11 +13,11 @@ const ContentLayout = ({ headerNav, children }) => (
 );
 
 ContentLayout.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]).isRequired,
-  headerNav: React.PropTypes.element,
+  headerNav: PropTypes.element,
 };
 
 ContentLayout.defaultProps = {

@@ -203,7 +203,7 @@ describe('(Component) Auth/SignUp', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('< /> Sign up');
+      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Sign up');
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {

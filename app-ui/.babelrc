@@ -1,4 +1,15 @@
 {
-  "presets": ["react"],
-  "plugins": ["transform-class-properties"]
+  "presets": ["es2015", "react"],
+  "plugins": ["transform-class-properties"],
+  "env": {
+    "test": {
+      "plugins": [
+        ["istanbul", {
+          "exclude": [
+            "**/*.spec.js"
+          ]
+        }]
+      ]
+    }
+  }
 }

@@ -1,8 +1,7 @@
 # Introduction
 
 This directory contains the client application developed with [React] and [Redux]. The application 
-architecture is based on the [React Redux Starter Kit]. There is a detailed [readme](STARTER_KIT.md)
-which explains the changes, for the starter kit, in detail.
+architecture is based on [Neutrino].
 
 # Style guide
 
@@ -11,7 +10,7 @@ detailed Style Guide explaining common pitfalls.
 
 [React]: https://facebook.github.io/react/
 [Redux]: http://redux.js.org/
-[React Redux Starter Kit]: https://github.com/davezuko/react-redux-starter-kit
+[Neutrino]: https://neutrino.js.org/
 [Airbnb JavaScript Style Guide]: https://github.com/airbnb/javascript
 [ESLint]: http://eslint.org/
 

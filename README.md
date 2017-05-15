@@ -47,10 +47,10 @@ yarn install
 ## How does it work
 
 The application is divided into a backend and a frontend part. The frontend part is located in the
-`app-ui` folder and it is based on the [React Redux Starter Kit]. A detailed explanation can be found
-in the README.md of this folder. The frontend application follows the modern JavaScript development 
-workflow. This means that in development mode we start an [Express] server on port 3000, which serves
-your UI. This comes with the advantage that you can use [webpack]s [Hot Module Replacement]. 
+`app-ui` folder and it is based on [Neutrino]. A detailed explanation can be found in the README.md 
+of this folder. The frontend application follows the modern JavaScript development workflow. This 
+means that in development mode we start an [Express] server on port 5000, which serves your UI. This 
+comes with the advantage that you can use [webpack]s [Hot Module Replacement]. 
 
 The backend application is a normal Play application which starts on port 9000 and which serves as the 
 API of the frontend.
@@ -82,8 +82,8 @@ Start the application with the following command.
 sbt run
 ```
 
-You can open `http://localhost:9000` which redirects you to `http://localhost:3000`. Or you open the UI directly
-with `http://localhost:3000`.
+You can open `http://localhost:9000` which redirects you to `http://localhost:5000`. Or you open the UI directly
+with `http://localhost:5000`.
 
 
 ### Run in stage mode
@@ -141,7 +141,7 @@ static type checker for JavaScript.
 [Redux]: http://redux.js.org/
 [Redux Saga]: https://redux-saga.js.org/
 [webpack]: https://webpack.js.org/
-[React Redux Starter Kit]: https://github.com/davezuko/react-redux-starter-kit
+[Neutrino]: https://neutrino.js.org/
 [Express]: http://expressjs.com/de/
 [Flow]: https://flow.org/
 [Hot Module Replacement]: https://webpack.js.org/concepts/hot-module-replacement/

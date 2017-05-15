@@ -143,7 +143,7 @@ describe('(Component) Auth/ResetPassword', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('< /> Reset');
+      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Reset');
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {
