@@ -12,6 +12,11 @@ describe('(Store) createStore', () => {
     expect(store.asyncReducers).to.be.empty();
   });
 
+  it('should have an empty asyncSagas object', () => {
+    expect(store.asyncSagas).to.be.an('object');
+    expect(store.asyncSagas).to.be.empty();
+  });
+
   describe('(Location)', () => {
     it('store should be initialized with Location state', () => {
       const location = {
