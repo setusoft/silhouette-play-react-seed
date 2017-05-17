@@ -126,7 +126,7 @@ object NpmSettings extends AutoPlugin {
 
   override def projectSettings: Seq[Setting[_]] = Seq(
     // We use the dev command to start the server in development mode, otherwise it cannot be killed
-    npmStart in Npm := "dev",
+    npmStart in Npm := "start",
 
     // We must define the directory in which the NPM project is located
     npmDir in Npm := "app-ui",
