@@ -39,7 +39,7 @@ module.exports = (neutrino) => {
       'react-dom/test-utils': true,
       'react-test-renderer/shallow': true,
     },
-    devtool: 'cheap-module-source-map',
+    devtool: 'cheap-module-eval-source-map',
     resolve: {
       alias: {
         sinon: 'sinon/pkg/sinon.js',

@@ -1,6 +1,3 @@
-// ---------------------------------------
-// Test Environment Setup
-// ---------------------------------------
 import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
@@ -20,17 +17,6 @@ global.sinon = sinon;
 global.expect = chai.expect;
 global.should = chai.should();
 
-// ---------------------------------------
-// Require Tests
-// ---------------------------------------
-// for use with karma-webpack-with-fast-source-maps
-const __karmaWebpackManifest__ = []; // eslint-disable-line
-// eslint-disable-next-line no-bitwise
-const inManifest = path => ~__karmaWebpackManifest__.indexOf(path);
-
 // require all `test/**/*.spec.js|jsx`
 const testsContext = require.context('./', true, /\.spec\.jsx?$/);
-
-// only run tests that have changed after the first pass.
-const testsToRun = testsContext.keys().filter(inManifest)
-  ;(testsToRun.length ? testsToRun : testsContext.keys()).forEach(testsContext);
+testsContext.keys().forEach(testsContext);
