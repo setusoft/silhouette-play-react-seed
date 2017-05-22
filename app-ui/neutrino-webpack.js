@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
+const merge = require('deepmerge');
 
 module.exports = (neutrino) => {
   // Add src dir to the resolvable modules (https://webpack.js.org/configuration/resolve/#resolve-modules)
@@ -9,4 +11,7 @@ module.exports = (neutrino) => {
   neutrino.config.when(process.env.NODE_ENV === 'production',
     config => config.output.set('publicPath', '/assets/ui/'),
     config => config.output.set('publicPath', '/'));
+
+  // Speedup build by enabling caching for babel-loader (https://github.com/babel/babel-loader#options)
+  neutrino.config.module.rule('compile').use('babel').tap(o => merge(o, { cacheDirectory: true }));
 };
