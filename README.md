@@ -25,7 +25,7 @@ and [Play]. It's a starting point which can be extended to fit your needs.
 
 ## Documentation
 
-Consulate the [Silhouette documentation] for more information. If you need help with the integration of Silhouette 
+Consult the [Silhouette documentation] for more information. If you need help with the integration of Silhouette 
 into your project, don't hesitate and ask questions in our [Forum] or on [Stack Overflow].
 
 
@@ -83,7 +83,7 @@ sbt run
 ```
 
 You can open `http://localhost:9000` which redirects you to `http://localhost:5000`. Or you open the UI directly
-with `http://localhost:5000`.
+with `http://localhost:5000`. (Note that mongo must be already started)
 
 
 ### Run in stage mode
@@ -100,7 +100,7 @@ The application can now be served over the URL `http://localhost:9000`.
 ### Build the application for production
 
 This builds a Debian package which can be installed on all Debian based systems. The application uses 
-[SBT Native Packager] to create the build. To creates builds for other distributions, please follow the 
+[SBT Native Packager] to create the build. To create builds for other distributions, please follow the 
 documentation.
 
 ```
