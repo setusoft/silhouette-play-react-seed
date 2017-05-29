@@ -1,9 +1,15 @@
 import React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Alert, Panel } from 'react-bootstrap';
 import './Dashboard.scss';
 
 const Dashboard = () => (
-  <Panel className="dashboard" />
+    <Panel className="dashboard">
+        <div>
+            <Alert bsStyle="success">
+                <strong>Success</strong> You successfully authenticated.
+            </Alert>
+        </div>
+    </Panel>
 );
 
 Dashboard.propTypes = {
