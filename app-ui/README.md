@@ -13,10 +13,3 @@ detailed Style Guide explaining common pitfalls.
 [Neutrino]: https://neutrino.js.org/
 [Airbnb JavaScript Style Guide]: https://github.com/airbnb/javascript
 [ESLint]: http://eslint.org/
-
-# Useful commands
-
-Update the library interface definitions for flow provides by the flow-typed repository.
-```
-node_modules\.bin\flow-typed install --overwrite
-```

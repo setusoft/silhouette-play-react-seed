@@ -1,12 +1,12 @@
 {
-  "extends" : "../.eslintrc",
-  "env"     : {
-    "mocha" : true
+  "extends": "../.eslintrc",
+  "env": {
+    "mocha": true
   },
-  "globals" : {
-    "expect" : false,
-    "should" : false,
-    "sinon"  : false
+  "globals": {
+    "expect": false,
+    "should": false,
+    "sinon": false
   },
   "rules": {
     "import/no-extraneous-dependencies" : ["error", {"devDependencies": ["**/*.spec.jsx", "**/*.spec.js", "**/test-*.js"]}],
