@@ -89,7 +89,7 @@ val admin: Project = Project(
 //// Root module
 ////*******************************
 val root: Project = Project(
-  id = "app",
+  id = "silhouette-play-react-seed",
   base = file("."),
   aggregate = Seq(
     test,
