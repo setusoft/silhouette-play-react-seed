@@ -1,5 +1,5 @@
-// flow-typed signature: a7d253bb465906a2d746884b23c74257
-// flow-typed version: df11ef698b/lodash_v4.x.x/flow_>=v0.38.x
+// flow-typed signature: 53b581d81115b53eaf3a74ae963c4f43
+// flow-typed version: ba3c3d2dca/lodash_v4.x.x/flow_>=v0.38.x <=v0.46.x
 
 declare module 'lodash' {
   declare type TemplateSettings = {
@@ -383,7 +383,7 @@ declare module 'lodash' {
     forOwnRight(object?: ?Object, iteratee?: OIteratee<*>): Object;
     functions(object?: ?Object): Array<string>;
     functionsIn(object?: ?Object): Array<string>;
-    get(object?: ?Object, path?: ?Array<string>|string, defaultValue?: any): any;
+    get(object?: ?Object|?Array<any>, path?: ?Array<string>|string, defaultValue?: any): any;
     has(object?: ?Object, path?: ?Array<string>|string): bool;
     hasIn(object?: ?Object, path?: ?Array<string>|string): bool;
     invert(object?: ?Object, multiVal?: bool): Object;
@@ -463,10 +463,10 @@ declare module 'lodash' {
     cond(pairs: NestedArray<Function>): Function;
     conforms(source: Object): Function;
     constant<T>(value: T): () => T;
-    defaultTo<T1:string|boolean|Object,T2>(value: T1, default: T2): T1;
+    defaultTo<T1:string|boolean|Object,T2>(value: T1, defaultValue: T2): T1;
     // NaN is a number instead of its own type, otherwise it would behave like null/void
-    defaultTo<T1:number,T2>(value: T1, default: T2): T1|T2;
-    defaultTo<T1:void|null,T2>(value: T1, default: T2): T2;
+    defaultTo<T1:number,T2>(value: T1, defaultValue: T2): T1|T2;
+    defaultTo<T1:void|null,T2>(value: T1, defaultValue: T2): T2;
     flow(...funcs?: Array<Function>): Function;
     flow(funcs?: Array<Function>): Function;
     flowRight(...funcs?: Array<Function>): Function;
@@ -479,7 +479,7 @@ declare module 'lodash' {
     methodOf(object?: ?Object, ...args?: Array<any>): Function;
     mixin<T: Function|Object>(object?: T, source: Object, options?: { chain: bool }): T;
     noConflict(): Lodash;
-    noop(): void;
+    noop(...args: Array<mixed>): void;
     nthArg(n?: number): Function;
     over(...iteratees: Array<Function>): Function;
     over(iteratees: Array<Function>): Function;

@@ -1,4 +1,4 @@
-// flow-typed signature: a80aae2477b9553814eca30a5aef0d13
+// flow-typed signature: 692166a7fd7c0f76b73577ffef36ede5
 // flow-typed version: <<STUB>>/redux-saga-test-plan_v^3.0.2/flow_v0.46.0
 
 /**
@@ -22,6 +22,10 @@ declare module 'redux-saga-test-plan' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
+declare module 'redux-saga-test-plan/lib/expectSaga/expectations' {
+  declare module.exports: any;
+}
+
 declare module 'redux-saga-test-plan/lib/expectSaga/findDispatchableActionIndex' {
   declare module.exports: any;
 }
@@ -174,6 +178,10 @@ declare module 'redux-saga-test-plan/providers' {
   declare module.exports: any;
 }
 
+declare module 'redux-saga-test-plan/src/expectSaga/expectations' {
+  declare module.exports: any;
+}
+
 declare module 'redux-saga-test-plan/src/expectSaga/findDispatchableActionIndex' {
   declare module.exports: any;
 }
@@ -323,6 +331,9 @@ declare module 'redux-saga-test-plan/src/utils/object' {
 }
 
 // Filename aliases
+declare module 'redux-saga-test-plan/lib/expectSaga/expectations.js' {
+  declare module.exports: $Exports<'redux-saga-test-plan/lib/expectSaga/expectations'>;
+}
 declare module 'redux-saga-test-plan/lib/expectSaga/findDispatchableActionIndex.js' {
   declare module.exports: $Exports<'redux-saga-test-plan/lib/expectSaga/findDispatchableActionIndex'>;
 }
@@ -436,6 +447,9 @@ declare module 'redux-saga-test-plan/matchers.js' {
 }
 declare module 'redux-saga-test-plan/providers.js' {
   declare module.exports: $Exports<'redux-saga-test-plan/providers'>;
+}
+declare module 'redux-saga-test-plan/src/expectSaga/expectations.js' {
+  declare module.exports: $Exports<'redux-saga-test-plan/src/expectSaga/expectations'>;
 }
 declare module 'redux-saga-test-plan/src/expectSaga/findDispatchableActionIndex.js' {
   declare module.exports: $Exports<'redux-saga-test-plan/src/expectSaga/findDispatchableActionIndex'>;

@@ -8,45 +8,6 @@
     "node": ">=6.9.0",
     "npm": "^3.0.0"
   },
-  "neutrino": {
-    "use": [
-      "neutrino-options.js",
-      "neutrino-preset-react",
-      "neutrino-preset-karma",
-      "neutrino-webpack.js",
-      "neutrino-sass.js",
-      "neutrino-karma.js"
-    ],
-    "config": {
-      "entry": {
-        "vendor": [
-          "flux-standard-action",
-          "js-cookie",
-          "lodash",
-          "prop-types",
-          "react",
-          "react-bootstrap",
-          "react-dom",
-          "react-redux",
-          "react-redux-form",
-          "react-router",
-          "react-s-alert",
-          "redux",
-          "redux-actions",
-          "redux-auth-wrapper",
-          "redux-saga",
-          "redux-thunk",
-          "validator",
-          "whatwg-fetch"
-        ]
-      }
-    },
-    "options": {
-      "html": {
-        "title": "Silhouette Play React Seed Template"
-      }
-    }
-  },
   "scripts": {
     "clean": "rimraf ../target/npm",
     "start": "neutrino start",
@@ -107,15 +68,14 @@
     "flow-bin": "^0.46.0",
     "flow-typed": "^2.1.2",
     "karma": "^1.7.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "neutrino": "^5.8.0",
-    "neutrino-preset-karma": "^5.8.0",
-    "neutrino-preset-react": "^5.8.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "neutrino": "^6.0.3",
+    "neutrino-preset-karma": "^6.0.3",
+    "neutrino-preset-react": "^6.0.3",
     "node-sass": "^4.5.2",
-    "phantomjs-prebuilt": "^2.1.14",
     "postcss-loader": "^2.0.5",
     "react-addons-test-utils": "^15.5.1",
-    "react-hot-loader": "next",
+    "react-hot-loader": "v3.0.0-beta.7",
     "react-test-renderer": "^15.5.4",
     "redbox-react": "^1.3.6",
     "redux-saga-test-plan": "^3.0.2",
@@ -123,7 +83,7 @@
     "sass-loader": "^6.0.3",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "style-loader": "^0.16.1",
+    "style-loader": "^0.18.2",
     "webpack": "^2.5.1"
   }
 }

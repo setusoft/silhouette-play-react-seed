@@ -4,7 +4,6 @@ const STYLE_LOADER = require.resolve('style-loader');
 const POSTCSS_LOADER = require.resolve('postcss-loader');
 
 module.exports = (neutrino) => {
-  const options = neutrino.options.config;
   // We use cssnano with the postcss loader, so we tell
   // - css-loader not to duplicate minimization
   // - sass-loader not generate source maps
@@ -13,8 +12,8 @@ module.exports = (neutrino) => {
 
   // If modules are present in the neutrino config,
   // set them as include paths.
-  if (options.resolve && options.resolve.modules) {
-    sassOptions.includePaths = options.resolve.modules;
+  if (neutrino.config.resolve && neutrino.config.resolve.modules) {
+    sassOptions.includePaths = neutrino.config.resolve.modules.values();
   }
 
   neutrino.config.module.rule('scss').test(/\.scss$/)

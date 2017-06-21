@@ -11,9 +11,7 @@ import './CoreLayout.scss';
 const CoreLayout = ({ headerNav, children }) => (
   <div id="core-layout">
     <HeaderContainer>{headerNav}</HeaderContainer>
-    <div className="main-container">
-      {children}
-    </div>
+    {children}
     <Alert
       stack={{ limit: 3 }}
       html

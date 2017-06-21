@@ -1,6 +1,7 @@
 @import '~normalize.css/normalize';
 @import 'partials/variables';
 @import 'vendor/bootstrap';
+@import 'partials/buttons';
 @import 'partials/form';
 
 // Some best-practice CSS that's useful for most apps
@@ -15,6 +16,7 @@ body {
   padding: 0;
   height: 100vh;
   background-color: $body-bg-color;
+  font-family: 'Roboto', sans-serif;
 }
 
 #root {

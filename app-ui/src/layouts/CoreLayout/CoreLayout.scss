@@ -4,36 +4,25 @@
   min-height: 100vh;
   display: flex;
 
-  .main-container {
-    padding-top: $header-height;
-    min-height: 100vh;
-    display: flex;
-    flex-grow: 1;
-  }
-
   .s-alert-box {
     z-index: 1200!important;
     box-shadow: 0 0 2px 1px rgba(42, 42, 42, 0.4);
   }
 
-  .s-alert-bottom-right {
-    right: 40px!important;
-  }
-
   .s-alert-info {
-    background: $alert-info-border;
+    background: $s-alert-info;
     color: #fff;
   }
   .s-alert-success {
-    background: $alert-success-border;
+    background: $s-alert-success;
     color: #fff;
   }
   .s-alert-warning {
-    background: $alert-warning-border;
+    background: $s-alert-warning;
     color: #fff;
   }
   .s-alert-error {
-    background: $alert-danger-border;
+    background: $s-alert-error;
     color: #fff;
   }
 }
