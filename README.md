@@ -91,7 +91,7 @@ with `http://localhost:5000`. (Note that mongo must be already started)
 To run the app in stage mode you can execute the following command:
 
 ```
-sbt clean stage && bash target/universal/stage/bin/app -Dplay.crypto.secret=abcdefghijk
+sbt clean stage && bash target/universal/stage/bin/silhouette-play-react-seed -Dplay.crypto.secret=abcdefghijk
 ```
 
 The application can now be served over the URL `http://localhost:9000`.

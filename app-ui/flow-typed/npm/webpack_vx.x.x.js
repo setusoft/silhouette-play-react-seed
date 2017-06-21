@@ -1,4 +1,4 @@
-// flow-typed signature: c8b66fcbc112807e27438f7bd99c77b4
+// flow-typed signature: 485426b19950dadf557456fa4535a272
 // flow-typed version: <<STUB>>/webpack_v^2.5.1/flow_v0.46.0
 
 /**
@@ -339,6 +339,22 @@ declare module 'webpack/lib/dependencies/ImportDependenciesBlock' {
 }
 
 declare module 'webpack/lib/dependencies/ImportDependency' {
+  declare module.exports: any;
+}
+
+declare module 'webpack/lib/dependencies/ImportEagerContextDependency' {
+  declare module.exports: any;
+}
+
+declare module 'webpack/lib/dependencies/ImportEagerDependency' {
+  declare module.exports: any;
+}
+
+declare module 'webpack/lib/dependencies/ImportLazyContextDependency' {
+  declare module.exports: any;
+}
+
+declare module 'webpack/lib/dependencies/ImportLazyOnceContextDependency' {
   declare module.exports: any;
 }
 
@@ -1298,6 +1314,18 @@ declare module 'webpack/lib/dependencies/ImportDependenciesBlock.js' {
 }
 declare module 'webpack/lib/dependencies/ImportDependency.js' {
   declare module.exports: $Exports<'webpack/lib/dependencies/ImportDependency'>;
+}
+declare module 'webpack/lib/dependencies/ImportEagerContextDependency.js' {
+  declare module.exports: $Exports<'webpack/lib/dependencies/ImportEagerContextDependency'>;
+}
+declare module 'webpack/lib/dependencies/ImportEagerDependency.js' {
+  declare module.exports: $Exports<'webpack/lib/dependencies/ImportEagerDependency'>;
+}
+declare module 'webpack/lib/dependencies/ImportLazyContextDependency.js' {
+  declare module.exports: $Exports<'webpack/lib/dependencies/ImportLazyContextDependency'>;
+}
+declare module 'webpack/lib/dependencies/ImportLazyOnceContextDependency.js' {
+  declare module.exports: $Exports<'webpack/lib/dependencies/ImportLazyOnceContextDependency'>;
 }
 declare module 'webpack/lib/dependencies/ImportParserPlugin.js' {
   declare module.exports: $Exports<'webpack/lib/dependencies/ImportParserPlugin'>;
