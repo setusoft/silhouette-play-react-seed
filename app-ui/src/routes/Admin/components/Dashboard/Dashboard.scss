@@ -1,6 +1,9 @@
+@import '../../../../styles/partials/variables';
+
 .dashboard {
   flex-grow: 1;
   display: flex;
+  margin-top: $header-height + 20px;
 
   .panel-body {
     height: inherit;
