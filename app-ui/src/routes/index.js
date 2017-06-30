@@ -1,3 +1,4 @@
+import NotFoundLayout from 'layouts/NotFoundLayout';
 import adminRoute from './Admin';
 import authRoute from './Auth';
 
@@ -7,5 +8,9 @@ export default store => ({
   childRoutes: [
     adminRoute(store),
     authRoute(store),
+    {
+      path: '*',
+      component: NotFoundLayout,
+    },
   ],
 });
