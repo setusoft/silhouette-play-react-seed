@@ -1,14 +1,18 @@
 import React from 'react';
 import sinon from 'sinon';
+import i18n from 'lingui-i18n';
+import { Trans } from 'lingui-react';
 import { shallow } from 'enzyme';
+import { Link } from 'react-router';
 import { Panel, Button } from 'react-bootstrap';
 import { Form } from 'react-redux-form';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/RecoverPasswordModule';
 import InputField from 'components/InputField';
 import Spinner from 'components/Spinner';
-import RecoverPassword from 'routes/Auth/components/RecoverPassword';
+import { RecoverPasswordComponent } from 'routes/Auth/components/RecoverPassword/RecoverPassword';
 import isEmail from 'validator/lib/isEmail';
+import config from 'config/index';
 
 describe('(Component) Auth/RecoverPassword', () => {
   let email;
@@ -18,9 +22,10 @@ describe('(Component) Auth/RecoverPassword', () => {
   let wrapper;
 
   const getWrapper = () => shallow(
-    <RecoverPassword
+    <RecoverPasswordComponent
       email={email}
       isPending={isPending}
+      i18n={i18n}
       onSend={onSend}
       $form={$form}
     />,
@@ -38,8 +43,19 @@ describe('(Component) Auth/RecoverPassword', () => {
     expect(wrapper.find(Panel)).to.have.length(1);
   });
 
-  it('Should contain 1 text paragraphs', () => {
-    expect(wrapper.find('p')).to.have.length(1);
+  it('Should contain 2 text paragraphs', () => {
+    expect(wrapper.find('p')).to.have.length(2);
+  });
+
+  it('Should contain a text paragraph with the link to the sign in page', () => {
+    const paragraph = wrapper.find('p.sign-in-link');
+    const link = paragraph.find(Link);
+
+    expect(paragraph).to.have.length(1);
+    expect(link).to.have.length(1);
+
+    expect(link.get(0).props.to).to.equal(config.route.auth.signIn);
+    expect(link.contains(<Trans>Back to Sign-In</Trans>)).to.be.true();
   });
 
   it('Should contain a Button', () => {
@@ -140,7 +156,7 @@ describe('(Component) Auth/RecoverPassword', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Send');
+      expect(wrapper.find(Button).contains(<div><Spinner /> <Trans>Submit</Trans></div>)).to.be.true();
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {
@@ -148,7 +164,7 @@ describe('(Component) Auth/RecoverPassword', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(0);
-      expect(wrapper.find(Button).children().text()).to.equal('Send');
+      expect(wrapper.find(Button).contains(<Trans>Submit</Trans>)).to.be.true();
     });
   });
 });

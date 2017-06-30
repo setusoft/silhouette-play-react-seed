@@ -23,6 +23,8 @@ module.exports = {
       .entry('vendor')
         .add('flux-standard-action')
         .add('js-cookie')
+        .add('lingui-i18n')
+        .add('lingui-react')
         .add('lodash')
         .add('prop-types')
         .add('react')

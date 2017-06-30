@@ -16,7 +16,7 @@ const mapStateToProps = () => ({});
  * @returns {Object} The props passed to the react component.
  */
 const mapDispatchToProps = dispatch => ({
-  fetchUser: () => dispatch(fetchUser()),
+  fetchUser: initialize => dispatch(fetchUser({ initialize })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

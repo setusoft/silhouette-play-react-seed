@@ -2,6 +2,7 @@
 import React from 'react';
 import { Panel, Button } from 'react-bootstrap';
 import { Form } from 'react-redux-form';
+import { WithI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/ResetPasswordModule';
 import InputField from 'components/InputField';
@@ -12,20 +13,21 @@ type Props = {
   token: string,
   password: FormProps,
   isPending: boolean,
-  onReset: () => any,
+  i18n: Object,
+  onReset: (token: string, data: Object) => any,
   $form: FormProps,
 }
 
-const ResetPassword = ({ token, password, isPending, onReset, $form }: Props) => (
-  <Panel className="reset-password" header="Reset password">
+export const ResetPasswordComponent = ({ token, password, isPending, i18n, onReset, $form }: Props) => (
+  <Panel className="reset-password" header={i18n.t`Reset password`}>
     <p>
-      Strong passwords include numbers, letters and punctuation marks.
+      <Trans>Strong passwords include numbers, letters and special characters.</Trans>
     </p>
     <Form model={modelPath} onSubmit={data => onReset(token, data)} autoComplete="off">
       <InputField
         id="password"
         type="password"
-        label="Password"
+        label={i18n.t`Password`}
         formProps={password}
         maxLength="255"
         validators={{
@@ -33,10 +35,10 @@ const ResetPassword = ({ token, password, isPending, onReset, $form }: Props) =>
         }}
       />
       <Button bsStyle="primary" type="submit" disabled={!$form.valid || isPending} block>
-        {isPending ? <div><Spinner /> Reset</div> : 'Reset'}
+        {isPending ? <div><Spinner /> <Trans>Reset</Trans></div> : <Trans>Reset</Trans>}
       </Button>
     </Form>
   </Panel>
 );
 
-export default ResetPassword;
+export default WithI18n()(ResetPasswordComponent);

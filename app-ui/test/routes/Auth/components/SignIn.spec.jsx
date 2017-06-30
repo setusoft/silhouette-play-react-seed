@@ -1,5 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
+import i18n from 'lingui-i18n';
+import { Trans } from 'lingui-react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router';
 import { Panel, Button } from 'react-bootstrap';
@@ -8,7 +10,7 @@ import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignInModule';
 import InputField from 'components/InputField';
 import Spinner from 'components/Spinner';
-import SignIn from 'routes/Auth/components/SignIn';
+import { SignInComponent } from 'routes/Auth/components/SignIn/SignIn';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 
@@ -21,10 +23,11 @@ describe('(Component) Auth/SignIn', () => {
   let wrapper;
 
   const getWrapper = () => shallow(
-    <SignIn
+    <SignInComponent
       email={email}
       password={password}
       isPending={isPending}
+      i18n={i18n}
       onSignIn={onSignIn}
       $form={$form}
     />,
@@ -43,14 +46,14 @@ describe('(Component) Auth/SignIn', () => {
   });
 
   it('Should contain a text paragraph with the link to the password recovery page', () => {
-    const paragraph = wrapper.find('p.password-recovery');
+    const paragraph = wrapper.find('p.password-recovery-link');
     const link = paragraph.find(Link);
 
     expect(paragraph).to.have.length(1);
     expect(link).to.have.length(1);
 
     expect(link.get(0).props.to).to.equal(config.route.auth.passwordRecovery);
-    expect(link.children().text()).to.equal('Forgot your password?');
+    expect(link.contains(<Trans>Forgot your password?</Trans>)).to.be.true();
   });
 
   it('Should contain a Button', () => {
@@ -62,8 +65,8 @@ describe('(Component) Auth/SignIn', () => {
       expect(wrapper.find(Panel).get(0).props.className).to.equal('sign-in');
     });
 
-    it('Should have prop `header` set to "Sign in"', () => {
-      expect(wrapper.find(Panel).get(0).props.header).to.equal('Sign in');
+    it('Should have prop `header` set to "Sign-In"', () => {
+      expect(wrapper.find(Panel).get(0).props.header).to.equal('Sign-In');
     });
   });
 
@@ -175,15 +178,14 @@ describe('(Component) Auth/SignIn', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Sign in');
+      expect(wrapper.find(Button).contains(<div><Spinner /> <Trans>Sign in</Trans></div>)).to.be.true();
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {
       isPending = false;
       wrapper = getWrapper();
 
-      expect(wrapper.find(Spinner)).to.have.length(0);
-      expect(wrapper.find(Button).children().text()).to.equal('Sign in');
+      expect(wrapper.find(Button).contains(<Trans>Sign in</Trans>)).to.be.true();
     });
   });
 });

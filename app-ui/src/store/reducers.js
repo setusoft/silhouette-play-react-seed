@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
+import i18nReducer from 'modules/I18nModule';
 import authReducer from 'routes/Auth/modules/AuthModule';
 import locationReducer from './location';
 
 export const makeRootReducer = asyncReducers => combineReducers({
   location: locationReducer,
+  i18n: i18nReducer,
   auth: authReducer,
   ...asyncReducers,
 });

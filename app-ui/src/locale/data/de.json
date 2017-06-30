@@ -1,0 +1,28 @@
+{
+  "This field is required": "Dies ist ein Pflichtfeld",
+  "Valid email required": "Keine gültige E-Mail-Adresse",
+  "Name": "Name",
+  "Email": "E-Mail",
+  "Password": "Passwort",
+  "Sign-In": "Login",
+  "Sign-Up": "Registrierung",
+  "Sign in": "Anmelden",
+  "Sign up": "Registrieren",
+  "Submit": "Absenden",
+  "Send": "Senden",
+  "Reset": "Zurücksetzen",
+  "Already a member?": "Bereits ein Mitglied?",
+  "Forgot your password?": "Passwort vergessen?",
+  "Sign in now": "Jetzt einloggen",
+  "Recover password": "Passwort wiederherstellen",
+  "Reset password": "Passwort zurücksetzen",
+  "Activate account": "Account aktivieren",
+  "Back to Sign-In": "Zurück zum Login",
+  "Remember my login on this computer": "Login auf diesem Gerät merken",
+  "Strong passwords include numbers, letters and special characters.": "Sichere Passwörter enthalten Zahlen, Buchstaben und Sonderzeichen.",
+  "Please enter your email address and we will send you an email with further instructions to reset your password.":
+    "Gib bitte deine E-Mail-Adresse, mit der du dich registriert hast, an. Wir senden dir dann eine E-Mail mit einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+  "You can&apos;t log in yet. We previously sent an activation email to you at:": "Du kannst dich leider noch nicht einloggen. Wir haben dir eine Aktivierungs-E-Mail an folgende Adresse geschickt:",
+  "Please follow the instructions in that email to activate your account.": "Bitte folge den Instruktionen in dieser E-Mail um deinen Account zu aktivieren.",
+  "Click the button to send the activation email again.": "Klicke auf den folgenden Button um eine neue Aktivierungs-E-Mail zu senden."
+}

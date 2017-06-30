@@ -12,7 +12,7 @@ import Header from 'components/Header';
  */
 const mapStateToProps = state => ({
   current: _.get(state, 'location.pathname', location.pathname),
-  user: _.get(state, 'auth.user', {}),
+  user: _.get(state, 'auth.user.data', {}),
 });
 
 /**

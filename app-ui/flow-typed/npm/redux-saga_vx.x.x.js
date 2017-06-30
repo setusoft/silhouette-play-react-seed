@@ -1,4 +1,4 @@
-// flow-typed signature: 7e6a1dd852d8c467b423b70e0d946e2c
+// flow-typed signature: b30bd90741948f34c94af369aa108ec0
 // flow-typed version: <<STUB>>/redux-saga_v^0.15.3/flow_v0.46.0
 
 /**
@@ -62,7 +62,23 @@ declare module 'redux-saga/es/internal/runSaga' {
   declare module.exports: any;
 }
 
-declare module 'redux-saga/es/internal/sagaHelpers' {
+declare module 'redux-saga/es/internal/sagaHelpers/fsmIterator' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/es/internal/sagaHelpers/index' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/es/internal/sagaHelpers/takeEvery' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/es/internal/sagaHelpers/takeLatest' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/es/internal/sagaHelpers/throttle' {
   declare module.exports: any;
 }
 
@@ -110,7 +126,23 @@ declare module 'redux-saga/lib/internal/runSaga' {
   declare module.exports: any;
 }
 
-declare module 'redux-saga/lib/internal/sagaHelpers' {
+declare module 'redux-saga/lib/internal/sagaHelpers/fsmIterator' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/lib/internal/sagaHelpers/index' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/lib/internal/sagaHelpers/takeEvery' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/lib/internal/sagaHelpers/takeLatest' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/lib/internal/sagaHelpers/throttle' {
   declare module.exports: any;
 }
 
@@ -162,7 +194,23 @@ declare module 'redux-saga/src/internal/runSaga' {
   declare module.exports: any;
 }
 
-declare module 'redux-saga/src/internal/sagaHelpers' {
+declare module 'redux-saga/src/internal/sagaHelpers/fsmIterator' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/src/internal/sagaHelpers/index' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/src/internal/sagaHelpers/takeEvery' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/src/internal/sagaHelpers/takeLatest' {
+  declare module.exports: any;
+}
+
+declare module 'redux-saga/src/internal/sagaHelpers/throttle' {
   declare module.exports: any;
 }
 
@@ -209,8 +257,20 @@ declare module 'redux-saga/es/internal/proc.js' {
 declare module 'redux-saga/es/internal/runSaga.js' {
   declare module.exports: $Exports<'redux-saga/es/internal/runSaga'>;
 }
-declare module 'redux-saga/es/internal/sagaHelpers.js' {
-  declare module.exports: $Exports<'redux-saga/es/internal/sagaHelpers'>;
+declare module 'redux-saga/es/internal/sagaHelpers/fsmIterator.js' {
+  declare module.exports: $Exports<'redux-saga/es/internal/sagaHelpers/fsmIterator'>;
+}
+declare module 'redux-saga/es/internal/sagaHelpers/index.js' {
+  declare module.exports: $Exports<'redux-saga/es/internal/sagaHelpers/index'>;
+}
+declare module 'redux-saga/es/internal/sagaHelpers/takeEvery.js' {
+  declare module.exports: $Exports<'redux-saga/es/internal/sagaHelpers/takeEvery'>;
+}
+declare module 'redux-saga/es/internal/sagaHelpers/takeLatest.js' {
+  declare module.exports: $Exports<'redux-saga/es/internal/sagaHelpers/takeLatest'>;
+}
+declare module 'redux-saga/es/internal/sagaHelpers/throttle.js' {
+  declare module.exports: $Exports<'redux-saga/es/internal/sagaHelpers/throttle'>;
 }
 declare module 'redux-saga/es/internal/scheduler.js' {
   declare module.exports: $Exports<'redux-saga/es/internal/scheduler'>;
@@ -245,8 +305,20 @@ declare module 'redux-saga/lib/internal/proc.js' {
 declare module 'redux-saga/lib/internal/runSaga.js' {
   declare module.exports: $Exports<'redux-saga/lib/internal/runSaga'>;
 }
-declare module 'redux-saga/lib/internal/sagaHelpers.js' {
-  declare module.exports: $Exports<'redux-saga/lib/internal/sagaHelpers'>;
+declare module 'redux-saga/lib/internal/sagaHelpers/fsmIterator.js' {
+  declare module.exports: $Exports<'redux-saga/lib/internal/sagaHelpers/fsmIterator'>;
+}
+declare module 'redux-saga/lib/internal/sagaHelpers/index.js' {
+  declare module.exports: $Exports<'redux-saga/lib/internal/sagaHelpers/index'>;
+}
+declare module 'redux-saga/lib/internal/sagaHelpers/takeEvery.js' {
+  declare module.exports: $Exports<'redux-saga/lib/internal/sagaHelpers/takeEvery'>;
+}
+declare module 'redux-saga/lib/internal/sagaHelpers/takeLatest.js' {
+  declare module.exports: $Exports<'redux-saga/lib/internal/sagaHelpers/takeLatest'>;
+}
+declare module 'redux-saga/lib/internal/sagaHelpers/throttle.js' {
+  declare module.exports: $Exports<'redux-saga/lib/internal/sagaHelpers/throttle'>;
 }
 declare module 'redux-saga/lib/internal/scheduler.js' {
   declare module.exports: $Exports<'redux-saga/lib/internal/scheduler'>;
@@ -284,8 +356,20 @@ declare module 'redux-saga/src/internal/proc.js' {
 declare module 'redux-saga/src/internal/runSaga.js' {
   declare module.exports: $Exports<'redux-saga/src/internal/runSaga'>;
 }
-declare module 'redux-saga/src/internal/sagaHelpers.js' {
-  declare module.exports: $Exports<'redux-saga/src/internal/sagaHelpers'>;
+declare module 'redux-saga/src/internal/sagaHelpers/fsmIterator.js' {
+  declare module.exports: $Exports<'redux-saga/src/internal/sagaHelpers/fsmIterator'>;
+}
+declare module 'redux-saga/src/internal/sagaHelpers/index.js' {
+  declare module.exports: $Exports<'redux-saga/src/internal/sagaHelpers/index'>;
+}
+declare module 'redux-saga/src/internal/sagaHelpers/takeEvery.js' {
+  declare module.exports: $Exports<'redux-saga/src/internal/sagaHelpers/takeEvery'>;
+}
+declare module 'redux-saga/src/internal/sagaHelpers/takeLatest.js' {
+  declare module.exports: $Exports<'redux-saga/src/internal/sagaHelpers/takeLatest'>;
+}
+declare module 'redux-saga/src/internal/sagaHelpers/throttle.js' {
+  declare module.exports: $Exports<'redux-saga/src/internal/sagaHelpers/throttle'>;
 }
 declare module 'redux-saga/src/internal/scheduler.js' {
   declare module.exports: $Exports<'redux-saga/src/internal/scheduler'>;

@@ -1,5 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
+import i18n from 'lingui-i18n';
+import { Trans } from 'lingui-react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router';
 import { Panel, Button } from 'react-bootstrap';
@@ -8,7 +10,7 @@ import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignUpModule';
 import InputField from 'components/InputField';
 import Spinner from 'components/Spinner';
-import SignUp from 'routes/Auth/components/SignUp';
+import { SignUpComponent } from 'routes/Auth/components/SignUp/SignUp';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 
@@ -22,11 +24,12 @@ describe('(Component) Auth/SignUp', () => {
   let wrapper;
 
   const getWrapper = () => shallow(
-    <SignUp
+    <SignUpComponent
       name={name}
       email={email}
       password={password}
       isPending={isPending}
+      i18n={i18n}
       onSignUp={onSignUp}
       $form={$form}
     />,
@@ -46,15 +49,11 @@ describe('(Component) Auth/SignUp', () => {
   });
 
   it('Should contain a text paragraph with the link to the sign-in page', () => {
-    const paragraph = wrapper.find('p.sign-in');
-    const link = paragraph.find(Link);
-
-    expect(paragraph).to.have.length(1);
-    expect(paragraph.first().text()).to.equal('Already a member? <Link />');
-
-    expect(link).to.have.length(1);
-    expect(link.get(0).props.to).to.equal(config.route.auth.signIn);
-    expect(link.children().text()).to.equal('Sign in now');
+    expect(wrapper.contains(
+      <p className="sign-in">
+        <Trans>Already a member?</Trans> <Link to={config.route.auth.signIn}><Trans>Sign in now</Trans></Link>
+      </p>,
+    )).to.be.true();
   });
 
   it('Should contain a Button', () => {
@@ -66,8 +65,8 @@ describe('(Component) Auth/SignUp', () => {
       expect(wrapper.find(Panel).get(0).props.className).to.equal('sign-up');
     });
 
-    it('Should have prop `header` set to "Sign up"', () => {
-      expect(wrapper.find(Panel).get(0).props.header).to.equal('Sign up');
+    it('Should have prop `header` set to "Sign-Up"', () => {
+      expect(wrapper.find(Panel).get(0).props.header).to.equal('Sign-Up');
     });
   });
 
@@ -203,7 +202,7 @@ describe('(Component) Auth/SignUp', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Sign up');
+      expect(wrapper.find(Button).contains(<div><Spinner /> <Trans>Sign up</Trans></div>)).to.be.true();
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {
@@ -211,7 +210,7 @@ describe('(Component) Auth/SignUp', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(0);
-      expect(wrapper.find(Button).children().text()).to.equal('Sign up');
+      expect(wrapper.find(Button).contains(<Trans>Sign up</Trans>)).to.be.true();
     });
   });
 });

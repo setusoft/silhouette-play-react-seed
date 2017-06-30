@@ -1,5 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
+import i18n from 'lingui-i18n';
+import { Trans } from 'lingui-react';
 import { shallow } from 'enzyme';
 import { Panel, Button } from 'react-bootstrap';
 import { Form } from 'react-redux-form';
@@ -7,7 +9,7 @@ import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/ResetPasswordModule';
 import InputField from 'components/InputField';
 import Spinner from 'components/Spinner';
-import ResetPassword from 'routes/Auth/components/ResetPassword';
+import { ResetPasswordComponent } from 'routes/Auth/components/ResetPassword/ResetPassword';
 
 describe('(Component) Auth/ResetPassword', () => {
   let token;
@@ -18,10 +20,11 @@ describe('(Component) Auth/ResetPassword', () => {
   let wrapper;
 
   const getWrapper = () => shallow(
-    <ResetPassword
+    <ResetPasswordComponent
       token={token}
       password={password}
       isPending={isPending}
+      i18n={i18n}
       onReset={onReset}
       $form={$form}
     />,
@@ -143,7 +146,7 @@ describe('(Component) Auth/ResetPassword', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Reset');
+      expect(wrapper.find(Button).contains(<div><Spinner /> <Trans>Reset</Trans></div>)).to.be.true();
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {
@@ -151,7 +154,7 @@ describe('(Component) Auth/ResetPassword', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(0);
-      expect(wrapper.find(Button).children().text()).to.equal('Reset');
+      expect(wrapper.find(Button).contains(<Trans>Reset</Trans>)).to.be.true();
     });
   });
 });

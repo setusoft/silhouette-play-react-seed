@@ -1,9 +1,11 @@
 import { combineSagas } from 'util/Saga';
+import i18nSaga from 'sagas/I18nSaga';
 import authSaga from 'routes/Auth/sagas/AuthSaga';
 import { sagaMiddleware } from './middleware';
 
 export function* rootSaga() {
   yield combineSagas([
+    i18nSaga,
     authSaga,
   ]);
 }

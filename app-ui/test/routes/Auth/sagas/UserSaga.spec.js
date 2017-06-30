@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
-import { fetchUser, saveUser, deleteUser } from 'routes/Auth/modules/UserModule';
+import { initializeUser, fetchUser, saveUser, deleteUser } from 'routes/Auth/modules/UserModule';
 import saga, { fetchUserSaga } from 'routes/Auth/sagas/UserSaga';
 import AuthAPI from 'routes/Auth/apis/AuthAPI';
 
@@ -27,11 +27,19 @@ describe('(Saga) Auth/UserSaga', () => {
         .run({ silenceTimeout: true });
     });
 
-    it('Should saveUser the user on success', () => {
+    it('Should save the user on success', () => {
       const api = { user: () => successResponse };
       return expectSaga(fetchUserSaga, api)
         .put(saveUser(successResponse.details))
         .dispatch(fetchUser())
+        .run({ silenceTimeout: true });
+    });
+
+    it('Should initialize the user on success', () => {
+      const api = { user: () => successResponse };
+      return expectSaga(fetchUserSaga, api)
+        .put(initializeUser())
+        .dispatch(fetchUser({ initialize: true }))
         .run({ silenceTimeout: true });
     });
 
@@ -40,6 +48,14 @@ describe('(Saga) Auth/UserSaga', () => {
       return expectSaga(fetchUserSaga, api)
         .put(deleteUser())
         .dispatch(fetchUser())
+        .run({ silenceTimeout: true });
+    });
+
+    it('Should initialize the user on error', () => {
+      const api = { user: () => { throw fatalError; } };
+      return expectSaga(fetchUserSaga, api)
+        .put(initializeUser())
+        .dispatch(fetchUser({ initialize: true }))
         .run({ silenceTimeout: true });
     });
   });

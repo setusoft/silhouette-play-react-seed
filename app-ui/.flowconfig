@@ -1,14 +1,31 @@
 [ignore]
-.*/node_modules/.*
+<PROJECT_ROOT>/node_modules/[^lm].*
+<PROJECT_ROOT>/node_modules/mitt
 
 [libs]
 flow-libs
 flow-typed
 
 [options]
+module.file_ext=.js
+module.file_ext=.json
+module.file_ext=.jsx
+module.file_ext=.css
+module.file_ext=.scss
+module.file_ext=.png
+
+module.ignore_non_literal_requires=true
+
+# See: https://github.com/facebook/flow/issues/2826
+# See: https://github.com/lingui/js-lingui/issues/25#issuecomment-311971289
+unsafe.enable_getters_and_setters=true
+
 module.system=haste
-module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=src
-module.name_mapper='.*\(\.css\)$' -> 'CSSModule'
-module.name_mapper='.*\(\.scss\)$' -> 'CSSModule'
-module.name_mapper='\(redux-saga/.*\)' -> 'redux-saga'
+module.system.node.resolve_dirname=node_modules
+
+module.name_mapper='^redux-saga/.*$' -> 'redux-saga'
+
+module.name_mapper.extension='css' -> 'CSSModule'
+module.name_mapper.extension='scss' -> 'CSSModule'
+module.name_mapper.extension='png' -> 'string'

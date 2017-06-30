@@ -1,0 +1,65 @@
+##########
+# Emails
+##########
+
+email.from = John Doe <john@doe.com>
+
+##########
+# DEFAULT
+##########
+
+error.email = Keine gültige E-Mail-Adresse
+error.required = Dies ist ein Pflichtfeld
+error.boolean = Muss true oder false sein
+
+invalid.form = Das Formular enthält ungültige Daten
+valid.result = Das Resultat wurde erfolgreich zurückgegeben
+
+##########
+# AUTH
+##########
+
+auth.signed.in = Erfolgreich eingeloggt!
+auth.signed.out = Erfolgreich ausgeloggt!
+auth.invalid.credentials = Ungültige Zugangsdaten!
+auth.forbidden = Du hast keine Berechtigungen um auf diesen Endpunkt zuzugreifen!
+auth.unauthorized = Du hast keine Berechtigungen um auf diesen Endpunkt zuzugreifen!
+
+auth.sign.up.email.sent = Du bist fast fertig! Wir haben eine Aktivierungs-E-Mail an die Adresse {0} gesendet. Bitte folge den Instruktionen in der E-Mail um deinen Account zu aktivieren. Solltest du keine E-Mail erhalten, dann prüfe bitte deinen Spam-Ordner oder versuche dich erneut einzuloggen um eine neue Aktivierungs-E-Mail zu senden.
+auth.activation.email.invalid = Wir können keine E-Mail zu einer ungültigen E-Mail-Adresse senden!
+auth.activation.email.sent = Wir haben die eine neue Aktivierungs-E-Mail an die Adresse {0} gesandt. Es kann ein paar Minuten dauern bis sie ankommt. Prüfe bitte auch deinen Spam-Ordner.
+auth.account.inactive = Dein Account ist inaktiv! Bitte aktiviere ihn zuerst.
+auth.account.activated = Dein Account ist nun aktiviert! Logge dich bitte ein um den Account zu nutzen.
+auth.invalid.activation.link = Der Link ist nicht mehr gültig! Bitte logge dich ein um eine neue Aktivierungs-E-Mail zu versenden.
+auth.invalid.reset.link = Der Link ist nicht mehr gültig! Bitte lasse dir einen neuen Link zusenden um dein Passwort zurück zu setzen.
+auth.valid.reset.link = Der Link ist gültig! Du kannst nun dein Passwort zurücksetzen.
+auth.reset.email.sent = Wenn die eingegebene Adresse in unserem System gefunden wurde, dann haben wir dir eine E-Mail mit weiteren Informationen zum zurücksetzen deines Passworts zugesendet. Wenn du innerhalb der nächsten 5 Minuten keine E-Mail erhalten solltest, dann prüfe bitte deine eingegebene E-Mail-Adresse und versuchen es erneut.
+auth.password.reset = Wir haben dein Passwort zurückgesetzt. Du kannst dich nun mit deinen Zugangsdaten einloggen.
+
+##########
+# AUTH/Emails
+##########
+
+# Sign Up
+auth.email.sign.up.subject = Willkommen
+auth.email.sign.up.hello = Hallo {0},
+auth.email.sign.up.html.text = Bitte folge <a href="{0}">diesem Link</a> um deinen Account zu aktivieren.
+auth.email.sign.up.txt.text = Bitte folge diesem Link um deinen Account zu aktivieren: {0}
+
+# Already Signed Up
+auth.email.already.signed.up.subject = Welcome
+auth.email.already.signed.up.hello = Hallo {0},
+auth.email.already.signed.up.html.text = Du hast bereits einen Account registriert. Bitte folge <a href="{0}">diesem Link</a> um dich in deinen Account einzuloggen.
+auth.email.already.signed.up.txt.text = Du hast bereits einen Account registriert. Bitte folge diesem Link um dich in deinen Account einzuloggen: {0}
+
+# Reset Password
+auth.email.reset.password.subject = Passwort zurücksetzen
+auth.email.reset.password.hello = Hallo {0},
+auth.email.reset.password.html.text = Bitte folge <a href="{0}">diesem Link</a> um dein Passwort zurück zu setzen.
+auth.email.reset.password.txt.text = Bitte folge diesem Link um dein Passwort zurück zu setzen: {0}
+
+# Activate Account
+auth.email.activate.account.subject = Activate account
+auth.email.activate.account.hello = Hallo {0},
+auth.email.activate.account.html.text = Bitte folge <a href="{0}">diesem Link</a> um deinen Account zu aktivieren.
+auth.email.activate.account.txt.text = Bitte folge diesem Link um deinen Account zu aktivieren: {0}

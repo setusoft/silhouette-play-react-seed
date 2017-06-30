@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Panel, Button, Checkbox } from 'react-bootstrap';
 import { Form, Control } from 'react-redux-form';
+import { WithI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignInModule';
 import InputField from 'components/InputField';
@@ -17,17 +18,18 @@ type Props = {
   email: FormProps,
   password: FormProps,
   isPending: boolean,
+  i18n: Object,
   onSignIn: () => any,
   $form: FormProps
 }
 
-const SignIn = ({ email, password, isPending, onSignIn, $form }: Props) => (
-  <Panel className="sign-in" header="Sign in">
+export const SignInComponent = ({ email, password, isPending, i18n, onSignIn, $form }: Props) => (
+  <Panel className="sign-in" header={i18n.t`Sign-In`}>
     <Form model={modelPath} onSubmit={onSignIn} autoComplete="off">
       <InputField
         id="email"
         type="email"
-        label="Email"
+        label={i18n.t`Email`}
         formProps={email}
         maxLength="255"
         validators={{
@@ -38,7 +40,7 @@ const SignIn = ({ email, password, isPending, onSignIn, $form }: Props) => (
       <InputField
         id="password"
         type="password"
-        label="Password"
+        label={i18n.t`Password`}
         formProps={password}
         maxLength="255"
         validators={{
@@ -49,14 +51,16 @@ const SignIn = ({ email, password, isPending, onSignIn, $form }: Props) => (
         model=".rememberMe"
         component={Checkbox}
       >
-        Remember my login on this computer
+        <Trans>Remember my login on this computer</Trans>
       </Control.checkbox>
       <Button bsStyle="primary" type="submit" disabled={!$form.valid || isPending} block>
-        {isPending ? <div><Spinner /> Sign in</div> : 'Sign in'}
+        {isPending ? <div><Spinner /> <Trans>Sign in</Trans></div> : <Trans>Sign in</Trans>}
       </Button>
     </Form>
-    <p className="password-recovery"><Link to={config.route.auth.passwordRecovery}>Forgot your password?</Link></p>
+    <p className="password-recovery-link">
+      <Link to={config.route.auth.passwordRecovery}><Trans>Forgot your password?</Trans></Link>
+    </p>
   </Panel>
 );
 
-export default SignIn;
+export default WithI18n()(SignInComponent);

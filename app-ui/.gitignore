@@ -1,6 +1,7 @@
 .DS_STORE
 *.log
 
+locale/_build
 node_modules
 
 .coverage

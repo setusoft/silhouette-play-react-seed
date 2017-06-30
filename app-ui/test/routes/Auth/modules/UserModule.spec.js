@@ -1,6 +1,7 @@
 import { isFSA } from 'flux-standard-action';
 import userReducer, {
   initialState,
+  initializeUser,
   fetchUser,
   saveUser,
   deleteUser,
@@ -11,6 +12,16 @@ describe('(Redux Module) Auth/UserModule', () => {
     name: 'John Doe',
     email: 'john@doe.com',
   };
+
+  describe('(Action Creator) initializeUser', () => {
+    it('Should be exported as a function', () => {
+      expect(initializeUser).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(initializeUser())).to.be.true();
+    });
+  });
 
   describe('(Action Creator) fetchUser', () => {
     it('Should be exported as a function', () => {
@@ -42,7 +53,7 @@ describe('(Redux Module) Auth/UserModule', () => {
     });
   });
 
-  describe('(Reducer) resetPasswordReducer', () => {
+  describe('(Reducer) userReducer', () => {
     it('Should be a function', () => {
       expect(userReducer).to.be.a('function');
     });
@@ -51,17 +62,25 @@ describe('(Redux Module) Auth/UserModule', () => {
       expect(userReducer(undefined, { type: 'UNDEFINED' })).to.eql(initialState);
     });
 
+    it('Should initialize the user if the `initializeUser` action was dispatched', () => {
+      let state = userReducer(undefined, { type: 'UNDEFINED' });
+      expect(state).to.eql(initialState);
+
+      state = userReducer(state, initializeUser());
+      expect(state).to.eql({ ...initialState, initialized: true });
+    });
+
     it('Should save the user if the `saveUser` action was dispatched', () => {
       let state = userReducer(undefined, { type: 'UNDEFINED' });
       expect(state).to.eql(initialState);
 
       state = userReducer(state, saveUser(user));
-      expect(state).to.eql(user);
+      expect(state).to.eql({ ...initialState, data: user });
     });
 
     it('Should delete the user if the `deleteUser` action was dispatched', () => {
       let state = userReducer(undefined, saveUser(user));
-      expect(state).to.eql(user);
+      expect(state).to.eql({ ...initialState, data: user });
 
       state = userReducer(state, deleteUser());
       expect(state).to.eql(initialState);

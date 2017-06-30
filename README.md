@@ -9,6 +9,7 @@ and [Play]. It's a starting point which can be extended to fit your needs.
 
 * MongoDB storage
 * SBT multi project
+* i18n
 * Sign Up
 * Sign In (Credentials)
 * Cookie authentication

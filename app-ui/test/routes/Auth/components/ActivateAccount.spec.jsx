@@ -1,9 +1,11 @@
 import React from 'react';
 import sinon from 'sinon';
+import i18n from 'lingui-i18n';
+import { Trans } from 'lingui-react';
 import { shallow } from 'enzyme';
 import { Panel, Button } from 'react-bootstrap';
 import Spinner from 'components/Spinner';
-import ActivateAccount from 'routes/Auth/components/ActivateAccount';
+import { ActivateAccountComponent } from 'routes/Auth/components/ActivateAccount/ActivateAccount';
 
 describe('(Component) Auth/ActivateAccount', () => {
   let email;
@@ -12,9 +14,10 @@ describe('(Component) Auth/ActivateAccount', () => {
   let wrapper;
 
   const getWrapper = () => shallow(
-    <ActivateAccount
+    <ActivateAccountComponent
       email={email}
       isPending={isPending}
+      i18n={i18n}
       onSend={onSend}
     />,
   );
@@ -94,7 +97,7 @@ describe('(Component) Auth/ActivateAccount', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).children().text()).to.equal('<Spinner /> Send');
+      expect(wrapper.find(Button).contains(<div><Spinner /> <Trans>Send</Trans></div>)).to.be.true();
     });
 
     it('Should not show the `Spinner` if `isPending` is set to false', () => {
@@ -102,7 +105,7 @@ describe('(Component) Auth/ActivateAccount', () => {
       wrapper = getWrapper();
 
       expect(wrapper.find(Spinner)).to.have.length(0);
-      expect(wrapper.find(Button).children().text()).to.equal('Send');
+      expect(wrapper.find(Button).contains(<Trans>Send</Trans>)).to.be.true();
     });
   });
 });

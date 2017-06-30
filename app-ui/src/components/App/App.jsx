@@ -1,7 +1,15 @@
+// @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { browserHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
+import I18nLoaderContainer from 'containers/I18nLoaderContainer';
+import PreloaderContainer from 'containers/PreloaderContainer';
+
+type Props = {
+  routes: Object,
+  store: Object,
+  fetchUser: (initialize: boolean) => void,
+}
 
 /**
  * App component.
@@ -9,19 +17,15 @@ import { Provider } from 'react-redux';
 class App extends Component {
 
   /**
-   * Defines the props for this component.
+   * The component props.
    */
-  static propTypes = {
-    routes: PropTypes.shape().isRequired,
-    store: PropTypes.shape().isRequired,
-    fetchUser: PropTypes.func.isRequired,
-  };
+  props: Props;
 
   /**
    * Handler which gets called after the component was applied to the DOM.
    */
   componentDidMount() {
-    this.props.fetchUser();
+    this.props.fetchUser(true);
   }
 
   /**
@@ -43,7 +47,11 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <Router history={browserHistory}>{routes}</Router>
+        <I18nLoaderContainer>
+          <PreloaderContainer>
+            <Router history={browserHistory}>{routes}</Router>
+          </PreloaderContainer>
+        </I18nLoaderContainer>
       </Provider>
     );
   }

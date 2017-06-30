@@ -1,10 +1,11 @@
 import React from 'react';
+import i18n from 'lingui-i18n';
 import { shallow } from 'enzyme';
 import { Control, Errors } from 'react-redux-form';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { validationState, ErrorWrapper } from 'util/Form';
 import { isRequired } from 'util/Validator';
-import InputField, { defaultMessages } from 'components/InputField/InputField';
+import { InputFieldComponent, defaultMessages } from 'components/InputField/InputField';
 
 describe('(Component) InputField', () => {
   const id = 'test';
@@ -17,7 +18,7 @@ describe('(Component) InputField', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<InputField
+    wrapper = shallow(<InputFieldComponent
       id={id}
       type={type}
       label={label}
@@ -25,6 +26,7 @@ describe('(Component) InputField', () => {
       validators={validators}
       messages={messages}
       maxLength={maxLength}
+      i18n={i18n}
     />);
   });
 
@@ -96,7 +98,7 @@ describe('(Component) InputField', () => {
 
       it('Should have prop `messages` set to the list of messages', () => {
         expect(wrapper.find(Errors).get(0).props.messages).to.eql({
-          ...defaultMessages,
+          ...defaultMessages(i18n),
           ...messages,
         });
       });
