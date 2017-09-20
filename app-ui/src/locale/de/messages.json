@@ -1,0 +1,281 @@
+{
+  "This field is required": {
+    "translation": "Dies ist ein Pflichtfeld",
+    "origin": [
+      [
+        "src\\components\\InputField\\InputField.jsx",
+        22
+      ]
+    ]
+  },
+  "Valid email required": {
+    "translation": "Keine gültige E-Mail-Adresse",
+    "origin": [
+      [
+        "src\\components\\InputField\\InputField.jsx",
+        23
+      ]
+    ]
+  },
+  "The Page you are looking for could not be found!": {
+    "translation": "Die Seite konnte nicht gefunden werden!",
+    "origin": [
+      [
+        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
+        14
+      ]
+    ]
+  },
+  "Back to Home": {
+    "translation": "Zur Startseite",
+    "origin": [
+      [
+        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
+        15
+      ]
+    ]
+  },
+  "Activate account": {
+    "translation": "Account aktivieren",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        17
+      ]
+    ]
+  },
+  "You can't log in yet. We previously sent an activation email to you at:": {
+    "translation": "Du kannst dich leider noch nicht einloggen. Wir haben dir eine Aktivierungs-E-Mail an folgende Adresse geschickt:",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        18
+      ]
+    ]
+  },
+  "Please follow the instructions in that email to activate your account.": {
+    "translation": "Bitte folge den Instruktionen in dieser E-Mail um deinen Account zu aktivieren.",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        20
+      ]
+    ]
+  },
+  "Click the button to send the activation email again.": {
+    "translation": "Klicke auf den folgenden Button um eine neue Aktivierungs-E-Mail zu senden.",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        21
+      ]
+    ]
+  },
+  "Send": {
+    "translation": "Senden",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        23
+      ],
+      [
+        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        23
+      ]
+    ]
+  },
+  "Recover password": {
+    "translation": "Passwort wiederherstellen",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        26
+      ]
+    ]
+  },
+  "Please enter your email address and we will send you an email with further instructions to reset your password.": {
+    "translation": "Gib bitte deine E-Mail-Adresse, mit der du dich registriert hast, an. Wir senden dir dann eine E-Mail mit einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        28
+      ]
+    ]
+  },
+  "Email": {
+    "translation": "E-Mail",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        36
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        32
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        43
+      ]
+    ]
+  },
+  "Submit": {
+    "translation": "Absenden",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        45
+      ],
+      [
+        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        45
+      ]
+    ]
+  },
+  "Back to Sign-In": {
+    "translation": "Zurück zum Login",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        47
+      ]
+    ]
+  },
+  "Reset password": {
+    "translation": "Passwort zurücksetzen",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        22
+      ]
+    ]
+  },
+  "Strong passwords include numbers, letters and special characters.": {
+    "translation": "Sichere Passwörter enthalten Zahlen, Buchstaben und Sonderzeichen.",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        24
+      ]
+    ]
+  },
+  "Password": {
+    "translation": "Passwort",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        30
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        43
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        54
+      ]
+    ]
+  },
+  "Reset": {
+    "translation": "Zurücksetzen",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        38
+      ],
+      [
+        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        38
+      ]
+    ]
+  },
+  "Sign-In": {
+    "translation": "Login",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        27
+      ]
+    ]
+  },
+  "Remember my login on this computer": {
+    "translation": "Login auf diesem Gerät merken",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        54
+      ]
+    ]
+  },
+  "Sign in": {
+    "translation": "Anmelden",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        57
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        57
+      ]
+    ]
+  },
+  "Forgot your password?": {
+    "translation": "Passwort vergessen?",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        61
+      ]
+    ]
+  },
+  "Sign-Up": {
+    "translation": "Registrierung",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        28
+      ]
+    ]
+  },
+  "Name": {
+    "translation": "Name",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        33
+      ]
+    ]
+  },
+  "Sign up": {
+    "translation": "Registrieren",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        62
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        62
+      ]
+    ]
+  },
+  "Already a member?": {
+    "translation": "Bereits ein Mitglied?",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        66
+      ]
+    ]
+  },
+  "Sign in now": {
+    "translation": "Jetzt einloggen",
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
+        66
+      ]
+    ]
+  }
+}

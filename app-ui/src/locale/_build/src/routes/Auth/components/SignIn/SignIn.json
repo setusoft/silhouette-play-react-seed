@@ -1,0 +1,54 @@
+{
+  "Sign-In": {
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        27
+      ]
+    ]
+  },
+  "Email": {
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        32
+      ]
+    ]
+  },
+  "Password": {
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        43
+      ]
+    ]
+  },
+  "Remember my login on this computer": {
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        54
+      ]
+    ]
+  },
+  "Sign in": {
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        57
+      ],
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        57
+      ]
+    ]
+  },
+  "Forgot your password?": {
+    "origin": [
+      [
+        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
+        61
+      ]
+    ]
+  }
+}

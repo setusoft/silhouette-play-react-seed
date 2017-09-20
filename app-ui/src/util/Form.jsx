@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { HelpBlock } from 'react-bootstrap';
 
 /**
@@ -34,7 +34,7 @@ export const validationState = (field: FormProps): ?string => {
  *
  * @param children The field errors.
  */
-export const ErrorWrapper = ({ children }: { children: Element<any> }) => (
+export const ErrorWrapper = ({ children }: { children: React.Node }) => (
   <HelpBlock>
     {React.Children.toArray(children)[0]}
   </HelpBlock>

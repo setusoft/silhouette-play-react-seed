@@ -2,12 +2,10 @@ import { isFSA } from 'flux-standard-action';
 import i18nReducer, {
   initialState,
   setLanguage,
-  initializeCatalog,
   fetchCatalog,
   fetchCatalogPending,
   fetchCatalogFulfilled,
   fetchCatalogRejected,
-  saveCatalog,
 } from 'modules/I18nModule';
 
 describe('(Redux Module) I18nModule', () => {
@@ -18,16 +16,6 @@ describe('(Redux Module) I18nModule', () => {
 
     it('Should be a flux standard action', () => {
       expect(isFSA(setLanguage())).to.be.true();
-    });
-  });
-
-  describe('(Action Creator) initializeCatalog', () => {
-    it('Should be exported as a function', () => {
-      expect(initializeCatalog).to.be.a('function');
-    });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(initializeCatalog())).to.be.true();
     });
   });
 
@@ -71,16 +59,6 @@ describe('(Redux Module) I18nModule', () => {
     });
   });
 
-  describe('(Action Creator) saveCatalog', () => {
-    it('Should be exported as a function', () => {
-      expect(saveCatalog).to.be.a('function');
-    });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(saveCatalog())).to.be.true();
-    });
-  });
-
   describe('(Reducer) i18nReducer', () => {
     it('Should be a function', () => {
       expect(i18nReducer).to.be.a('function');
@@ -90,45 +68,30 @@ describe('(Redux Module) I18nModule', () => {
       expect(i18nReducer(undefined, { type: 'UNDEFINED' })).to.eql(initialState);
     });
 
-    it('Should set `catalog.isPending` to true if the `fetchCatalogPending` action was dispatched', () => {
+    it('Should set `isPending` to true if the `fetchCatalogPending` action was dispatched', () => {
       let state = i18nReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, isPending: false } });
+      expect(state).to.eql({ ...initialState, isPending: false });
 
       state = i18nReducer(state, fetchCatalogPending());
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, isPending: true } });
+      expect(state).to.eql({ ...initialState, isPending: true });
     });
 
-    it('Should set `catalog.isPending` to false if the `fetchCatalogFulfilled` action was dispatched', () => {
+    it('Should set `initialized` to true, `isPending` to false and the catalog if the `fetchCatalogFulfilled` ' +
+      'action was dispatched', () => {
+      const catalog = { messages: { Email: 'E-Mail' } };
       let state = i18nReducer(undefined, fetchCatalogPending());
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, isPending: true } });
+      expect(state).to.eql({ ...initialState, isPending: true });
 
-      state = i18nReducer(state, fetchCatalogFulfilled());
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, isPending: false } });
+      state = i18nReducer(state, fetchCatalogFulfilled(catalog));
+      expect(state).to.eql({ ...initialState, initialized: true, isPending: false, catalog });
     });
 
-    it('Should set `catalog.isPending` to false if the `fetchCatalogRejected` action was dispatched', () => {
+    it('Should set `isPending` to false if the `fetchCatalogRejected` action was dispatched', () => {
       let state = i18nReducer(undefined, fetchCatalogPending());
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, isPending: true } });
+      expect(state).to.eql({ ...initialState, isPending: true });
 
       state = i18nReducer(state, fetchCatalogRejected());
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, isPending: false } });
-    });
-
-    it('Should initialize the message catalog if the `initializeCatalog` action was dispatched', () => {
-      let state = i18nReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql(initialState);
-
-      state = i18nReducer(state, initializeCatalog());
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, initialized: true } });
-    });
-
-    it('Should save the message catalog if the `saveCatalog` action was dispatched', () => {
-      const messages = { Email: 'E-Mail' };
-      let state = i18nReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql(initialState);
-
-      state = i18nReducer(state, saveCatalog(messages));
-      expect(state).to.eql({ ...initialState, catalog: { ...initialState.catalog, messages } });
+      expect(state).to.eql({ ...initialState, isPending: false });
     });
   });
 });

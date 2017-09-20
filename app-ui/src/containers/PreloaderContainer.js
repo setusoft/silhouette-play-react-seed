@@ -8,7 +8,7 @@ import Preloader from 'components/Preloader';
  * @returns {Object} The props passed to the react component.
  */
 const mapStateToProps = state => ({
-  preloaded: state.i18n.catalog.initialized && state.auth.user.initialized,
+  preloaded: state.i18n.initialized && state.auth.user.initialized,
 });
 
 export default connect(mapStateToProps)(Preloader);

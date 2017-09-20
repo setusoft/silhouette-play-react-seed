@@ -1,6 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
-import i18n from 'lingui-i18n';
+import { i18n } from 'lingui-i18n';
 import { Trans } from 'lingui-react';
 import { shallow } from 'enzyme';
 import { Panel, Button } from 'react-bootstrap';

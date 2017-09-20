@@ -1,6 +1,7 @@
 [ignore]
 <PROJECT_ROOT>/node_modules/[^lm].*
 <PROJECT_ROOT>/node_modules/mitt
+<PROJECT_ROOT>/node_modules/redux-saga-test-plan
 
 [libs]
 flow-libs

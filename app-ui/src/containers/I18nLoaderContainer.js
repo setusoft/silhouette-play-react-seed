@@ -10,7 +10,7 @@ import I18nLoader from 'components/I18nLoader';
  */
 const mapStateToProps = state => ({
   language: state.i18n.language,
-  messages: state.i18n.catalog.messages,
+  catalog: state.i18n.catalog,
 });
 
 /**
