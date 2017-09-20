@@ -15,9 +15,9 @@
     "test": "neutrino test",
     "lint": "eslint --ext .js,.jsx src/ test/",
     "lint:fix": "npm run lint -- --fix",
-    "flow": "flow check || exit 0",
-    "flow-typed:install": "flow-typed install || exit 0",
-    "flow-typed:update": "flow-typed install --overwrite || exit 0"
+    "flow": "flow check",
+    "flow-typed:install": "flow-typed install",
+    "flow-typed:update": "flow-typed install --overwrite"
   },
   "dependencies": {
     "flux-standard-action": "^1.2.0",
