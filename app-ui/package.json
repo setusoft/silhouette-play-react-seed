@@ -8,6 +8,12 @@
     "node": ">=6.9.0",
     "npm": "^3.0.0"
   },
+  "lingui": {
+    "localeDir": "<rootDir>/src/locale",
+    "srcPathDirs": [
+      "<rootDir>/src"
+    ]
+  },
   "scripts": {
     "clean": "rimraf ../target/npm",
     "start": "neutrino start",
@@ -17,13 +23,16 @@
     "lint:fix": "npm run lint -- --fix",
     "flow": "flow check",
     "flow-typed:install": "flow-typed install",
-    "flow-typed:update": "flow-typed install --overwrite"
+    "flow-typed:update": "flow-typed install --overwrite",
+    "messages:compile": "lingui compile",
+    "messages:extract": "cross-env BABEL_ENV=i18n lingui extract"
   },
   "dependencies": {
     "flux-standard-action": "^1.2.0",
+    "intl": "^1.2.5",
     "js-cookie": "^2.1.4",
-    "lingui-i18n": "^0.6.6",
-    "lingui-react": "^0.12.5",
+    "lingui-i18n": "^1.3.0",
+    "lingui-react": "^1.2.1",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.5.10",
@@ -47,13 +56,14 @@
     "babel-eslint": "^7.2.3",
     "babel-plugin-istanbul": "^4.1.3",
     "babel-polyfill": "^6.23.0",
-    "babel-preset-lingui-react": "^0.5.0",
+    "babel-preset-lingui-react": "^1.0.6",
     "bootstrap-sass": "^3.3.7",
     "chai": "^3.4.1",
     "chai-as-promised": "^6.0.0",
     "chai-enzyme": "^0.6.1",
     "chai-shallow-deep-equal": "^1.4.6",
     "cheerio": "^0.22.0",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
     "dirty-chai": "^1.2.2",
@@ -66,10 +76,11 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "fetch-mock": "^5.5.0",
-    "flow-bin": "^0.49.1",
-    "flow-typed": "^2.1.2",
+    "flow-bin": "^0.54.1",
+    "flow-typed": "^2.1.5",
     "karma": "^1.7.0",
     "karma-sourcemap-loader": "^0.3.7",
+    "lingui-cli": "^1.3.4",
     "neutrino": "^6.0.0",
     "neutrino-preset-karma": "^6.0.5",
     "neutrino-preset-react": "^6.0.5",

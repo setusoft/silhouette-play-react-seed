@@ -1,12 +1,10 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import saga, { fetchCatalogSaga } from 'sagas/I18nSaga';
 import {
-  initializeCatalog,
   fetchCatalog,
   fetchCatalogPending,
   fetchCatalogFulfilled,
   fetchCatalogRejected,
-  saveCatalog,
 } from 'modules/I18nModule';
 import I18nAPI from 'apis/I18nAPI';
 
@@ -53,22 +51,6 @@ describe('(Saga) I18nSaga', () => {
       const api = { fetchCatalog: () => catalog };
       return expectSaga(fetchCatalogSaga, api)
         .call([api, api.fetchCatalog], 'de')
-        .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true });
-    });
-
-    it('Should save the catalog on success', () => {
-      const api = { fetchCatalog: () => catalog };
-      return expectSaga(fetchCatalogSaga, api)
-        .put(saveCatalog(catalog))
-        .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true });
-    });
-
-    it('Should initialize the catalog on success', () => {
-      const api = { fetchCatalog: () => catalog };
-      return expectSaga(fetchCatalogSaga, api)
-        .put(initializeCatalog())
         .dispatch(fetchCatalog('de'))
         .run({ silenceTimeout: true });
     });

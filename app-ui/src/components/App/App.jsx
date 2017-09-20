@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import { browserHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import I18nLoaderContainer from 'containers/I18nLoaderContainer';
@@ -14,7 +14,7 @@ type Props = {
 /**
  * App component.
  */
-class App extends Component {
+class App extends React.Component<Props> {
 
   /**
    * The component props.

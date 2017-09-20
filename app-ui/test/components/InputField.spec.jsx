@@ -1,5 +1,5 @@
 import React from 'react';
-import i18n from 'lingui-i18n';
+import { i18n } from 'lingui-i18n';
 import { shallow } from 'enzyme';
 import { Control, Errors } from 'react-redux-form';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';

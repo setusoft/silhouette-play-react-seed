@@ -9,6 +9,15 @@
           ]
         }]
       ]
+    },
+    "i18n": {
+      "plugins": [
+        "transform-class-properties",
+        "transform-es2015-classes",
+        "transform-object-rest-spread",
+        "syntax-dynamic-import"
+      ],
+      "presets": ["react"]
     }
   }
 }

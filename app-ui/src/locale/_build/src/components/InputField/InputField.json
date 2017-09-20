@@ -1,0 +1,18 @@
+{
+  "This field is required": {
+    "origin": [
+      [
+        "src\\components\\InputField\\InputField.jsx",
+        22
+      ]
+    ]
+  },
+  "Valid email required": {
+    "origin": [
+      [
+        "src\\components\\InputField\\InputField.jsx",
+        23
+      ]
+    ]
+  }
+}

@@ -1,12 +1,17 @@
 // @flow
-import React from 'react';
-import { I18nProvider } from 'lingui-react';
+import * as React from 'react';
+import { I18nProvider, Catalog } from 'lingui-react';
+
+const dev = process.env.NODE_ENV !== 'production'
+  // this import is required in development only
+  ? require('lingui-i18n/dev')
+  : null;
 
 type Props = {
   language: string,
-  messages: Object,
+  catalog: Catalog,
   fetchCatalog: (language: string) => void,
-  children: Element<any>,
+  children: React.Node,
 }
 
 /**
@@ -19,7 +24,7 @@ type Props = {
  *
  * @link https://github.com/lingui/js-lingui/wiki/HowTo:-Dynamic-loading-of-languages-with-Webpack
  */
-export default class I18nLoader extends React.Component {
+export default class I18nLoader extends React.Component<Props> {
 
   /**
    * The component props.
@@ -27,10 +32,29 @@ export default class I18nLoader extends React.Component {
   props: Props;
 
   /**
+   * Loads the intl polyfill for browsers that don't support the Intl API.
+   *
+   * @param lang The current language.
+   */
+  static loadIntlPolyfill(lang) {
+    if (!global.Intl) {
+      Promise.all([
+        import(
+          /* webpackMode: "lazy", webpackChunkName: "intl-[index]" */
+          'intl'),
+        import(
+          /* webpackMode: "lazy", webpackChunkName: "intl-[index]" */
+          `intl/locale-data/jsonp/${lang}.js`),
+      ]);
+    }
+  }
+
+  /**
    * Handler which gets called after the component was applied to the DOM.
    */
   componentDidMount() {
     this.props.fetchCatalog(this.props.language);
+    I18nLoader.loadIntlPolyfill(this.props.language);
   }
 
   /**
@@ -42,11 +66,12 @@ export default class I18nLoader extends React.Component {
   shouldComponentUpdate(nextProps: Props) {
     if (this.props.language !== nextProps.language) {
       this.props.fetchCatalog(nextProps.language);
+      I18nLoader.loadIntlPolyfill(nextProps.language);
 
       return true;
     }
 
-    return this.props.messages !== nextProps.messages;
+    return this.props.catalog !== nextProps.catalog;
   }
 
   /**
@@ -55,10 +80,10 @@ export default class I18nLoader extends React.Component {
    * @returns The react component.
    */
   render() {
-    const { language, messages, children } = this.props;
+    const { language, catalog, children } = this.props;
 
     return (
-      <I18nProvider language={language} messages={{ [language]: messages }}>
+      <I18nProvider language={language} catalogs={{ [language]: catalog }} development={dev}>
         {children}
       </I18nProvider>
     );
