@@ -5,17 +5,17 @@ import javax.inject.Inject
 import auth.utils.DefaultEnv
 import com.mohiva.play.silhouette.api.{ LogoutEvent, Silhouette }
 import core.controllers.ApiController
-import play.api.i18n.{ Messages, MessagesApi }
-import play.api.mvc.{ Action, AnyContent }
+import play.api.i18n.Messages
+import play.api.mvc.{ Action, AnyContent, ControllerComponents }
 
 /**
  * The `Sign In` controller.
  *
- * @param messagesApi The Play messages API.
- * @param silhouette  The Silhouette stack.
+ * @param controllerComponents  The Play controller components.
+ * @param silhouette            The Silhouette stack.
  */
 class SignOutController @Inject() (
-  val messagesApi: MessagesApi,
+  val controllerComponents: ControllerComponents,
   silhouette: Silhouette[DefaultEnv]
 ) extends ApiController {
 

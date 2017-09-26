@@ -14,6 +14,7 @@ import play.api.i18n.Lang
 import play.api.test.{ FakeRequest, PlaySpecification }
 import reactivemongo.bson.BSONObjectID
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.language.postfixOps
 

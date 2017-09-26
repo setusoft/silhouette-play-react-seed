@@ -29,17 +29,17 @@ trait BaseFixture {
     def asJson: JsValue = Json.parse(asString)
     def asXml: Elem = XML.load(inputStream)
     def asMultipartFormData(contentType: Option[String] = None): MultipartFormData[TemporaryFile] = {
-      val tempFile = SingletonTemporaryFileCreator.create("test-fixture", UUID.randomUUID().toString).toPath
+      val tempFile = SingletonTemporaryFileCreator.create("test-fixture", UUID.randomUUID().toString)
       Files.copy(inputStream, tempFile, StandardCopyOption.REPLACE_EXISTING)
 
-      MultipartFormData(
+      MultipartFormData[TemporaryFile](
         dataParts = Map.empty,
         files = Seq(
           FilePart(
             key = "test-fixture",
-            filename = tempFile.getFileName.toString,
+            filename = tempFile.toPath.getFileName.toString,
             contentType = contentType,
-            ref = TemporaryFile(tempFile.toFile)
+            ref = tempFile
           )
         ),
         badParts = Nil)

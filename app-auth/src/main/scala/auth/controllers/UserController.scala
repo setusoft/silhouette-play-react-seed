@@ -6,18 +6,18 @@ import auth.utils.DefaultEnv
 import auth.utils.json.APIFormats._
 import com.mohiva.play.silhouette.api.Silhouette
 import core.controllers.ApiController
-import play.api.i18n.{ Messages, MessagesApi }
+import play.api.i18n.Messages
 import play.api.libs.json.Json
-import play.api.mvc.{ Action, AnyContent }
+import play.api.mvc.{ Action, AnyContent, ControllerComponents }
 
 /**
  * The `User` controller.
  *
- * @param messagesApi The Play messages API.
- * @param silhouette  The Silhouette stack.
+ * @param controllerComponents  The Play controller components.
+ * @param silhouette            The Silhouette stack.
  */
 class UserController @Inject() (
-  val messagesApi: MessagesApi,
+  val controllerComponents: ControllerComponents,
   silhouette: Silhouette[DefaultEnv]
 ) extends ApiController {
 

@@ -23,7 +23,7 @@ import scala.concurrent.{ ExecutionContext, Future }
  */
 class UserDAOImpl @Inject() (reactiveMongoApi: ReactiveMongoApi)(
   implicit
-  ec: ExecutionContext
+  val ec: ExecutionContext
 ) extends UserDAO with MongoModel {
 
   /**

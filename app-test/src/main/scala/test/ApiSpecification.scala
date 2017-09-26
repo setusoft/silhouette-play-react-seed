@@ -3,7 +3,7 @@ package test
 import org.specs2.matcher.{ JsonMatchers, MatchResult }
 import play.api.http.MimeTypes
 import play.api.libs.json.{ Json, Reads }
-import play.api.mvc.{ Controller, Result }
+import play.api.mvc.{ BaseController, Result }
 
 import scala.concurrent.Future
 import scala.reflect.ClassTag
@@ -18,7 +18,7 @@ trait ApiSpecification extends BaseSpecification with JsonMatchers {
    *
    * @tparam T The controller type.
    */
-  abstract class ApiContext[T <: Controller: ClassTag] extends BaseContext {
+  abstract class ApiContext[T <: BaseController: ClassTag] extends BaseContext {
 
     /**
      * A form error representation.

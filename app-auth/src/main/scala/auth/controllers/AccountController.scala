@@ -13,35 +13,37 @@ import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.i18n.Messages
 import play.api.libs.mailer.{ Email, MailerClient }
-import play.api.mvc.{ Action, AnyContent }
+import play.api.mvc.{ Action, AnyContent, ControllerComponents }
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.language.postfixOps
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * The `Account` controller.
  *
- * @param messagesApi      The Play messages API.
- * @param silhouette       The Silhouette stack.
- * @param userService      The user service implementation.
- * @param authTokenService The auth token service implementation.
- * @param mailerClient     The mailer client.
- * @param configuration    The Play configuration.
- * @param jsRouter         The JS router helper.
+ * @param controllerComponents  The Play controller components.
+ * @param silhouette            The Silhouette stack.
+ * @param userService           The user service implementation.
+ * @param authTokenService      The auth token service implementation.
+ * @param mailerClient          The mailer client.
+ * @param configuration         The Play configuration.
+ * @param jsRouter              The JS router helper.
+ * @param ex                    The execution context.
  */
 class AccountController @Inject() (
-  val messagesApi: MessagesApi,
+  val controllerComponents: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   authTokenService: AuthTokenService,
   mailerClient: MailerClient,
   configuration: Configuration,
   jsRouter: JSRouter
-) extends ApiController with I18nSupport {
+)(
+  implicit
+  ex: ExecutionContext
+) extends ApiController {
 
   /**
    * Sends an account activation email to the user with the given email.

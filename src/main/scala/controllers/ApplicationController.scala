@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.mvc.{ Action, AnyContent, Controller }
+import play.api.mvc._
 import play.api.{ Configuration, Environment, Mode }
 
 import scala.concurrent.Future
@@ -10,13 +10,17 @@ import scala.concurrent.Future
 /**
  * The main application controller.
  *
- * @param env  The Play environment.
- * @param conf The Play configuration.
+ * @param controllerComponents The Play controller components.
+ * @param env                  The Play environment.
+ * @param conf                 The Play configuration.
+ * @param assets               The Play assets.
  */
 class ApplicationController @Inject() (
+  val controllerComponents: ControllerComponents,
   env: Environment,
-  conf: Configuration
-) extends Controller {
+  conf: Configuration,
+  assets: Assets
+) extends BaseController {
 
   /**
    * Renders the UI component with the index route.
@@ -44,9 +48,9 @@ class ApplicationController @Inject() (
    */
   private def serveUI(route: String): Action[AnyContent] = Action.async { request =>
     env.mode match {
-      case Mode.Prod => Assets.versioned("/public", "ui/index.html")(request)
+      case Mode.Prod => assets.versioned("/public", "ui/index.html")(request)
       case _ =>
-        Future.successful(Redirect(conf.getString("ui.dev.url").getOrElse(
+        Future.successful(Redirect(conf.getOptional[String]("ui.dev.url").getOrElse(
           throw new RuntimeException("Cannot get `ui.dev.url` from config")
         )))
     }

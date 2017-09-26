@@ -6,21 +6,26 @@ import javax.inject.Inject
 
 import auth.models.AuthToken
 import auth.models.daos.AuthTokenDAO
-import play.api.libs.concurrent.Execution.Implicits._
 import reactivemongo.bson.BSONObjectID
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.language.postfixOps
 
 /**
  * Handles actions to auth tokens.
  *
  * @param authTokenDAO The auth token DAO implementation.
- * @param clock The clock instance.
+ * @param clock        The clock instance.
+ * @param ex           The execution context.
  */
-class AuthTokenServiceImpl @Inject() (authTokenDAO: AuthTokenDAO, clock: Clock)
-  extends AuthTokenService {
+class AuthTokenServiceImpl @Inject() (
+  authTokenDAO: AuthTokenDAO,
+  clock: Clock
+)(
+  implicit
+  ex: ExecutionContext
+) extends AuthTokenService {
 
   /**
    * Creates a new auth token and saves it in the backing store.

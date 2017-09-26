@@ -51,11 +51,11 @@ trait BaseSpecification extends PlaySpecification {
     /**
      * The Play messages.
      */
-    implicit def messages: Messages = Messages(lang, application.injector.instanceOf[MessagesApi])
+    implicit def messages: Messages = application.injector.instanceOf[MessagesApi].preferred(Seq(lang))
 
     /**
      * The current clock.
      */
-    lazy val clock = Clock.fixed(Instant.now(), ZoneId.of("UTC"))
+    lazy val clock: Clock = Clock.fixed(Instant.now(), ZoneId.of("UTC"))
   }
 }

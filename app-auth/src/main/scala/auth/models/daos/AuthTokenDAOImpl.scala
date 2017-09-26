@@ -22,7 +22,7 @@ import scala.concurrent.{ ExecutionContext, Future }
  */
 class AuthTokenDAOImpl @Inject() (reactiveMongoApi: ReactiveMongoApi)(
   implicit
-  ec: ExecutionContext
+  val ec: ExecutionContext
 ) extends AuthTokenDAO with MongoModel {
 
   /**

@@ -24,7 +24,7 @@ class JSRouter @Inject() (env: Environment, conf: Configuration) {
     env.mode match {
       case Mode.Prod => Call("GET", route).absoluteURL()
       case _ =>
-        val host = conf.getString("ui.dev.url")
+        val host = conf.getOptional[String]("ui.dev.url")
           .getOrElse(throw new RuntimeException("Cannot get `ui.dev.url` from config"))
 
         host.stripSuffix("/") + "/" + route.stripPrefix("/")
