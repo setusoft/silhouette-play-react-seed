@@ -13,8 +13,9 @@ import play.api.i18n.Messages
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.libs.mailer.{ Email, MailerClient }
+import play.api.test.CSRFTokenHelper._
 import play.api.test.{ FakeRequest, WithApplication }
-import test.{ ApiSpecification, CSRFSpecification }
+import test.ApiSpecification
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
@@ -26,7 +27,6 @@ import scala.language.postfixOps
 class AccountControllerSpec
   extends ApiSpecification
   with AuthSpecification
-  with CSRFSpecification
   with Mockito
   with NoLanguageFeatures {
 

@@ -9,18 +9,22 @@ import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
 import play.api.http.HeaderNames
 import play.api.i18n.Lang
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.BSONObjectID
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Handles actions to users.
  *
  * @param userDAO The user DAO implementation.
+ * @param clock   The clock instance.
+ * @param ex      The execution context.
  */
-class UserServiceImpl @Inject() (userDAO: UserDAO, clock: Clock) extends UserService {
+class UserServiceImpl @Inject() (userDAO: UserDAO, clock: Clock)(
+  implicit
+  ex: ExecutionContext
+) extends UserService {
 
   /**
    * Monkey patch the `CommonSocialProfile` class.

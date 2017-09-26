@@ -17,33 +17,35 @@ import core.controllers.ApiController
 import net.ceedubs.ficus.Ficus._
 import org.joda.time.DateTime
 import play.api.Configuration
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.i18n.{ Messages, MessagesProvider }
 import play.api.libs.json.Json
-import play.api.mvc.{ Action, AnyContent, RequestHeader, Result }
+import play.api.mvc._
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.language.postfixOps
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * The `Sign In` controller.
  *
- * @param messagesApi         The Play messages API.
- * @param silhouette          The Silhouette stack.
- * @param userService         The user service implementation.
- * @param credentialsProvider The credentials provider.
- * @param configuration       The Play configuration.
- * @param clock               The clock instance.
+ * @param controllerComponents  The Play controller components.
+ * @param silhouette            The Silhouette stack.
+ * @param userService           The user service implementation.
+ * @param credentialsProvider   The credentials provider.
+ * @param configuration         The Play configuration.
+ * @param clock                 The clock instance.
+ * @param ex                    The execution context.
  */
 class SignInController @Inject() (
-  val messagesApi: MessagesApi,
+  val controllerComponents: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   credentialsProvider: CredentialsProvider,
   configuration: Configuration,
   clock: Clock
-) extends ApiController with I18nSupport {
+)(
+  implicit
+  ex: ExecutionContext
+) extends ApiController {
 
   /**
    * Sign in a user.
@@ -77,9 +79,10 @@ class SignInController @Inject() (
    * Handles the inactive user.
    *
    * @param user The inactive user.
+   * @param messagesProvider The Play messages provider.
    * @return A Play result.
    */
-  private def handleInactiveUser(user: User): Future[Result] = {
+  private def handleInactiveUser(user: User)(implicit messagesProvider: MessagesProvider): Future[Result] = {
     Future.successful(
       Locked(ApiResponse(
         "auth.signIn.account.inactive",

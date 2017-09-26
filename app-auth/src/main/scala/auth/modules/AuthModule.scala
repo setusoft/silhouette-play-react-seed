@@ -12,7 +12,7 @@ import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.services._
 import com.mohiva.play.silhouette.api.util._
 import com.mohiva.play.silhouette.api.{ Environment, EventBus, Silhouette, SilhouetteProvider }
-import com.mohiva.play.silhouette.crypto.{ JcaCookieSigner, JcaCookieSignerSettings, JcaCrypter, JcaCrypterSettings }
+import com.mohiva.play.silhouette.crypto.{ JcaCrypter, JcaCrypterSettings, JcaSigner, JcaSignerSettings }
 import com.mohiva.play.silhouette.impl.authenticators._
 import com.mohiva.play.silhouette.impl.providers._
 import com.mohiva.play.silhouette.impl.services._
@@ -25,9 +25,11 @@ import net.ceedubs.ficus.readers.ArbitraryTypeReader._
 import net.codingwell.scalaguice.ScalaModule
 import play.api.Configuration
 import play.api.libs.concurrent.AkkaGuiceSupport
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.ws.WSClient
+import play.api.mvc.CookieHeaderEncoding
 import play.modules.reactivemongo.ReactiveMongoApi
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * The Guice `Auth` module.
@@ -89,16 +91,16 @@ class AuthModule extends ScalaModule with AkkaGuiceSupport {
   }
 
   /**
-   * Provides the cookie signer for the authenticator.
+   * Provides the signer for the authenticator.
    *
    * @param configuration The Play configuration.
-   * @return The cookie signer for the authenticator.
+   * @return The signer for the authenticator.
    */
-  @Provides @Named("authenticator-cookie-signer")
-  def provideAuthenticatorCookieSigner(configuration: Configuration): CookieSigner = {
-    val config = configuration.underlying.as[JcaCookieSignerSettings]("silhouette.authenticator.cookie.signer")
+  @Provides @Named("authenticator-signer")
+  def provideAuthenticatorSigner(configuration: Configuration): Signer = {
+    val config = configuration.underlying.as[JcaSignerSettings]("silhouette.authenticator.signer")
 
-    new JcaCookieSigner(config)
+    new JcaSigner(config)
   }
 
   /**
@@ -146,27 +148,31 @@ class AuthModule extends ScalaModule with AkkaGuiceSupport {
   /**
    * Provides the authenticator service.
    *
-   * @param cookieSigner         The cookie signer implementation.
-   * @param crypter              The crypter implementation.
+   * @param signer The signer implementation.
+   * @param crypter The crypter implementation.
+   * @param cookieHeaderEncoding Logic for encoding and decoding `Cookie` and `Set-Cookie` headers.
    * @param fingerprintGenerator The fingerprint generator implementation.
-   * @param idGenerator          The ID generator implementation.
-   * @param configuration        The Play configuration.
-   * @param clock                The clock instance.
+   * @param idGenerator The ID generator implementation.
+   * @param configuration The Play configuration.
+   * @param clock The clock instance.
    * @return The authenticator service.
    */
   @Provides
   def provideAuthenticatorService(
-    @Named("authenticator-cookie-signer") cookieSigner: CookieSigner,
+    @Named("authenticator-signer") signer: Signer,
     @Named("authenticator-crypter") crypter: Crypter,
+    cookieHeaderEncoding: CookieHeaderEncoding,
     fingerprintGenerator: FingerprintGenerator,
     idGenerator: IDGenerator,
     configuration: Configuration,
-    clock: Clock
-  ): AuthenticatorService[CookieAuthenticator] = {
-    val config = configuration.underlying.as[CookieAuthenticatorSettings]("silhouette.authenticator")
-    val encoder = new CrypterAuthenticatorEncoder(crypter)
+    clock: Clock): AuthenticatorService[CookieAuthenticator] = {
 
-    new CookieAuthenticatorService(config, None, cookieSigner, encoder, fingerprintGenerator, idGenerator, clock)
+    val config = configuration.underlying.as[CookieAuthenticatorSettings]("silhouette.authenticator")
+    val authenticatorEncoder = new CrypterAuthenticatorEncoder(crypter)
+
+    new CookieAuthenticatorService(
+      config, None, signer, cookieHeaderEncoding, authenticatorEncoder, fingerprintGenerator, idGenerator, clock
+    )
   }
 
   /**

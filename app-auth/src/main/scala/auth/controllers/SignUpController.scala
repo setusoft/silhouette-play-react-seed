@@ -17,20 +17,19 @@ import core.utils.JSRouter
 import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
 import play.api.http.HeaderNames
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.i18n.Messages
 import play.api.libs.mailer.{ Email, MailerClient }
 import play.api.mvc._
 import reactivemongo.bson.BSONObjectID
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.language.postfixOps
 
 /**
  * The `Sign Up` controller.
  *
- * @param messagesApi            The Play messages API.
+ * @param controllerComponents   The Play controller components.
  * @param silhouette             The Silhouette stack.
  * @param userService            The user service implementation.
  * @param authInfoRepository     The auth info repository implementation.
@@ -41,9 +40,10 @@ import scala.language.postfixOps
  * @param configuration          The Play configuration.
  * @param clock                  The clock instance.
  * @param jsRouter               The JS router helper.
+ * @param ex                     The execution context.
  */
 class SignUpController @Inject() (
-  val messagesApi: MessagesApi,
+  val controllerComponents: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
@@ -54,7 +54,10 @@ class SignUpController @Inject() (
   configuration: Configuration,
   clock: Clock,
   jsRouter: JSRouter
-) extends ApiController with I18nSupport {
+)(
+  implicit
+  ex: ExecutionContext
+) extends ApiController {
 
   /**
    * Sign up a user.
@@ -122,7 +125,7 @@ class SignUpController @Inject() (
       email = Some(data.email),
       avatarURL = None,
       registration = Registration(
-        lang = request2lang,
+        lang = request.lang,
         ip = request.remoteAddress,
         host = request.headers.get(HeaderNames.HOST),
         userAgent = request.headers.get(HeaderNames.USER_AGENT),
@@ -130,7 +133,7 @@ class SignUpController @Inject() (
         dateTime = clock.instant()
       ),
       settings = Settings(
-        lang = request2lang,
+        lang = request.lang,
         timeZone = None
       )
     )

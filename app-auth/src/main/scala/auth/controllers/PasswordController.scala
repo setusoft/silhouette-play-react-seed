@@ -16,19 +16,17 @@ import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.i18n.{ Messages, MessagesProvider }
 import play.api.libs.mailer.{ Email, MailerClient }
-import play.api.mvc.{ Action, AnyContent, Result }
+import play.api.mvc.{ Action, AnyContent, ControllerComponents, Result }
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.language.postfixOps
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * The `Password` controller.
  *
- * @param messagesApi            The Play messages API.
+ * @param controllerComponents   The Play controller components.
  * @param silhouette             The Silhouette stack.
  * @param userService            The user service implementation.
  * @param authInfoRepository     The auth info repository.
@@ -37,9 +35,10 @@ import scala.language.postfixOps
  * @param mailerClient           The mailer client.
  * @param configuration          The Play configuration.
  * @param jsRouter               The JS router helper.
+ * @param ex                     The execution context.
  */
 class PasswordController @Inject() (
-  val messagesApi: MessagesApi,
+  val controllerComponents: ControllerComponents,
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
@@ -48,7 +47,10 @@ class PasswordController @Inject() (
   mailerClient: MailerClient,
   configuration: Configuration,
   jsRouter: JSRouter
-) extends ApiController with I18nSupport {
+)(
+  implicit
+  ex: ExecutionContext
+) extends ApiController {
 
   /**
    * Requests an email with password recovery instructions.
@@ -130,11 +132,15 @@ class PasswordController @Inject() (
    * A helper function which validates the reset token and either returns a HTTP 400 result in case of
    * invalidity or a block that returns another result in case of validity.
    *
-   * @param token The token to validate.
-   * @param f     The block to execute if the token is valid.
+   * @param token            The token to validate.
+   * @param f                The block to execute if the token is valid.
+   * @param messagesProvider The Play messages provider.
    * @return A Play result.
    */
-  private def validateToken(token: UUID, f: AuthToken => Future[Result]): Future[Result] = {
+  private def validateToken(token: UUID, f: AuthToken => Future[Result])(
+    implicit
+    messagesProvider: MessagesProvider
+  ): Future[Result] = {
     authTokenService.validate(token).flatMap {
       case Some(authToken) => f(authToken)
       case None =>

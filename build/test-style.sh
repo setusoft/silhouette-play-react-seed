@@ -22,7 +22,7 @@ if test ! -z "$ERRORS"; then
   echo "=================================================="
   echo "$ERRORS"
   echo "=================================================="
-  echo "To perform this same validation on your environment, run 'build/style.sh'."
+  echo "To perform this same validation on your environment, run 'build/test-style.sh'."
   echo "To fix, format your sources based on the suggestions, before submitting a pull request."
   echo "After correcting, please squash your commits (eg, use 'git commit --amend') before updating your pull request."
   ERROR=true
@@ -44,7 +44,7 @@ if test ! -z "$ERRORS"; then
   echo "=================================================="
   echo "$ERRORS"
   echo "=================================================="
-  echo "To perform this same validation on your environment, run 'build/style.sh'."
+  echo "To perform this same validation on your environment, run 'build/test-style.sh'."
   echo "To fix, format your sources based on the suggestions, before submitting a pull request."
   echo "After correcting, please squash your commits (eg, use 'git commit --amend') before updating your pull request."
   ERROR=true

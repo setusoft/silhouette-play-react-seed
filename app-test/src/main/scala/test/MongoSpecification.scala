@@ -21,7 +21,6 @@ import reactivemongo.play.json.collection.JSONCollection
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, Future }
-import scala.language.postfixOps
 
 /**
  * A custom specification which starts a MongoDB instance before all the tests, and stops it after all of them.

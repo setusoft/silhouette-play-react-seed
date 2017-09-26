@@ -1,19 +1,23 @@
 package core.utils.mongo
 
 import core.exceptions.MongoException
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{ JsObject, Json, Reads }
 import play.modules.reactivemongo.json._
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.play.json.collection.JSONCollection
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Base model for all models which persists data in a MongoDB.
  */
 trait MongoModel {
+
+  /**
+   * The execution context.
+   */
+  implicit val ec: ExecutionContext
 
   /**
    * The MongoDB collection.

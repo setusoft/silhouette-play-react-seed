@@ -3,9 +3,9 @@ import sbt._
 object Dependencies {
 
   object Version {
-    val specs2 = "3.6.6"
-    val silhouette = "4.0.0"
-    val akka = "2.4.18"
+    val specs2 = "3.8.9"
+    val silhouette = "5.0.1"
+    val akka = "2.5.4"
   }
 
   val resolvers = Seq(
@@ -33,19 +33,21 @@ object Dependencies {
       val persistence: ModuleID = "com.mohiva" %% "play-silhouette-persistence" % Version.silhouette
       val cryptoJca: ModuleID = "com.mohiva" %% "play-silhouette-crypto-jca" % Version.silhouette
       val testkit: ModuleID = "com.mohiva" %% "play-silhouette-testkit" % Version.silhouette
-      val persistenceReactiveMongo: ModuleID = "com.mohiva" %% "play-silhouette-persistence-reactivemongo" % "4.0.2"
+      val persistenceReactiveMongo: ModuleID =
+        "com.mohiva" %% "play-silhouette-persistence-reactivemongo" % Version.silhouette
     }
 
     object Akka {
       val testkit: ModuleID = "com.typesafe.akka" %% "akka-testkit" % Version.akka
     }
 
-    val ficus: ModuleID = "com.iheart" %% "ficus" % "1.2.6"
-    val scalaGuice: ModuleID = "net.codingwell" %% "scala-guice" % "4.0.1"
-    val akkaQuartzScheduler: ModuleID = "com.enragedginger" %% "akka-quartz-scheduler" % "1.5.0-akka-2.4.x"
-    val playMailer: ModuleID = "com.typesafe.play" %% "play-mailer" % "5.0.0"
+    val ficus: ModuleID = "com.iheart" %% "ficus" % "1.4.2"
+    val scalaGuice: ModuleID = "net.codingwell" %% "scala-guice" % "4.1.0"
+    val akkaQuartzScheduler: ModuleID = "com.enragedginger" %% "akka-quartz-scheduler" % "1.6.1-akka-2.5.x"
+    val playMailer: ModuleID = "com.typesafe.play" %% "play-mailer" % "6.0.1"
+    val playMailerGuice: ModuleID = "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
     val apacheCommonsIO: ModuleID = "commons-io" % "commons-io" % "2.4"
-    val playReactiveMongo: ModuleID = "org.reactivemongo" %% "play2-reactivemongo" % "0.12.1"
+    val playReactiveMongo: ModuleID = "org.reactivemongo" %% "play2-reactivemongo" % "0.12.6-play26"
     val embedMongo: ModuleID = "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "2.0.0"
   }
 }

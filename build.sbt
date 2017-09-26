@@ -20,7 +20,7 @@ val test: Project = Project(
       filters
     )
   )
-).disablePlugins(SbtScalariform)
+)
 
 ////*******************************
 //// Core module
@@ -38,7 +38,7 @@ val core: Project = Project(
 ).enablePlugins(
   PlayScala, DisablePackageSettings
 ).disablePlugins(
-  PlayLayoutPlugin, SbtScalariform
+  PlayLayoutPlugin
 )
 
 ////*******************************
@@ -58,18 +58,20 @@ val auth: Project = Project(
       Library.scalaGuice,
       Library.ficus,
       Library.playMailer,
+      Library.playMailerGuice,
       Library.akkaQuartzScheduler,
       Library.Silhouette.testkit % Test,
       Library.Specs2.matcherExtra % Test,
       Library.Akka.testkit % Test,
       ws,
+      guice,
       specs2 % Test
     )
   )
 ).enablePlugins(
   PlayScala, DisablePackageSettings
 ).disablePlugins(
-  PlayLayoutPlugin, SbtScalariform
+  PlayLayoutPlugin
 )
 
 ////*******************************
@@ -82,7 +84,7 @@ val admin: Project = Project(
 ).enablePlugins(
   PlayScala, DisablePackageSettings
 ).disablePlugins(
-  PlayLayoutPlugin, SbtScalariform
+  PlayLayoutPlugin
 )
 
 ////*******************************
@@ -111,6 +113,5 @@ val root: Project = Project(
   NpmSettings,
   DebianPackageSettings
 ).disablePlugins(
-  PlayLayoutPlugin,
-  SbtScalariform
+  PlayLayoutPlugin
 )

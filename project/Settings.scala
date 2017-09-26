@@ -17,21 +17,25 @@ object BasicSettings extends AutoPlugin {
 
   override def projectSettings: Seq[Setting[_]] = Seq(
     organization := "your.organisation",
-    version := "4.0.0",
+    version := "5.0.0",
     resolvers ++= Dependencies.resolvers,
     scalaVersion := crossScalaVersions.value.head,
-    crossScalaVersions := Seq("2.11.8"),
+    crossScalaVersions := Seq("2.12.3"),
     scalacOptions ++= Seq(
       "-deprecation", // Emit warning and location for usages of deprecated APIs.
       "-feature", // Emit warning and location for usages of features that should be imported explicitly.
       "-unchecked", // Enable additional warnings where generated code depends on assumptions.
       "-Xfatal-warnings", // Fail the compilation if there are any warnings.
-      "-Xlint", // Enable recommended additional warnings.
+      //"-Xlint", // Enable recommended additional warnings.
       "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver.
       "-Ywarn-dead-code", // Warn when dead code is identified.
       "-Ywarn-inaccessible", // Warn about inaccessible types in method signatures.
       "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
-      "-Ywarn-numeric-widen" // Warn when numerics are widened.
+      "-Ywarn-numeric-widen", // Warn when numerics are widened.
+      // Play has a lot of issues with unused imports and unsued params
+      // https://github.com/playframework/playframework/issues/6690
+      // https://github.com/playframework/twirl/issues/105
+      "-Xlint:-unused,_"
     ),
     scalacOptions in Test ~= { (options: Seq[String]) =>
       options filterNot (_ == "-Ywarn-dead-code") // Allow dead code in tests (to support using mockito).
@@ -55,47 +59,12 @@ object PlaySettings extends AutoPlugin {
       // Router settings
       routesGenerator := InjectedRoutesGenerator,
 
+      // https://github.com/playframework/twirl/issues/105
+      TwirlKeys.templateImports := Seq(),
+
       // Disable documentation
       sources in (Compile, doc) := Seq.empty,
       publishArtifact in (Compile, packageDoc) := false
-    )
-}
-
-////*******************************
-//// Scalariform settings
-////*******************************
-object ScalariformSettings extends AutoPlugin {
-
-  import com.typesafe.sbt.SbtScalariform._
-
-  import scalariform.formatter.preferences._
-
-  lazy val BuildConfig: Configuration = config("build") extend Compile
-  lazy val BuildSbtConfig: Configuration = config("buildsbt") extend Compile
-
-  lazy val prefs = Seq(
-    ScalariformKeys.preferences := ScalariformKeys.preferences.value
-      .setPreference(FormatXml, false)
-      .setPreference(DoubleIndentClassDeclaration, false)
-      .setPreference(AlignSingleLineCaseStatements, true)
-      .setPreference(DanglingCloseParenthesis, Preserve)
-  )
-
-  override def trigger: PluginTrigger = allRequirements
-
-  override def projectSettings: Seq[Setting[_]] = defaultScalariformSettings ++ prefs ++
-    inConfig(BuildConfig)(configScalariformSettings) ++
-    inConfig(BuildSbtConfig)(configScalariformSettings) ++
-    Seq(
-      scalaSource in BuildConfig := baseDirectory.value / "project",
-      scalaSource in BuildSbtConfig := baseDirectory.value / "project",
-      includeFilter in (BuildConfig, ScalariformKeys.format) := ("*.scala": FileFilter),
-      includeFilter in (BuildSbtConfig, ScalariformKeys.format) := ("*.sbt": FileFilter),
-      ScalariformKeys.format in Compile := {
-        (ScalariformKeys.format in BuildSbtConfig).value
-        (ScalariformKeys.format in BuildConfig).value
-        (ScalariformKeys.format in Compile).value
-      }
     )
 }
 

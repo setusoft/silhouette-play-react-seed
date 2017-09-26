@@ -4,18 +4,18 @@ import javax.inject.Inject
 
 import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
 import core.controllers.ApiController
-import play.api.i18n.{ Messages, MessagesApi }
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.i18n.Messages
+import play.api.mvc.{ ControllerComponents, RequestHeader, Result }
 
 import scala.concurrent.Future
 
 /**
  * Custom secured error handler.
  *
- * @param messagesApi The Play messages API.
+ * @param controllerComponents The Play controller components.
  */
 class CustomSecuredErrorHandler @Inject() (
-  val messagesApi: MessagesApi
+  val controllerComponents: ControllerComponents
 ) extends SecuredErrorHandler
   with ApiController {
 
