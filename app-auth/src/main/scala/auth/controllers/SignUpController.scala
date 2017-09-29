@@ -104,7 +104,7 @@ class SignUpController @Inject() (
   }
 
   /**
-   * sign up an existing user.
+   * Sign up a new user.
    *
    * @param data      The form data.
    * @param loginInfo The login info.
