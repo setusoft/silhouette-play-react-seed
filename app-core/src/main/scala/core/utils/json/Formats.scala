@@ -16,22 +16,24 @@ trait Formats {
   /**
    * Renames a branch if it exists.
    */
-  val RenameBranch = (oldPath: JsPath, newPath: JsPath) => {
+  val RenameBranch: (JsPath, JsPath) => Reads[JsObject] = (oldPath: JsPath, newPath: JsPath) => {
     (__.json.update(newPath.json.copyFrom(oldPath.json.pick)) andThen oldPath.json.prune).orElse(__.json.pick[JsObject])
   }
 
   /**
    * Renames the field "_id" into the value given as `name` parameter.
    */
-  val IDReads = (name: String) => RenameBranch(__ \ '_id, __ \ Symbol(name))
+  val IDReads: String => Reads[JsObject] = (name: String) => RenameBranch(__ \ '_id, __ \ Symbol(name))
 
   /**
    * Transforms the field with the given `name` into the "_id" field.
    */
-  val IDWrites = (name: String) => (js: JsValue) => js.as[JsObject] - name ++ (js \ name match {
-    case JsDefined(v) => Json.obj("_id" -> v)
-    case _            => Json.obj()
-  })
+  val IDWrites: String => JsValue => JsObject = (name: String) => (js: JsValue) => {
+    js.as[JsObject] - name ++ (js \ name match {
+      case JsDefined(v) => Json.obj("_id" -> v)
+      case _            => Json.obj()
+    })
+  }
 
   /**
    * Converts [[play.api.i18n.Lang]] object to JSON and vice versa.
