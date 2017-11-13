@@ -2,7 +2,7 @@ package test
 
 import java.io.{ FileNotFoundException, InputStream }
 import java.net.URL
-import java.nio.file.{ Files, Path, Paths, StandardCopyOption }
+import java.nio.file._
 import java.util.UUID
 
 import play.api.libs.Files.{ SingletonTemporaryFileCreator, TemporaryFile }
@@ -17,6 +17,11 @@ import scala.xml.{ Elem, XML }
  */
 trait BaseFixture {
   type F <: BaseFixtureConverter
+
+  /**
+   * The path separator.
+   */
+  val Separator: String = FileSystems.getDefault.getSeparator
 
   /**
    * Converts the fixture in different types.
@@ -94,10 +99,18 @@ trait BaseFixture {
    * @return The path to the fixture.
    */
   def path(classLoader: ClassLoader, path: Path): Path = {
-    val url: URL = Option(classLoader.getResource(path.toString.stripPrefix("/"))).getOrElse {
+    val crossPlatformPath = path.toString.stripPrefix(Separator).replace(Separator, "/")
+    val url: URL = Option(classLoader.getResource(crossPlatformPath)).getOrElse {
       throw new FileNotFoundException("Cannot find test file: " + path)
     }
-    Paths.get(url.getFile)
+
+    // On Windows the URL will be prepended with a "/", so it will return /C:/ as example. We must remove the
+    // prefixed slash, otherwise it's not a valid path and the Paths.get method throws an exception
+    val windowsDirPattern = "/([A-Z]{1}:.*)".r
+    url.getFile match {
+      case windowsDirPattern(p) => Paths.get(p)
+      case p                    => Paths.get(p)
+    }
   }
 }
 
