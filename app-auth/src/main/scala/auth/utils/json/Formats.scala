@@ -2,7 +2,7 @@ package auth.utils.json
 
 import auth.models.{ AuthToken, Registration, Settings, User }
 import com.mohiva.play.silhouette.api.util.PasswordInfo
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, OFormat, OWrites, Reads }
 
 /**
  * Implicit JSON formats.
@@ -12,12 +12,12 @@ trait Formats extends core.utils.json.Formats {
   /**
    * Converts a [[PasswordInfo]] instance to JSON and vice versa.
    */
-  implicit val passwordInfoFormat = Json.format[PasswordInfo]
+  implicit val passwordInfoFormat: OFormat[PasswordInfo] = Json.format
 
   /**
    * Converts a [[Settings]] instance to JSON and vice versa.
    */
-  implicit val settingsFormat = Json.format[Settings]
+  implicit val settingsFormat: OFormat[Settings] = Json.format
 }
 
 /**
@@ -29,27 +29,27 @@ object MongoFormats extends core.utils.json.MongoFormats with Formats {
   /**
    * Converts a [[Registration]] instance to JSON and vice versa.
    */
-  implicit val registrationFormat = Json.format[Registration]
+  implicit val registrationFormat: OFormat[Registration] = Json.format
 
   /**
    * Converts JSON into a [[User]] instance.
    */
-  implicit val userReads = IDReads("id") andThen Json.reads[User]
+  implicit val userReads: Reads[User] = IDReads("id") andThen Json.reads
 
   /**
    * Converts a [[User]] instance to JSON.
    */
-  implicit val userWrites = Json.writes[User].transform(IDWrites("id"))
+  implicit val userWrites: OWrites[User] = Json.writes.transform(IDWrites("id"))
 
   /**
    * Converts JSON into a [[AuthToken]] instance.
    */
-  implicit val authTokenReads = IDReads("id") andThen Json.reads[AuthToken]
+  implicit val authTokenReads: Reads[AuthToken] = IDReads("id") andThen Json.reads
 
   /**
    * Converts a [[AuthToken]] instance to JSON.
    */
-  implicit val authTokenWrites = Json.writes[AuthToken].transform(IDWrites("id"))
+  implicit val authTokenWrites: OWrites[AuthToken] = Json.writes.transform(IDWrites("id"))
 }
 
 /**
@@ -60,10 +60,10 @@ object APIFormats extends core.utils.json.APIFormats with Formats {
   /**
    * Converts a [[Registration]] instance to JSON and vice versa.
    */
-  implicit val registrationFormat = Json.format[Registration]
+  implicit val registrationFormat: OFormat[Registration] = Json.format
 
   /**
    * Converts a [[User]] instance to JSON and vice versa.
    */
-  implicit val userFormat = Json.format[User]
+  implicit val userFormat: OFormat[User] = Json.format
 }
