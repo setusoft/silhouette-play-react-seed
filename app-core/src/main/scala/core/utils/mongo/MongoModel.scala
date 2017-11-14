@@ -1,7 +1,7 @@
 package core.utils.mongo
 
 import core.exceptions.MongoException
-import play.api.libs.json.{ JsObject, Json, Reads }
+import play.api.libs.json.{ JsObject, Reads }
 import play.modules.reactivemongo.json._
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference }
@@ -27,19 +27,22 @@ trait MongoModel {
   /**
    * Helper method to query documents.
    *
-   * @param query   The query to execute.
-   * @param maxDocs The max number of docs to query.
-   * @param reader  The JSON reads.
-   * @tparam T      The type of the document to read.
+   * @param query      The query to execute.
+   * @param projection An optional projection to apply to the query.
+   * @param maxDocs    The max number of docs to query.
+   * @param reader     The JSON reads.
+   * @tparam T         The type of the document to read.
    * @return The list of found documents.
    */
-  protected def find[T](query: JsObject = Json.obj(), maxDocs: Int = Int.MaxValue)(
+  protected def find[T](query: JsObject, projection: Option[JsObject] = None, maxDocs: Int = Int.MaxValue)(
     implicit
     reader: Reads[T]
-  ): Future[List[T]] =
-    collection.flatMap(
-      _.find(query).cursor[T](ReadPreference.nearest).collect[List](maxDocs, Cursor.FailOnError[List[T]]())
-    )
+  ): Future[List[T]] = collection.flatMap { coll =>
+    (projection match {
+      case Some(p) => coll.find(query, p)
+      case None    => coll.find(query)
+    }).cursor[T](ReadPreference.nearest).collect[List](maxDocs, Cursor.FailOnError[List[T]]())
+  }
 
   /**
    * Returns some result on success and None on error.
