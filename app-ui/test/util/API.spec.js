@@ -21,17 +21,17 @@ describe('(Util) API', () => {
 
   const statusCode = (min, max) => Math.floor((Math.random() * ((max - min) + 1)) + min);
 
-  describe('(Method) getRequest', () => {
+  describe('(Method) request', () => {
     it('Should execute a GET request to a route', () => {
       fetchMock.getOnce('*', { status: 200, body: apiResponse });
 
       const route = 'some-get';
-      const maybeResult = api.getRequest(route);
+      const maybeResult = api.request(route);
       return maybeResult.then(testAPI.get(route));
     });
   });
 
-  describe('(Method) jsonPostRequest', () => {
+  describe('(Method) jsonRequest', () => {
     it('Should execute a POST request to a route', () => {
       fetchMock.postOnce('*', { status: 200, body: apiResponse });
 
@@ -41,17 +41,17 @@ describe('(Util) API', () => {
       };
 
       const route = 'some-json-post';
-      const maybeResult = api.jsonPostRequest(route, json);
+      const maybeResult = api.jsonRequest(route, json);
       return maybeResult.then(testAPI.jsonPost(route, json));
     });
   });
 
-  describe('(Method) formPostRequest', () => {
+  describe('(Method) formRequest', () => {
     it('Should execute a POST request to a route', () => {
       fetchMock.postOnce('*', { status: 200, body: apiResponse });
 
       const route = 'some-json-post';
-      const maybeResult = api.formPostRequest(route);
+      const maybeResult = api.formRequest(route);
       return maybeResult.then(testAPI.formPost(route));
     });
   });
