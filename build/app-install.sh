@@ -5,8 +5,57 @@ set -o nounset -o errexit
 INSTALL_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 INSTALL_FILE=$(basename "${BASH_SOURCE[0]}")
 
-RPM_FILE=$(ls -t ${INSTALL_DIR}/*.rpm | head -1)
+ARTIFACT=$(cd ${INSTALL_DIR} && ls -t *.rpm *.deb 2> /dev/null | head -1)
 NUMBER_REGEX='^[0-9]+$'
+
+fullName() {
+    BASE_NAME=$(basename $1)
+    echo "${BASE_NAME%.*}"
+}
+
+isRpm() {
+    [[ $1 == *".rpm" ]]
+}
+
+isDeb() {
+    [[ $1 == *".deb" ]]
+}
+
+# Allow to upgrade SNAPSHOT packages with the same version, all other packages which are installed in the same version
+# will be discarded. Packages with different version will be upgraded and new packages will be installed.
+#
+# @param $1 The complete file name.
+# @param $2 The package name.
+installRpm() {
+    FULL_NAME=$(fullName $1)
+    INSTALL_STATE=$(rpm -qa | grep ${FULL_NAME} &> /dev/null; echo $? || true)
+    if [ ${INSTALL_STATE} -eq 0 ]; then
+        if [[ ${FULL_NAME} == *"SNAPSHOT"* ]]; then
+            echo "SNAPSHOT package ${FULL_NAME} already exists; force upgrade ..." >&2
+            sudo rpm -Uvh --force $1
+            echo "Successfully upgraded ${FULL_NAME}" >&2
+        else
+            echo "NON-SNAPSHOT package ${FULL_NAME} already exists in the same version; please increase the version and try again" >&2
+            exit 1
+        fi
+    else
+        echo "Start installation or upgrade of $2 ..." >&2
+        sudo rpm -Uvh $1
+        echo "Successfully installed/upgraded $2" >&2
+    fi
+}
+
+# Installs or upgrades the package.
+#
+# TODO: Implement same functionality as for RPM packages
+#
+# @param $1 The complete file name.
+# @param $2 The package name.
+installDeb() {
+    echo "Start installation or upgrade of $2 ..." >&2
+    sudo apt -y --reinstall install $1
+    echo "Successfully installed/upgraded $2" >&2
+}
 
 # Parse command line arguments
 # http://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
@@ -71,25 +120,13 @@ if [ "$START_STATE" == "active" ]; then
 fi
 
 # Install or upgrade package
-#
-# Allow to upgrade SNAPSHOT packages with the same version, all other packages which are installed in the same version
-# will be discarded. Packages with different version will be upgraded and new packages will be installed.
-BASE_NAME=$(basename "$RPM_FILE")
-FULL_NAME="${BASE_NAME%.*}"
-INSTALL_STATE=$(rpm -qa | grep ${FULL_NAME} &> /dev/null; echo $? || true)
-if [ ${INSTALL_STATE} -eq 0 ]; then
-    if [[ ${FULL_NAME} == *"SNAPSHOT"* ]]; then
-        echo "SNAPSHOT package ${FULL_NAME} already exists; force upgrade ..."
-        sudo rpm -Uvh --force ${RPM_FILE}
-        echo "Successfully upgraded ${FULL_NAME}"
-    else
-        echo "NON-SNAPSHOT package ${FULL_NAME} already exists in the same version; please increase the version and try again"
-        exit 1
-    fi
+if isRpm ${ARTIFACT}; then
+    installRpm ${ARTIFACT} ${NAME}
+elif isDeb ${ARTIFACT}; then
+    installDeb ${ARTIFACT} ${NAME}
 else
-    echo "Start installation or upgrade of ${NAME} ..."
-    sudo rpm -Uvh ${RPM_FILE}
-    echo "Successfully installed/upgraded ${NAME}"
+    echo "Cannot install unsupported file: $ARTIFACT"
+    exit 1
 fi
 
 # Apply the environment specific values

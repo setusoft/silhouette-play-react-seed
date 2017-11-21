@@ -22,11 +22,16 @@ KEEP_FILES=5
 INSTALL_FILE="app-install.sh"
 INSTALL_CMD="$INSTALL_FILE -n=$PROJECT_NAME -e=$ENVIRONMENT_NAME -c=$APP_CONFIG -l=$APP_LOGGER -p=$APP_PORT -k=$KEEP_FILES"
 
-RPM_FILE=$(find ${PROJECT_DIR}/target/rpm/RPMS/noarch/ -name "*.rpm" -print | head -n 1)
+DEB_FILE=$(find ${PROJECT_DIR}/target -name "*.deb" -print | head -n 1)
+RPM_FILE=$(find ${PROJECT_DIR}/target -name "*.rpm" -print | head -n 1)
 
-# Check if the deployment artifacts exists
-if [ "$RPM_FILE" == "" ]; then
-    echo "Cannot find the deployment artifacts!"
+# Check if the deployment artifact exists
+if [ -n "$DEB_FILE" ]; then
+    DEPLOYMENT_ARTIFACT=${DEB_FILE}
+elif [ -n "$RPM_FILE" ]; then
+    DEPLOYMENT_ARTIFACT=${RPM_FILE}
+else
+    echo "Cannot find the deployment artifact!"
     exit 1
 fi
 
@@ -59,7 +64,7 @@ chmod 600 ${DEPLOYMENT_KEY_FILE}
 ssh -F ${DEPLOYMENT_SSH_CONFIG} ${DEPLOYMENT_USER}@${DEPLOYMENT_HOST} "mkdir -p $DEPLOYMENT_DIR"
 
 # Copy the artifacts to the deployment host
-FILES_TO_DEPLOY="${RPM_FILE} ${BUILD_DIR}/${INSTALL_FILE}"
+FILES_TO_DEPLOY="${DEPLOYMENT_ARTIFACT} ${BUILD_DIR}/${INSTALL_FILE}"
 scp -F ${DEPLOYMENT_SSH_CONFIG} ${FILES_TO_DEPLOY} ${DEPLOYMENT_USER}@${DEPLOYMENT_HOST}:${DEPLOYMENT_DIR}
 
 # Execute the install file
