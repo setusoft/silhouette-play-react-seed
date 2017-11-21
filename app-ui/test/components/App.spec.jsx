@@ -13,16 +13,16 @@ describe('(Component) App', () => {
   let routes;
   let store;
   let wrapper;
-  let fetchUser;
+  let onInit;
 
   beforeEach(() => {
     routes = <Link to="/test">test</Link>;
     store = createStore({ i18n: i18nState });
-    fetchUser = sinon.spy();
+    onInit = sinon.spy();
   });
 
   it('Should render the content', () => {
-    wrapper = shallow(<App routes={routes} store={store} fetchUser={fetchUser} />);
+    wrapper = shallow(<App routes={routes} store={store} onInit={onInit} />);
 
     expect(wrapper.contains(
       <Provider store={store}>
@@ -35,9 +35,9 @@ describe('(Component) App', () => {
     )).to.be.true();
   });
 
-  it('Should fetch the user on mount', () => {
-    wrapper = mount(<App routes={routes} store={store} fetchUser={fetchUser} />);
+  it('Should init the app before mount', () => {
+    wrapper = mount(<App routes={routes} store={store} onInit={onInit} />);
 
-    fetchUser.should.have.been.calledOnce();
+    onInit.should.have.been.calledOnce();
   });
 });

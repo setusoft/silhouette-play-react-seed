@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchUser } from 'routes/Auth/modules/UserModule';
+import { initApp } from 'modules/AppModule';
 import App from 'components/App';
 
 /**
@@ -16,7 +16,7 @@ const mapStateToProps = () => ({});
  * @returns {Object} The props passed to the react component.
  */
 const mapDispatchToProps = dispatch => ({
-  fetchUser: initialize => dispatch(fetchUser({ initialize })),
+  onInit: () => dispatch(initApp()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

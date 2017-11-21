@@ -1,10 +1,11 @@
 import { isFSA } from 'flux-standard-action';
 import userReducer, {
   initialState,
-  initializeUser,
+  initUser,
   fetchUser,
   saveUser,
   deleteUser,
+  resetUserState,
 } from 'routes/Auth/modules/UserModule';
 
 describe('(Redux Module) Auth/UserModule', () => {
@@ -13,13 +14,13 @@ describe('(Redux Module) Auth/UserModule', () => {
     email: 'john@doe.com',
   };
 
-  describe('(Action Creator) initializeUser', () => {
+  describe('(Action Creator) initUser', () => {
     it('Should be exported as a function', () => {
-      expect(initializeUser).to.be.a('function');
+      expect(initUser).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(initializeUser())).to.be.true();
+      expect(isFSA(initUser())).to.be.true();
     });
   });
 
@@ -53,6 +54,16 @@ describe('(Redux Module) Auth/UserModule', () => {
     });
   });
 
+  describe('(Action Creator) resetUserState', () => {
+    it('Should be exported as a function', () => {
+      expect(resetUserState).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(resetUserState())).to.be.true();
+    });
+  });
+
   describe('(Reducer) userReducer', () => {
     it('Should be a function', () => {
       expect(userReducer).to.be.a('function');
@@ -62,11 +73,19 @@ describe('(Redux Module) Auth/UserModule', () => {
       expect(userReducer(undefined, { type: 'UNDEFINED' })).to.eql(initialState);
     });
 
-    it('Should initialize the user if the `initializeUser` action was dispatched', () => {
+    it('Should initialize the user with data if the `initUser` action was dispatched with data', () => {
       let state = userReducer(undefined, { type: 'UNDEFINED' });
       expect(state).to.eql(initialState);
 
-      state = userReducer(state, initializeUser());
+      state = userReducer(state, initUser({ name: 'test' }));
+      expect(state).to.eql({ ...initialState, data: { name: 'test' }, initialized: true });
+    });
+
+    it('Should initialize the user without data if the `initUser` action was dispatched without data', () => {
+      let state = userReducer(undefined, { type: 'UNDEFINED' });
+      expect(state).to.eql(initialState);
+
+      state = userReducer(state, initUser());
       expect(state).to.eql({ ...initialState, initialized: true });
     });
 

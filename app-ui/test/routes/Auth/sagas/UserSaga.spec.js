@@ -1,8 +1,9 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
+import { initApp } from 'modules/AppModule';
 import { resetState } from 'modules/StateModule';
-import { initializeUser, fetchUser, saveUser, deleteUser } from 'routes/Auth/modules/UserModule';
-import saga, { fetchUserWorker, deleteUserWorker, userSaga } from 'routes/Auth/sagas/UserSaga';
+import { userState, initUser, fetchUser, saveUser, deleteUser, resetUserState } from 'routes/Auth/modules/UserModule';
+import saga, { initUserWorker, fetchUserWorker, resetUserStateWorker, userSaga } from 'routes/Auth/sagas/UserSaga';
 import AuthAPI from 'routes/Auth/apis/AuthAPI';
 
 describe('(Saga) Auth/UserSaga', () => {
@@ -13,6 +14,44 @@ describe('(Saga) Auth/UserSaga', () => {
     expect(saga).to.be.a('array');
     expect(saga[0]).to.equal(userSaga);
     expect(saga[1]).to.eql(new AuthAPI());
+  });
+
+  describe('(Generator) initUserWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(initUserWorker).to.be.a('GeneratorFunction');
+    });
+
+    it('Should call the `user` method of the API', () => {
+      const api = { user: () => successResponse };
+      return expectSaga(initUserWorker, api)
+        .call([api, api.user])
+        .dispatch(initApp())
+        .run({ silenceTimeout: true });
+    });
+
+    it('Should initialize the user with the user data on success', () => {
+      const api = { user: () => successResponse };
+      return expectSaga(initUserWorker, api)
+        .put(initUser(successResponse.details))
+        .dispatch(initApp())
+        .run({ silenceTimeout: true });
+    });
+
+    it('Should initialize the user with no data on error', () => {
+      const api = { user: () => { throw fatalError; } };
+      return expectSaga(initUserWorker, api)
+        .put(initUser())
+        .dispatch(initApp())
+        .run({ silenceTimeout: true });
+    });
+
+    it('Should reset the user state on error', () => {
+      const api = { user: () => { throw fatalError; } };
+      return expectSaga(initUserWorker, api)
+        .put(resetUserState())
+        .dispatch(initApp())
+        .run({ silenceTimeout: true });
+    });
   });
 
   describe('(Generator) fetchUserWorker', () => {
@@ -36,14 +75,6 @@ describe('(Saga) Auth/UserSaga', () => {
         .run({ silenceTimeout: true });
     });
 
-    it('Should initialize the user on success', () => {
-      const api = { user: () => successResponse };
-      return expectSaga(fetchUserWorker, api)
-        .put(initializeUser())
-        .dispatch(fetchUser({ initialize: true }))
-        .run({ silenceTimeout: true });
-    });
-
     it('Should delete the user on error', () => {
       const api = { user: () => { throw fatalError; } };
       return expectSaga(fetchUserWorker, api)
@@ -52,24 +83,24 @@ describe('(Saga) Auth/UserSaga', () => {
         .run({ silenceTimeout: true });
     });
 
-    it('Should initialize the user on error', () => {
+    it('Should reset the user state on error', () => {
       const api = { user: () => { throw fatalError; } };
       return expectSaga(fetchUserWorker, api)
-        .put(initializeUser())
-        .dispatch(fetchUser({ initialize: true }))
+        .put(resetUserState())
+        .dispatch(fetchUser())
         .run({ silenceTimeout: true });
     });
   });
 
-  describe('(Generator) deleteUserWorker', () => {
+  describe('(Generator) resetUserStateWorker', () => {
     it('Should be exported as a generator function', () => {
-      expect(deleteUserWorker).to.be.a('GeneratorFunction');
+      expect(resetUserStateWorker).to.be.a('GeneratorFunction');
     });
 
     it('Should reset the state for the given keys', () =>
-      expectSaga(deleteUserWorker)
-        .put(resetState([]))
-        .dispatch(deleteUser())
+      expectSaga(resetUserStateWorker)
+        .put(resetState(userState))
+        .dispatch(resetUserState())
         .run({ silenceTimeout: true }),
     );
   });
@@ -82,8 +113,9 @@ describe('(Saga) Auth/UserSaga', () => {
     it('Should spawn all workers', () => {
       const api = {};
       return expectSaga(userSaga, api)
+        .spawn(initUserWorker, api)
         .spawn(fetchUserWorker, api)
-        .spawn(deleteUserWorker)
+        .spawn(resetUserStateWorker)
         .run({ silenceTimeout: true });
     });
   });

@@ -8,7 +8,7 @@ import PreloaderContainer from 'containers/PreloaderContainer';
 type Props = {
   routes: Object,
   store: Object,
-  fetchUser: (initialize: boolean) => void,
+  onInit: () => void,
 }
 
 /**
@@ -22,10 +22,10 @@ class App extends React.Component<Props> {
   props: Props;
 
   /**
-   * Handler which gets called after the component was applied to the DOM.
+   * Handler which is invoked immediately before mounting occurs.
    */
-  componentDidMount() {
-    this.props.fetchUser(true);
+  componentWillMount() {
+    this.props.onInit();
   }
 
   /**
@@ -40,7 +40,7 @@ class App extends React.Component<Props> {
   /**
    * Renders the component.
    *
-   * @returns {XML} The component.
+   * @returns The component.
    */
   render() {
     const { routes, store } = this.props;

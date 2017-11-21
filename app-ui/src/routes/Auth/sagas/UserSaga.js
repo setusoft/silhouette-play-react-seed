@@ -1,37 +1,49 @@
 // @flow
 import { call, put, take } from 'redux-saga/effects';
+import { initApp } from 'modules/AppModule';
 import { resetState } from 'modules/StateModule';
-import { initializeUser, fetchUser, saveUser, deleteUser } from 'routes/Auth/modules/UserModule';
+import { initUser, fetchUser, saveUser, deleteUser, resetUserState } from 'routes/Auth/modules/UserModule';
 import { combineSagas } from 'util/Saga';
 import AuthAPI from 'routes/Auth/apis/AuthAPI';
 
+export function* initUserWorker(api: AuthAPI): Generator<*, *, *> {
+  while (true) {
+    yield take(initApp().type);
+    try {
+      const response = yield call([api, api.user]);
+      yield put(initUser(response.details));
+    } catch (e) {
+      yield put(initUser());
+      yield put(resetUserState());
+    }
+  }
+}
+
 export function* fetchUserWorker(api: AuthAPI): Generator<*, *, *> {
   while (true) {
-    const { payload } = yield take(fetchUser().type);
+    yield take(fetchUser().type);
     try {
       const response = yield call([api, api.user]);
       yield put(saveUser(response.details));
     } catch (e) {
       yield put(deleteUser());
+      yield put(resetUserState());
     }
-
-    if (payload && payload.initialize) yield put(initializeUser());
   }
 }
 
-export function* deleteUserWorker(): Generator<*, *, *> {
+export function* resetUserStateWorker(): Generator<*, *, *> {
   while (true) {
-    yield take(deleteUser().type);
-    yield put(resetState([
-      // Add here the state keys you would like to reset
-    ]));
+    const { payload } = yield take(resetUserState().type);
+    yield put(resetState(payload));
   }
 }
 
 export function* userSaga(api: AuthAPI): Generator<*, *, *> {
   yield combineSagas([
+    [initUserWorker, api],
     [fetchUserWorker, api],
-    [deleteUserWorker],
+    [resetUserStateWorker],
   ]);
 }
 
