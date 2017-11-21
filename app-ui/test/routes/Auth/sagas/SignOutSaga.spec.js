@@ -3,7 +3,7 @@ import config from 'config/index';
 import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
 import { browserHistory } from 'react-router';
-import { deleteUser } from 'routes/Auth/modules/UserModule';
+import { deleteUser, resetUserState } from 'routes/Auth/modules/UserModule';
 import { signOut } from 'routes/Auth/modules/SignOutModule';
 import saga, { signOutSaga } from 'routes/Auth/sagas/SignOutSaga';
 import AuthAPI from 'routes/Auth/apis/AuthAPI';
@@ -42,6 +42,14 @@ describe('(Saga) Auth/SignOutSaga', () => {
         .run({ silenceTimeout: true });
     });
 
+    it('Should reset the user state on success', () => {
+      const api = { signOut: () => successResponse };
+      return expectSaga(signOutSaga, api)
+        .put(resetUserState())
+        .dispatch(signOut())
+        .run({ silenceTimeout: true });
+    });
+
     it('Should route to the sign-in page on success', () => {
       const api = { signOut: () => successResponse };
       return expectSaga(signOutSaga, api)
@@ -54,6 +62,14 @@ describe('(Saga) Auth/SignOutSaga', () => {
       const api = { signOut: () => { throw unauthorizedError; } };
       return expectSaga(signOutSaga, api)
         .put(deleteUser())
+        .dispatch(signOut())
+        .run({ silenceTimeout: true });
+    });
+
+    it('Should reset the user if the user is unauthorized', () => {
+      const api = { signOut: () => { throw unauthorizedError; } };
+      return expectSaga(signOutSaga, api)
+        .put(resetUserState())
         .dispatch(signOut())
         .run({ silenceTimeout: true });
     });
