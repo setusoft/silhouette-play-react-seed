@@ -41,30 +41,32 @@ export default class API {
   errorMsg = 'An error occurred, please try again later!';
 
   /**
-   * Executes a GET request.
+   * Executes a request without a body.
    *
-   * @param route The API route.
+   * @param route  The API route.
+   * @param method The request method.
    * @return A resolved or rejected promise containing an API result.
    * @see http://www.redotheweb.com/2015/11/09/api-security.html
    */
-  getRequest(route: string): Promise<APIResponse> {
+  request(route: string, method: string = 'GET'): Promise<APIResponse> {
     return this.statusHandler(fetch(`${config.apiBaseUrl}/${route}`, {
-      method: 'GET',
+      method,
       credentials: 'include', // Needed to allow cookies with CORS, see above link
     }));
   }
 
   /**
-   * Executes a POST request with a JSON body.
+   * Executes a request with a JSON body.
    *
    * @param route The API route.
    * @param json  The JSON data to post.
+   * @param method The request method.
    * @return A resolved or rejected promise containing an API result.
    * @see http://www.redotheweb.com/2015/11/09/api-security.html
    */
-  jsonPostRequest(route: string, json: *): Promise<APIResponse> {
+  jsonRequest(route: string, json: *, method: string = 'POST'): Promise<APIResponse> {
     return this.statusHandler(fetch(`${config.apiBaseUrl}/${route}`, {
-      method: 'POST',
+      method,
       headers: {
         'Csrf-Token': Cookies.get()[config.csrfCookieName],
         'Content-Type': 'application/json; charset=utf-8',
@@ -76,16 +78,17 @@ export default class API {
   }
 
   /**
-   * Executes a POST request with a application/x-www-form-urlencoded or multipart/form-data body.
+   * Executes a request with a application/x-www-form-urlencoded or multipart/form-data body.
    *
-   * @param route The API route.
-   * @param body  The body to post.
+   * @param route  The API route.
+   * @param body   The body to post.
+   * @param method The request method.
    * @return A resolved or rejected promise containing an API result.
    * @see http://www.redotheweb.com/2015/11/09/api-security.html
    */
-  formPostRequest(route: string, body: *): Promise<APIResponse> {
+  formRequest(route: string, body: *, method: string = 'POST'): Promise<APIResponse> {
     return this.statusHandler(fetch(`${config.apiBaseUrl}/${route}`, {
-      method: 'POST',
+      method,
       headers: {
         'Csrf-Token': Cookies.get()[config.csrfCookieName],
       },

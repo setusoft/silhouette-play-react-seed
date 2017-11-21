@@ -17,7 +17,7 @@ export default class AuthAPI extends API {
    * @return A resolved or rejected promise containing an API result.
    */
   signUp(data: SignUpForm): Promise<APIResponse> {
-    return this.jsonPostRequest('api/auth/sign-up', data);
+    return this.jsonRequest('api/auth/sign-up', data);
   }
 
   /**
@@ -27,7 +27,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   signIn(data: SignInForm): Promise<APIResponse> {
-    return this.jsonPostRequest('api/auth/sign-in', data);
+    return this.jsonRequest('api/auth/sign-in', data);
   }
 
   /**
@@ -36,7 +36,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   signOut(): Promise<APIResponse> {
-    return this.getRequest('api/auth/sign-out');
+    return this.request('api/auth/sign-out');
   }
 
   /**
@@ -45,7 +45,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   user(): Promise<APIResponse> {
-    return this.getRequest('api/auth/user');
+    return this.request('api/auth/user');
   }
 
   /**
@@ -55,7 +55,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   activateAccount(token: string): Promise<APIResponse> {
-    return this.getRequest(`api/auth/account/activation/${token}`);
+    return this.request(`api/auth/account/activation/${token}`);
   }
 
   /**
@@ -65,7 +65,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   sendActivationMail(email: string): Promise<APIResponse> {
-    return this.jsonPostRequest('api/auth/account/activation', { email });
+    return this.jsonRequest('api/auth/account/activation', { email });
   }
 
   /**
@@ -75,7 +75,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   recoverPassword(data: RecoverPasswordForm): Promise<APIResponse> {
-    return this.jsonPostRequest('api/auth/password/recovery', data);
+    return this.jsonRequest('api/auth/password/recovery', data);
   }
 
   /**
@@ -85,7 +85,7 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the token is valid or not.
    */
   validatePasswordToken(token: string): Promise<APIResponse> {
-    return this.getRequest(`api/auth/password/recovery/${token}`);
+    return this.request(`api/auth/password/recovery/${token}`);
   }
 
   /**
@@ -96,6 +96,6 @@ export default class AuthAPI extends API {
    * @returns An object indicating if the process was successful or not.
    */
   resetPassword(token: string, data: ResetPasswordForm): Promise<APIResponse> {
-    return this.jsonPostRequest(`api/auth/password/recovery/${token}`, data);
+    return this.jsonRequest(`api/auth/password/recovery/${token}`, data);
   }
 }
