@@ -19,7 +19,7 @@ describe('(Saga) I18nSaga', () => {
 
   describe('(Generator) fetchCatalogSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(fetchCatalogSaga).to.be.a('GeneratorFunction');
+      expect(fetchCatalogSaga[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should set the state to pending', () => {

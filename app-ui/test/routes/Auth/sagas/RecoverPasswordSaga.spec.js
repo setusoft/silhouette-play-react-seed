@@ -31,7 +31,7 @@ describe('(Saga) Auth/RecoverPasswordSaga', () => {
 
   describe('(Generator) recoverPasswordSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(recoverPasswordSaga).to.be.a('GeneratorFunction');
+      expect(recoverPasswordSaga[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should set the state to pending', () => {

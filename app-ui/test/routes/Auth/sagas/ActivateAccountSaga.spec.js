@@ -34,7 +34,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
 
   describe('(Generator) activateAccountWorker', () => {
     it('Should be exported as a generator function', () => {
-      expect(activateAccountWorker).to.be.a('GeneratorFunction');
+      expect(activateAccountWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should call the `activateAccount` method of the API', () => {
@@ -80,7 +80,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
 
   describe('(Generator) sendActivationEmailSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(sendActivationEmailWorker).to.be.a('GeneratorFunction');
+      expect(sendActivationEmailWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should set the state to pending', () => {
@@ -142,7 +142,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
 
   describe('(Generator) activateAccountSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(activateAccountSaga).to.be.a('GeneratorFunction');
+      expect(activateAccountSaga[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should spawn all workers', () => {

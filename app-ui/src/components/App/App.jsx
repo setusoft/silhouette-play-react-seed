@@ -8,7 +8,6 @@ import PreloaderContainer from 'containers/PreloaderContainer';
 type Props = {
   routes: Object,
   store: Object,
-  onInit: () => void,
 }
 
 /**
@@ -20,13 +19,6 @@ class App extends React.Component<Props> {
    * The component props.
    */
   props: Props;
-
-  /**
-   * Handler which is invoked immediately before mounting occurs.
-   */
-  componentWillMount() {
-    this.props.onInit();
-  }
 
   /**
    * Indicates if the component should be updated.

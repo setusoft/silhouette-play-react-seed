@@ -23,7 +23,7 @@ describe('(Saga) Auth/SignOutSaga', () => {
 
   describe('(Generator) signOutSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(signOutSaga).to.be.a('GeneratorFunction');
+      expect(signOutSaga[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should call the `signOut` method of the API', () => {

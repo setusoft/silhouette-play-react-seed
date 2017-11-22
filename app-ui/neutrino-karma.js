@@ -45,14 +45,6 @@ module.exports = {
           terminal: true,
         },
         webpack: {
-          // Enzyme fix: https://github.com/airbnb/enzyme/issues/892#issuecomment-299660665
-          externals: {
-            'react/addons': true,
-            'react/lib/ExecutionEnvironment': true,
-            'react/lib/ReactContext': true,
-            'react-dom/test-utils': true,
-            'react-test-renderer/shallow': true,
-          },
           devtool: 'inline-source-map',
           resolve: {
             alias: {

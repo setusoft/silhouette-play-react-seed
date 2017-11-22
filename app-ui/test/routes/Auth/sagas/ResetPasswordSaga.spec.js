@@ -44,7 +44,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
 
   describe('(Generator) validatePasswordTokenWorker', () => {
     it('Should be exported as a generator function', () => {
-      expect(validatePasswordTokenWorker).to.be.a('GeneratorFunction');
+      expect(validatePasswordTokenWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should call the `validatePasswordToken` method of the API', () => {
@@ -90,7 +90,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
 
   describe('(Generator) resetPasswordWorker', () => {
     it('Should be exported as a generator function', () => {
-      expect(resetPasswordWorker).to.be.a('GeneratorFunction');
+      expect(resetPasswordWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should set the state to pending', () => {
@@ -177,7 +177,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
 
   describe('(Generator) resetPasswordSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(resetPasswordSaga).to.be.a('GeneratorFunction');
+      expect(resetPasswordSaga[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should spawn all workers', () => {

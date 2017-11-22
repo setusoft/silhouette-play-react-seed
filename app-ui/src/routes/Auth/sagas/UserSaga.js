@@ -6,29 +6,26 @@ import { initUser, fetchUser, saveUser, deleteUser, resetUserState } from 'route
 import { combineSagas } from 'util/Saga';
 import AuthAPI from 'routes/Auth/apis/AuthAPI';
 
+export function* fetchUserTask(api: AuthAPI): Generator<*, *, *> {
+  try {
+    const response = yield call([api, api.user]);
+    yield put(saveUser(response.details));
+  } catch (e) {
+    yield put(deleteUser());
+    yield put(resetUserState());
+  }
+}
+
 export function* initUserWorker(api: AuthAPI): Generator<*, *, *> {
-  while (true) {
-    yield take(initApp().type);
-    try {
-      const response = yield call([api, api.user]);
-      yield put(initUser(response.details));
-    } catch (e) {
-      yield put(initUser());
-      yield put(resetUserState());
-    }
+  while (yield take(initApp().type)) {
+    yield call(fetchUserTask, api);
+    yield put(initUser());
   }
 }
 
 export function* fetchUserWorker(api: AuthAPI): Generator<*, *, *> {
-  while (true) {
-    yield take(fetchUser().type);
-    try {
-      const response = yield call([api, api.user]);
-      yield put(saveUser(response.details));
-    } catch (e) {
-      yield put(deleteUser());
-      yield put(resetUserState());
-    }
+  while (yield take(fetchUser().type)) {
+    yield call(fetchUserTask, api);
   }
 }
 

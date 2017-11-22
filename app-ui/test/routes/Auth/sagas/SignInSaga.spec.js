@@ -36,7 +36,7 @@ describe('(Saga) Auth/SignInSaga', () => {
 
   describe('(Generator) signInSaga', () => {
     it('Should be exported as a generator function', () => {
-      expect(signInSaga).to.be.a('GeneratorFunction');
+      expect(signInSaga[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
     it('Should set the state to pending', () => {

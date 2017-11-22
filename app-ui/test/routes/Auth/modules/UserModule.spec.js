@@ -73,19 +73,11 @@ describe('(Redux Module) Auth/UserModule', () => {
       expect(userReducer(undefined, { type: 'UNDEFINED' })).to.eql(initialState);
     });
 
-    it('Should initialize the user with data if the `initUser` action was dispatched with data', () => {
+    it('Should initialize the user if the `initUser` action was dispatched', () => {
       let state = userReducer(undefined, { type: 'UNDEFINED' });
       expect(state).to.eql(initialState);
 
       state = userReducer(state, initUser({ name: 'test' }));
-      expect(state).to.eql({ ...initialState, data: { name: 'test' }, initialized: true });
-    });
-
-    it('Should initialize the user without data if the `initUser` action was dispatched without data', () => {
-      let state = userReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql(initialState);
-
-      state = userReducer(state, initUser());
       expect(state).to.eql({ ...initialState, initialized: true });
     });
 
