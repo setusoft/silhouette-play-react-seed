@@ -1,5 +1,5 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import HeaderContainer from 'containers/HeaderContainer';
 
@@ -8,7 +8,12 @@ import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 
 import './CoreLayout.scss';
 
-const CoreLayout = ({ headerNav, children }) => (
+type Props = {
+  children: React.Node,
+  headerNav?: React.Node,
+};
+
+const CoreLayout = ({ headerNav, children }: Props) => (
   <div id="core-layout">
     <HeaderContainer>{headerNav}</HeaderContainer>
     {children}
@@ -22,14 +27,6 @@ const CoreLayout = ({ headerNav, children }) => (
     />
   </div>
 );
-
-CoreLayout.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-  headerNav: PropTypes.element,
-};
 
 CoreLayout.defaultProps = {
   headerNav: null,

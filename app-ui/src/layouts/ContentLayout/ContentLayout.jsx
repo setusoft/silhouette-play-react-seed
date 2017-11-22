@@ -1,24 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import * as React from 'react';
 import CoreLayout from 'layouts/CoreLayout';
 
 import './ContentLayout.scss';
 
-const ContentLayout = ({ headerNav, children }) => (
+type Props = {
+  children: React.Node,
+  headerNav?: React.Node,
+};
+
+const ContentLayout = ({ headerNav, children }: Props) => (
   <CoreLayout headerNav={headerNav}>
     <div className="content-container">
       {children}
     </div>
   </CoreLayout>
 );
-
-ContentLayout.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-  headerNav: PropTypes.element,
-};
 
 ContentLayout.defaultProps = {
   headerNav: null,

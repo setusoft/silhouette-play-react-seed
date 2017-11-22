@@ -1,8 +1,7 @@
 import React from 'react';
-import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import { browserHistory, Router, Link } from 'react-router';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import App from 'components/App';
 import I18nLoaderContainer from 'containers/I18nLoaderContainer';
 import PreloaderContainer from 'containers/PreloaderContainer';
@@ -13,16 +12,14 @@ describe('(Component) App', () => {
   let routes;
   let store;
   let wrapper;
-  let onInit;
 
   beforeEach(() => {
     routes = <Link to="/test">test</Link>;
     store = createStore({ i18n: i18nState });
-    onInit = sinon.spy();
   });
 
   it('Should render the content', () => {
-    wrapper = shallow(<App routes={routes} store={store} onInit={onInit} />);
+    wrapper = shallow(<App routes={routes} store={store} />);
 
     expect(wrapper.contains(
       <Provider store={store}>
@@ -33,11 +30,5 @@ describe('(Component) App', () => {
         </I18nLoaderContainer>
       </Provider>,
     )).to.be.true();
-  });
-
-  it('Should init the app before mount', () => {
-    wrapper = mount(<App routes={routes} store={store} onInit={onInit} />);
-
-    onInit.should.have.been.calledOnce();
   });
 });

@@ -16,7 +16,7 @@ export const deleteUser = createAction('AUTH_DELETE_USER');
 export const resetUserState = createAction('AUTH_RESET_USER_STATE', () => userState);
 
 export default handleActions({
-  [initUser]: (state, action) => ({ ...state, data: action.payload || initialState.data, initialized: true }),
+  [initUser]: state => ({ ...state, initialized: true }),
   [saveUser]: (state, action) => ({ ...state, data: action.payload }),
   [deleteUser]: state => ({ ...state, data: initialState.data }),
 }, initialState);

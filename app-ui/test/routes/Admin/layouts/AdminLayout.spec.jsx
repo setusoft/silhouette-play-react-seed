@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ContentLayout from 'layouts/ContentLayout';
 import Dashboard from 'routes/Admin/components/Dashboard';
-import { AdminLayoutComponent } from 'routes/Admin/layouts/AdminLayout/AdminLayout';
+import { AdminLayoutComponent, InitializedContentLayout } from 'routes/Admin/layouts/AdminLayout/AdminLayout';
 
 describe('(Layout) Admin/AdminLayout', () => {
   let wrapper;
@@ -11,11 +10,11 @@ describe('(Layout) Admin/AdminLayout', () => {
     wrapper = shallow(<AdminLayoutComponent />);
   });
 
-  it('Should extend the `CoreLayout`', () => {
+  it('Should extend the `ContentLayout`', () => {
     expect(wrapper.contains(
-      <ContentLayout>
+      <InitializedContentLayout>
         <Dashboard />
-      </ContentLayout>,
+      </InitializedContentLayout>,
     )).to.be.true();
   });
 });

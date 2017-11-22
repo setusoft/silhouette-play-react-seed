@@ -5,7 +5,9 @@ import 'styles/core.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from 'store/createStore';
-import AppContainer from 'containers/AppContainer';
+import initializer from 'containers/InitializerContainer';
+import App from 'components/App';
+import { initApp } from 'modules/AppModule';
 
 // ========================================================
 // Store Instantiation
@@ -22,10 +24,12 @@ const MOUNT_NODE = document.getElementById('root');
 let render = () => {
   // eslint-disable-next-line import/no-extraneous-dependencies,global-require
   const routes = require('./routes/index').default(store);
+  // eslint-disable-next-line react/jsx-filename-extension
+  const AppComponent = initializer(App, initApp);
 
   ReactDOM.render(
     // eslint-disable-next-line react/jsx-filename-extension
-    <AppContainer store={store} routes={routes} />,
+    <AppComponent store={store} routes={routes} />,
     MOUNT_NODE,
   );
 };

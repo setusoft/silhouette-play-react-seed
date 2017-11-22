@@ -1,3 +1,5 @@
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
@@ -5,6 +7,8 @@ import chaiAsPromised from 'chai-as-promised';
 import chaiEnzyme from 'chai-enzyme';
 import dirtyChai from 'dirty-chai';
 import shallowDeepEqual from 'chai-shallow-deep-equal';
+
+configure({ adapter: new Adapter() });
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
