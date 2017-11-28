@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { signOut } from 'routes/Auth/modules/SignOutModule';
@@ -11,8 +11,8 @@ import Header from 'components/Header';
  * @returns {Object} The props passed to the react component.
  */
 const mapStateToProps = state => ({
-  current: _.get(state, 'location.pathname', location.pathname),
-  user: _.get(state, 'auth.user.data', {}),
+  current: get(state, 'location.pathname', location.pathname),
+  user: get(state, 'auth.user.data', {}),
 });
 
 /**
