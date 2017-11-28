@@ -6,6 +6,8 @@ import play.sbt.{ Play, PlayRunHook }
 import sbt.Keys._
 import sbt._
 
+import scala.sys.process.{ Process, ProcessBuilder, ProcessLogger }
+
 /**
  * NPM plugin.
  */
@@ -72,7 +74,7 @@ object NpmPlugin extends AutoPlugin {
     /**
      * The current OS name.
      */
-    lazy val name = sys.props.get("os.name").flatMap(n =>
+    lazy val name: Name.Value = sys.props.get("os.name").flatMap(n =>
       OS.Name.values.find(v => n.contains(v.toString))
     ).getOrElse(sys.error("Unknown OS name!"))
   }
@@ -108,10 +110,10 @@ object NpmPlugin extends AutoPlugin {
     stage := stage.dependsOn(npmDistTask).value,
 
     // All other tasks can be executed independently from Play
-    compile in Npm := inc.Analysis.Empty,
+    compile in Npm := internal.inc.Analysis.Empty,
     compile in Npm := (compile in Npm).dependsOn(npmCompileTask).value,
     clean in Npm := (clean in Npm).dependsOn(npmCleanTask).value,
-    test in Npm := (),
+    test in Npm := (()),
     test in Npm := (test in Npm).dependsOn(npmTestTask).value,
 
     playRunHooks += runHook(
@@ -202,9 +204,9 @@ object NpmPlugin extends AutoPlugin {
     val process = proc(exec, base, s"--loglevel $npmLogLevel" :: args)
     // NPM logs some output to stderr, so we log stdout and sdterr as info, to avoid error logs for NPM output
     val processLogger = new ProcessLogger {
-      override def error(s: => String) = logger.info(s)
-      override def info(s: => String) = logger.info(s)
-      override def buffer[T](f: => T) = f
+      override def out(s: => String): Unit = logger.info(s)
+      override def err(s: => String): Unit = logger.info(s)
+      override def buffer[T](f: => T): T = f
     }
 
     logger.info(s"Will run: ${process.toString} in ${base.getPath}")
@@ -255,7 +257,7 @@ object NpmPlugin extends AutoPlugin {
         process = Some(fork(exec, base, "run" :: cmd :: Nil, logger, logLevel))
       }
 
-      override def afterStopped() = {
+      override def afterStopped(): Unit = {
         logger.info("Attempting to stop NPM server")
         process.foreach(_.destroy())
         process = None

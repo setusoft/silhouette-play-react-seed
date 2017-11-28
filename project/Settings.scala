@@ -1,10 +1,9 @@
 import java.io.File
 
 import NpmPlugin.autoImport._
-import play.routes.compiler.InjectedRoutesGenerator
-import play.sbt.PlayImport.PlayKeys
-import play.sbt.routes.RoutesKeys.routesGenerator
 import play.sbt.{ Play, PlayScala }
+import play.sbt.PlayImport.PlayKeys
+import play.sbt.routes.RoutesKeys
 import play.twirl.sbt.Import.TwirlKeys
 import sbt.Keys.{ baseDirectory, publishArtifact, sources, unmanagedResourceDirectories, _ }
 import sbt._
@@ -20,7 +19,7 @@ object BasicSettings extends AutoPlugin {
     version := "5.0.0",
     resolvers ++= Dependencies.resolvers,
     scalaVersion := crossScalaVersions.value.head,
-    crossScalaVersions := Seq("2.12.3"),
+    crossScalaVersions := Seq("2.12.4"),
     scalacOptions ++= Seq(
       "-deprecation", // Emit warning and location for usages of deprecated APIs.
       "-feature", // Emit warning and location for usages of features that should be imported explicitly.
@@ -49,7 +48,10 @@ object BasicSettings extends AutoPlugin {
 //// Play settings
 ////*******************************
 object PlaySettings extends AutoPlugin {
+
   override def requires: Plugins = Play
+
+  override def trigger: PluginTrigger = allRequirements
 
   override def projectSettings: Seq[Setting[_]] =
     Seq(
@@ -57,14 +59,7 @@ object PlaySettings extends AutoPlugin {
       PlayKeys.playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
 
       // Router settings
-      routesGenerator := InjectedRoutesGenerator,
-
-      // https://github.com/playframework/twirl/issues/105
-      TwirlKeys.templateImports := Seq(),
-
-      // Disable documentation
-      sources in (Compile, doc) := Seq.empty,
-      publishArtifact in (Compile, packageDoc) := false
+      RoutesKeys.routesImport += "core.utils.route.Binders._"
     )
 }
 
@@ -110,23 +105,33 @@ object NpmSettings extends AutoPlugin {
 ////*******************************
 //// Package settings
 ////*******************************
-object DebianPackageSettings extends AutoPlugin {
+object PackageSettings extends AutoPlugin {
   import com.typesafe.sbt.SbtNativePackager.autoImport.{ maintainer, packageDescription, packageSummary }
   import com.typesafe.sbt.packager.archetypes.systemloader.SystemdPlugin
+  import com.typesafe.sbt.packager.debian.DebianPlugin
   import com.typesafe.sbt.packager.debian.DebianPlugin.autoImport._
-  import com.typesafe.sbt.packager.debian.{ DebianPlugin, JDebPackaging }
-  import com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport.dist
+  import com.typesafe.sbt.packager.rpm.RpmPlugin
+  import com.typesafe.sbt.packager.rpm.RpmPlugin.autoImport._
+  import com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._
 
-  override def requires: Plugins = DebianPlugin && JDebPackaging && SystemdPlugin && NpmPlugin
+  override def requires: Plugins = RpmPlugin && DebianPlugin && SystemdPlugin && NpmPlugin
 
   override def trigger: PluginTrigger = noTrigger
 
   override def projectSettings: Seq[Setting[_]] = Seq(
-    maintainer in Debian := "John Doe <john@doe.com>",
-    packageSummary in Debian := "Silhouette Play React Seed Template",
-    packageDescription in Debian := "Silhouette Play React Seed Template",
-    debianPackageDependencies in Debian ++= Seq("openjdk-8-jre", "nginx", "bash"),
-    packageBin in Debian := (packageBin in Debian).dependsOn(dist in Npm).value
+    maintainer := "John Doe <john@doe.com>",
+    packageSummary := "Silhouette Play React Seed Template",
+    packageDescription := "Silhouette Play React Seed Template",
+
+    // Debian specific settings
+    debianPackageDependencies ++= Seq("openjdk-8-jre", "bash"),
+    packageBin in Debian := (packageBin in Debian).dependsOn(dist in Npm).value,
+
+    // RPM specific settings
+    rpmRequirements ++= Seq("java-1.8.0-openjdk", "bash"),
+    rpmVendor := "test",
+    rpmLicense := Some("Proprietary"),
+    packageBin in Rpm := (packageBin in Rpm).dependsOn(dist in Npm).value
   )
 }
 
@@ -134,15 +139,15 @@ object DebianPackageSettings extends AutoPlugin {
 //// Disable Package settings
 ////*******************************
 object DisablePackageSettings extends AutoPlugin {
-  import com.typesafe.sbt.packager.debian.DebianPlugin
   import com.typesafe.sbt.packager.debian.DebianPlugin.autoImport._
+  import com.typesafe.sbt.packager.rpm.RpmPlugin.autoImport._
 
-  override def requires: Plugins = PlayScala && DebianPlugin
-
+  override def requires: Plugins = PlayScala
   override def trigger: PluginTrigger = noTrigger
 
   // http://stackoverflow.com/questions/37066566/playframework-sbt-native-packager-disable-subproject-packageing
   override def projectSettings: Seq[Setting[_]] = Seq(
+    packageBin in Rpm := File.createTempFile("sbt", ".tmp"),
     packageBin in Debian := File.createTempFile("sbt", ".tmp")
   )
 }

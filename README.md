@@ -58,7 +58,7 @@ API of the frontend.
 
 If you build your application, then the frontend code will be integrated into your Play application. This
 means that you do not need any JavaScript server side tooling in production. Your Play application will 
-server your frontend code, which was previously packed with webpack.
+serve your frontend code, which was previously packed with webpack.
 
 The application comes with a SBT plugin that triggers the corresponding NPM tasks for the Play SBT build lifecycle.
 
@@ -100,13 +100,22 @@ The application can now be served over the URL `http://localhost:9000`.
 
 ### Build the application for production
 
-This builds a Debian package which can be installed on all Debian based systems. The application uses 
+This builds a RPM package which can be installed on all RPM based systems. The application uses 
 [SBT Native Packager] to create the build. To create builds for other distributions, please follow the 
-documentation.
+documentation. This app supports the packaging for RPM or DEB packages out of the box.
 
+Build a RPM package
+```
+sbt clean rpm:packageBin
+```
+
+build a DEB package
 ```
 sbt clean debian:packageBin
 ```
+
+The application comes also with some build and deployment scripts located in the `build` folder. Adapt the 
+scripts to fit your needs.
 
 ## Anatomy of the Play application
 
