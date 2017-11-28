@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
@@ -16,7 +16,7 @@ const Header = ({ current, user, route, onSignOut, children }) => (
       </Navbar.Brand>
     </Navbar.Header>
     {children || ''}
-    {_.isEmpty(user) ? (
+    {isEmpty(user) ? (
       <Nav className="not-authenticated" pullRight>
         <NavItem
           className="sign-in"

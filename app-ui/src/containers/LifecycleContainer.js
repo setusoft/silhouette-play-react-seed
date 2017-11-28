@@ -1,7 +1,8 @@
+import reduce from 'lodash/reduce';
 import { connect } from 'react-redux';
-import initializer from 'components/Initializer';
+import lifecycle from 'components/Lifecycle';
 
-export default (Component, action) => {
+export default (Component, actions) => {
   /**
    * Maps the state properties to the React component `props`.
    *
@@ -15,9 +16,8 @@ export default (Component, action) => {
    * @param {Function} dispatch The Redux store dispatch function.
    * @returns {Object} The props passed to the react component.
    */
-  const mapDispatchToProps = dispatch => ({
-    onInit: () => dispatch(action()),
-  });
+  const mapDispatchToProps = dispatch =>
+    reduce(actions, (acc, value, key) => ({ ...acc, [key]: () => dispatch(value()) }), {});
 
-  return connect(mapStateToProps, mapDispatchToProps)(initializer(Component));
+  return connect(mapStateToProps, mapDispatchToProps)(lifecycle(Component));
 };

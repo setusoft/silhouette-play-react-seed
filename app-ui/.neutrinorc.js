@@ -2,7 +2,14 @@ const path = require('path');
 
 module.exports = {
   use: [
-    'neutrino-preset-react',
+    ['neutrino-preset-react', {
+      // http://discourse.silhouette.rocks/t/hot-module-replacement-for-silhouette-play-react-seed-template-doesnt-work/193/4
+      devServer: {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        }
+      },
+    }],
     'neutrino-webpack.js',
     'neutrino-sass.js',
     'neutrino-karma.js',
