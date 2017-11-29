@@ -1,8 +1,8 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { browserHistory } from 'react-router';
+import { updateLocation } from 'modules/LocationModule';
 import { middleware, sagaMiddleware } from './middleware';
 import { makeRootReducer } from './reducers';
-import { updateLocation } from './location';
 import { rootSaga } from './sagas';
 
 export default (initialState = {}) => {
