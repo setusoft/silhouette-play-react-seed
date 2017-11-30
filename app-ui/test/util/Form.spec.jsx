@@ -31,12 +31,9 @@ describe('(Util) Form', () => {
       const error1 = <p>Error1</p>;
       const error2 = <p>Error2</p>;
       const wrapper = shallow(<ErrorWrapper>{error1}{error2}</ErrorWrapper>);
+      const helpBlock = <HelpBlock>{error1}</HelpBlock>;
 
-      expect(wrapper.contains(
-        <HelpBlock>
-          {error1}
-        </HelpBlock>,
-      )).to.be.true();
+      expect(wrapper.contains(helpBlock)).to.be.true();
     });
   });
 });

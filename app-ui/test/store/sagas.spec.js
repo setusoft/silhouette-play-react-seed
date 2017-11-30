@@ -7,7 +7,6 @@ describe('(Saga) sagas', () => {
     it('Should spawn all sagas', () =>
       expectSaga(rootSaga)
         .spawn(authSaga)
-        .run({ silenceTimeout: true }),
-    );
+        .run({ silenceTimeout: true }));
   });
 });

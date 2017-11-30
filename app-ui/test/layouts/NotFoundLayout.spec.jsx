@@ -18,20 +18,14 @@ describe('(Layout) NotFoundLayout', () => {
   });
 
   it('Should contain the 404 status code', () => {
-    expect(wrapper.contains(
-      <p className="code">404</p>,
-    )).to.be.true();
+    expect(wrapper.contains(<p className="code">404</p>)).to.be.true();
   });
 
   it('Should contain an error description', () => {
-    expect(wrapper.contains(
-      <p><Trans>The Page you are looking for could not be found!</Trans></p>,
-    )).to.be.true();
+    expect(wrapper.contains(<p><Trans>The Page you are looking for could not be found!</Trans></p>)).to.be.true();
   });
 
   it('Should contain the link to the home page', () => {
-    expect(wrapper.contains(
-      <p><Link to={config.route.index}><Trans>Back to Home</Trans></Link></p>,
-    )).to.be.true();
+    expect(wrapper.contains(<p><Link to={config.route.index}><Trans>Back to Home</Trans></Link></p>)).to.be.true();
   });
 });

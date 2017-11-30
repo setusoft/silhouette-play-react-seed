@@ -1,7 +1,7 @@
 // @flow
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import {
   modelPath,
   signUp,
@@ -24,7 +24,7 @@ export function* signUpSaga(api: AuthAPI): Generator<*, *, *> {
       yield put(signUpRejected(e));
       if (e.response.code === 'auth.signUp.form.invalid') {
         const details = e.response.details || [];
-        yield details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message)));
+        yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
       } else {
         yield call(Alert.error, e.response.description);
       }

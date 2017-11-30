@@ -1,6 +1,8 @@
 // @flow
-import * as React from 'react';
+import React from 'react';
 import { HelpBlock } from 'react-bootstrap';
+
+import type { Node } from 'react';
 
 /**
  * The props for a "react-redux-form" related entity.
@@ -34,7 +36,7 @@ export const validationState = (field: FormProps): ?string => {
  *
  * @param children The field errors.
  */
-export const ErrorWrapper = ({ children }: { children: React.Node }) => (
+export const ErrorWrapper = ({ children }: { children: Node }) => (
   <HelpBlock>
     {React.Children.toArray(children)[0]}
   </HelpBlock>

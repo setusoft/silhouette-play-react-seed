@@ -1,4 +1,5 @@
-const apiBaseUrl = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}`;
+const { protocol, hostname, port } = window.location;
+const apiBaseUrl = `${protocol}//${hostname}${port ? `:${port}` : ''}`;
 
 export default {
   // ======================================================
@@ -12,7 +13,7 @@ export default {
   // Overrides when NODE_ENV === 'development'
   // ======================================================
   development: () => ({
-    apiBaseUrl: 'http://localhost:9000',
+    apiBaseUrl: `${protocol}//${hostname}:9000`,
   }),
 
   // ======================================================

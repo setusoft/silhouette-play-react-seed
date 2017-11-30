@@ -34,7 +34,6 @@ export class APIError extends Error {
  * Provides helpers for the API implementations.
  */
 export default class API {
-
   /**
    * The default error message which will be displayed in production mode for an unexpected error.
    */
@@ -72,7 +71,7 @@ export default class API {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
       },
-      credentials: 'include',  // Needed to allow cookies with CORS, see above link
+      credentials: 'include', // Needed to allow cookies with CORS, see above link
       body: JSON.stringify(json),
     }));
   }
@@ -92,7 +91,7 @@ export default class API {
       headers: {
         'Csrf-Token': Cookies.get()[config.csrfCookieName],
       },
-      credentials: 'include',  // Needed to allow cookies with CORS, see above link
+      credentials: 'include', // Needed to allow cookies with CORS, see above link
       body,
     }));
   }

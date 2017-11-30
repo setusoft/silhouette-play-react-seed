@@ -9,10 +9,9 @@ import saga, { signOutSaga } from 'routes/Auth/sagas/SignOutSaga';
 import AuthAPI from 'routes/Auth/apis/AuthAPI';
 
 describe('(Saga) Auth/SignOutSaga', () => {
+  const errorResponse = new APIResponse('auth.unauthorized', 'You don\'t have permission to access this endpoint!');
   const successResponse = new APIResponse('successful', 'Successful response');
-  const unauthorizedError = new APIError(
-    new APIResponse('auth.unauthorized', 'You don\'t have permission to access this endpoint!'),
-  );
+  const unauthorizedError = new APIError(errorResponse);
   const fatalError = new APIError(new APIResponse('error', 'Error response'));
 
   it('Should export the wired saga', () => {

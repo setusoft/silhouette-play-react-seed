@@ -21,15 +21,13 @@ describe('(Component) Auth/RecoverPassword', () => {
   let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(
-    <RecoverPasswordComponent
-      email={email}
-      isPending={isPending}
-      i18n={i18n}
-      onSend={onSend}
-      $form={$form}
-    />,
-  );
+  const getWrapper = () => shallow(<RecoverPasswordComponent
+    email={email}
+    isPending={isPending}
+    i18n={i18n}
+    onSend={onSend}
+    $form={$form}
+  />);
 
   beforeEach(() => {
     email = 'john@doe.com';

@@ -1,11 +1,13 @@
 // @flow
-import * as React from 'react';
+import React from 'react';
+
+import type { Node } from 'react';
 
 import './Preloader.scss';
 
 type Props = {
   preloaded: boolean,
-  children: React.Node,
+  children: Node,
 }
 
 /**

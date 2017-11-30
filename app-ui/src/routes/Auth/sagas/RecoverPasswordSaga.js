@@ -2,7 +2,7 @@
 import Alert from 'react-s-alert';
 import { browserHistory } from 'react-router';
 import { actions } from 'react-redux-form';
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import {
   modelPath,
   recoverPassword,
@@ -27,7 +27,7 @@ export function* recoverPasswordSaga(api: AuthAPI): Generator<*, *, *> {
       yield put(recoverPasswordRejected(e));
       if (e.response.code === 'auth.password.recover.form.invalid') {
         const details = e.response.details || [];
-        yield details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message)));
+        yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
       } else {
         yield call(Alert.error, e.response.description);
       }

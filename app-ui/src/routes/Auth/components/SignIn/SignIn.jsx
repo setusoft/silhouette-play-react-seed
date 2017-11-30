@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Panel, Button, Checkbox } from 'react-bootstrap';
 import { Form, Control } from 'react-redux-form';
-import { WithI18n, Trans } from 'lingui-react';
+import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignInModule';
 import InputField from 'components/InputField';
@@ -23,7 +23,9 @@ type Props = {
   $form: FormProps
 }
 
-export const SignInComponent = ({ email, password, isPending, i18n, onSignIn, $form }: Props) => (
+export const SignInComponent = ({
+  email, password, isPending, i18n, onSignIn, $form,
+}: Props) => (
   <Panel className="sign-in" header={i18n.t`Sign-In`}>
     <Form model={modelPath} onSubmit={onSignIn} autoComplete="off">
       <InputField
@@ -63,4 +65,4 @@ export const SignInComponent = ({ email, password, isPending, i18n, onSignIn, $f
   </Panel>
 );
 
-export default WithI18n()(SignInComponent);
+export default withI18n()(SignInComponent);

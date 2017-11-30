@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import FaSignOut from 'react-icons/lib/fa/sign-out';
@@ -8,11 +9,13 @@ import config from 'config/index';
 import Logo from './assets/logo.png';
 import './Header.scss';
 
-const Header = ({ current, user, route, onSignOut, children }) => (
+const Header = ({
+  current, user, route, onSignOut, children,
+}) => (
   <Navbar fluid fixedTop inverse id="header">
     <Navbar.Header>
       <Navbar.Brand>
-        <a><img src={Logo} width="30px" height="30px" alt="Silhouette Play React Seed Template" /></a>
+        <Link to="/"><img src={Logo} width="30px" height="30px" alt="Silhouette Play React Seed Template" /></Link>
       </Navbar.Brand>
     </Navbar.Header>
     {children || ''}

@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import { WithI18n, Trans } from 'lingui-react';
+import { withI18n, Trans } from 'lingui-react';
 import { Panel, Button } from 'react-bootstrap';
 import Spinner from 'components/Spinner';
 
@@ -13,7 +13,9 @@ type Props = {
   onSend: (email: string) => any,
 }
 
-export const ActivateAccountComponent = ({ email, isPending, i18n, onSend }: Props) => (
+export const ActivateAccountComponent = ({
+  email, isPending, i18n, onSend,
+}: Props) => (
   <Panel className="activate-account" header={i18n.t`Activate account`}>
     <p><Trans>You can&apos;t log in yet. We previously sent an activation email to you at:</Trans></p>
     <p className="email">{email}</p>
@@ -25,4 +27,4 @@ export const ActivateAccountComponent = ({ email, isPending, i18n, onSend }: Pro
   </Panel>
 );
 
-export default WithI18n()(ActivateAccountComponent);
+export default withI18n()(ActivateAccountComponent);

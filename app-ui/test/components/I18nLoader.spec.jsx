@@ -15,27 +15,21 @@ describe('(Component) I18nLoader', () => {
   });
 
   it('Should render the content', () => {
-    wrapper = shallow(
-      <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>,
-    );
+    const loader = <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>;
+    const provider = <I18nProvider language={language} catalogs={{ [language]: catalog }}><div /></I18nProvider>;
+    wrapper = shallow(loader);
 
-    expect(wrapper.containsMatchingElement(
-      <I18nProvider language={language} catalogs={{ [language]: catalog }}><div /></I18nProvider>,
-    )).to.be.true();
+    expect(wrapper.containsMatchingElement(provider)).to.be.true();
   });
 
   it('Should fetch the catalog on mount', () => {
-    wrapper = mount(
-      <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>,
-    );
+    wrapper = mount(<I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>);
 
     fetchCatalog.should.have.been.calledOnce();
   });
 
   it('Should fetch the catalog if the language changes', () => {
-    wrapper = mount(
-      <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>,
-    );
+    wrapper = mount(<I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>);
 
     wrapper.setProps({ language: 'de' });
 
@@ -43,9 +37,7 @@ describe('(Component) I18nLoader', () => {
   });
 
   it('Should not fetch the catalog if the language keeps the same', () => {
-    wrapper = mount(
-      <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>,
-    );
+    wrapper = mount(<I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}><div /></I18nLoader>);
 
     wrapper.setProps({ language: 'en' });
 

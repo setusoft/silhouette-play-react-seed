@@ -23,17 +23,15 @@ describe('(Component) Auth/SignUp', () => {
   let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(
-    <SignUpComponent
-      name={name}
-      email={email}
-      password={password}
-      isPending={isPending}
-      i18n={i18n}
-      onSignUp={onSignUp}
-      $form={$form}
-    />,
-  );
+  const getWrapper = () => shallow(<SignUpComponent
+    name={name}
+    email={email}
+    password={password}
+    isPending={isPending}
+    i18n={i18n}
+    onSignUp={onSignUp}
+    $form={$form}
+  />);
 
   beforeEach(() => {
     name = 'John Doe';
@@ -49,11 +47,13 @@ describe('(Component) Auth/SignUp', () => {
   });
 
   it('Should contain a text paragraph with the link to the sign-in page', () => {
-    expect(wrapper.contains(
+    const paragraph = (
       <p className="sign-in">
         <Trans>Already a member?</Trans> <Link to={config.route.auth.signIn}><Trans>Sign in now</Trans></Link>
-      </p>,
-    )).to.be.true();
+      </p>
+    );
+
+    expect(wrapper.contains(paragraph)).to.be.true();
   });
 
   it('Should contain a Button', () => {

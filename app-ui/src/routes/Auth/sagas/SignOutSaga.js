@@ -8,8 +8,7 @@ import AuthAPI from 'routes/Auth/apis/AuthAPI';
 import config from 'config/index';
 
 export function* signOutSaga(api: AuthAPI): Generator<*, *, *> {
-  while (true) {
-    yield take(signOut().type);
+  while (yield take(signOut().type)) {
     try {
       yield call([api, api.signOut]);
       yield put(deleteUser());

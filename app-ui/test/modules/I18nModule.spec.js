@@ -83,7 +83,9 @@ describe('(Redux Module) I18nModule', () => {
       expect(state).to.eql({ ...initialState, isPending: true });
 
       state = i18nReducer(state, fetchCatalogFulfilled(catalog));
-      expect(state).to.eql({ ...initialState, initialized: true, isPending: false, catalog });
+      expect(state).to.eql({
+        ...initialState, initialized: true, isPending: false, catalog,
+      });
     });
 
     it('Should set `isPending` to false if the `fetchCatalogRejected` action was dispatched', () => {

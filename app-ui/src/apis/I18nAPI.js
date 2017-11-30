@@ -6,7 +6,6 @@ import { unpackCatalog } from 'lingui-i18n';
  * API to handle I18n resources.
  */
 export default class I18nAPI {
-
   /**
    * Fetches the message catalog for the given language.
    *
@@ -15,10 +14,12 @@ export default class I18nAPI {
    */
   async fetchCatalog(language: string): Promise<Object> {
     try {
+      // eslint-disable-next-line function-paren-newline
       return unpackCatalog(await import(
         /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
         `locale/${language}/messages.js`));
     } catch (e) {
+      // eslint-disable-next-line function-paren-newline
       return unpackCatalog(await import(
         /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
         'locale/en/messages.js'));

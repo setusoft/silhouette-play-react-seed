@@ -2,7 +2,7 @@
 import Alert from 'react-s-alert';
 import { browserHistory } from 'react-router';
 import { actions } from 'react-redux-form';
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import { combineSagas } from 'util/Saga';
 import {
   modelPath,
@@ -44,7 +44,7 @@ export function* resetPasswordWorker(api: AuthAPI): Generator<*, *, *> {
       switch (e.response.code) {
         case 'auth.password.reset.form.invalid': {
           const details = e.response.details || [];
-          yield details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message)));
+          yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
           break;
         }
         case 'auth.password.reset.token.invalid':
@@ -60,10 +60,10 @@ export function* resetPasswordWorker(api: AuthAPI): Generator<*, *, *> {
 }
 
 export function* resetPasswordSaga(api: AuthAPI): Generator<*, *, *> {
-  yield combineSagas([
+  yield all(combineSagas([
     [validatePasswordTokenWorker, api],
     [resetPasswordWorker, api],
-  ]);
+  ]));
 }
 
 const api = new AuthAPI();

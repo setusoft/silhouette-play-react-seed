@@ -2,7 +2,7 @@
 import Alert from 'react-s-alert';
 import { browserHistory } from 'react-router';
 import { actions } from 'react-redux-form';
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import { saveUser } from 'routes/Auth/modules/UserModule';
 import { saveActivationEmail } from 'routes/Auth/modules/ActivateAccountModule';
 import {
@@ -30,7 +30,7 @@ export function* signInSaga(api: AuthAPI): Generator<*, *, *> {
       switch (e.response.code) {
         case 'auth.signIn.form.invalid': {
           const details = e.response.details || [];
-          yield details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message)));
+          yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
           break;
         }
 

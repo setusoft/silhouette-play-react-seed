@@ -3,14 +3,16 @@ import React from 'react';
 import Alert from 'react-s-alert';
 import HeaderContainer from 'containers/HeaderContainer';
 
+import type { Node } from 'react';
+
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 
 import './CoreLayout.scss';
 
 type Props = {
-  children: React.Node,
-  headerNav?: React.Node,
+  children: Node,
+  headerNav?: Node,
 };
 
 const CoreLayout = ({ headerNav, children }: Props) => (

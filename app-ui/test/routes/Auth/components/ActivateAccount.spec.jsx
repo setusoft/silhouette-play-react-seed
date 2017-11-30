@@ -13,14 +13,12 @@ describe('(Component) Auth/ActivateAccount', () => {
   let onSend;
   let wrapper;
 
-  const getWrapper = () => shallow(
-    <ActivateAccountComponent
-      email={email}
-      isPending={isPending}
-      i18n={i18n}
-      onSend={onSend}
-    />,
-  );
+  const getWrapper = () => shallow(<ActivateAccountComponent
+    email={email}
+    isPending={isPending}
+    i18n={i18n}
+    onSend={onSend}
+  />);
 
   beforeEach(() => {
     email = 'john@doe.com';

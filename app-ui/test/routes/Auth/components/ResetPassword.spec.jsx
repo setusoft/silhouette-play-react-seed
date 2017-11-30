@@ -19,16 +19,14 @@ describe('(Component) Auth/ResetPassword', () => {
   let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(
-    <ResetPasswordComponent
-      token={token}
-      password={password}
-      isPending={isPending}
-      i18n={i18n}
-      onReset={onReset}
-      $form={$form}
-    />,
-  );
+  const getWrapper = () => shallow(<ResetPasswordComponent
+    token={token}
+    password={password}
+    isPending={isPending}
+    i18n={i18n}
+    onReset={onReset}
+    $form={$form}
+  />);
 
   beforeEach(() => {
     token = 'some-token';
