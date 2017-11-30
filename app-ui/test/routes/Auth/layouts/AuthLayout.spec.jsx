@@ -13,12 +13,14 @@ describe('(Layout) Auth/AuthLayout', () => {
   });
 
   it('Should extend the `CoreLayout`', () => {
-    expect(wrapper.contains(
+    const layout = (
       <CoreLayout>
         <div className="auth-container">
           {children}
         </div>
-      </CoreLayout>,
-    )).to.be.true();
+      </CoreLayout>
+    );
+
+    expect(wrapper.contains(layout)).to.be.true();
   });
 });

@@ -1,12 +1,14 @@
 // @flow
-import * as React from 'react';
+import React from 'react';
 import CoreLayout from 'layouts/CoreLayout';
+
+import type { Node } from 'react';
 
 import './ContentLayout.scss';
 
 type Props = {
-  children: React.Node,
-  headerNav?: React.Node,
+  children: Node,
+  headerNav?: Node,
 };
 
 const ContentLayout = ({ headerNav, children }: Props) => (

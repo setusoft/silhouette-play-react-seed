@@ -22,16 +22,14 @@ describe('(Component) Auth/SignIn', () => {
   let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(
-    <SignInComponent
-      email={email}
-      password={password}
-      isPending={isPending}
-      i18n={i18n}
-      onSignIn={onSignIn}
-      $form={$form}
-    />,
-  );
+  const getWrapper = () => shallow(<SignInComponent
+    email={email}
+    password={password}
+    isPending={isPending}
+    i18n={i18n}
+    onSignIn={onSignIn}
+    $form={$form}
+  />);
 
   beforeEach(() => {
     email = 'john@doe.com';

@@ -17,22 +17,18 @@ describe('(Layout) CoreLayout', () => {
   });
 
   it('Should contain the `HeaderContainer`', () => {
-    expect(wrapper.contains(
-      <HeaderContainer>{headerNav}</HeaderContainer>,
-    )).to.be.true();
+    expect(wrapper.contains(<HeaderContainer>{headerNav}</HeaderContainer>)).to.be.true();
   });
 
   it('Should contain the `Alert`', () => {
-    expect(wrapper.contains(
-      <Alert
-        stack={{ limit: 3 }}
-        html
-        effect="stackslide"
-        position="bottom-right"
-        beep={false}
-        timeout={10000}
-      />,
-    )).to.be.true();
+    expect(wrapper.contains(<Alert
+      stack={{ limit: 3 }}
+      html
+      effect="stackslide"
+      position="bottom-right"
+      beep={false}
+      timeout={10000}
+    />)).to.be.true();
   });
 
   it('Should render the children', () => {

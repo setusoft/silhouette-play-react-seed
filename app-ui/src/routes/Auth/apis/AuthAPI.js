@@ -9,7 +9,6 @@ import type { ResetPasswordForm } from 'routes/Auth/modules/ResetPasswordModule'
  * Executes auth calls against the backend API.
  */
 export default class AuthAPI extends API {
-
   /**
    * Sign up a user.
    *

@@ -3,7 +3,7 @@ import React from 'react';
 import { Control, Errors } from 'react-redux-form';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { validationState, ErrorWrapper } from 'util/Form';
-import { WithI18n } from 'lingui-react';
+import { withI18n } from 'lingui-react';
 
 import type { FormProps } from 'util/Form';
 
@@ -54,4 +54,4 @@ InputFieldComponent.defaultProps = {
   messages: {},
 };
 
-export default WithI18n()(InputFieldComponent);
+export default withI18n()(InputFieldComponent);

@@ -4,6 +4,7 @@ import 'styles/core.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 import createStore from 'store/createStore';
 import lifecycle from 'containers/LifecycleContainer';
 import App from 'components/App';
@@ -28,8 +29,11 @@ let render = () => {
   const AppComponent = lifecycle(App, { componentWillMount: initApp });
 
   ReactDOM.render(
+    // https://github.com/gaearon/react-hot-loader/issues/666
     // eslint-disable-next-line react/jsx-filename-extension
-    <AppComponent store={store} routes={routes} />,
+    <AppContainer warnings={false}>
+      <AppComponent store={store} routes={routes} />
+    </AppContainer>,
     MOUNT_NODE,
   );
 };
@@ -62,8 +66,7 @@ if (process.env.NODE_ENV === 'development') {
       setImmediate(() => {
         ReactDOM.unmountComponentAtNode(MOUNT_NODE);
         render();
-      }),
-    );
+      }));
   }
 }
 

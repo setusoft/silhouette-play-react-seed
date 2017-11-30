@@ -113,8 +113,7 @@ describe('(Saga) Auth/UserSaga', () => {
       expectSaga(resetUserStateWorker)
         .put(resetState(userState))
         .dispatch(resetUserState())
-        .run({ silenceTimeout: true }),
-    );
+        .run({ silenceTimeout: true }));
   });
 
   describe('(Generator) userSaga', () => {

@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 
+import type { ComponentType } from 'react';
+
 type Props = {
   componentWillMount?: () => void,
   componentDidMount?: () => void,
@@ -12,8 +14,12 @@ type Props = {
  *
  * @param Component The component to wrap.
  */
-const lifecycle = Component =>
+const lifecycle = (Component: ComponentType<*>) =>
   class extends React.Component<Props> {
+    /**
+     * The component props.
+     */
+    props: Props;
 
     /**
      * The component default props.
@@ -23,11 +29,6 @@ const lifecycle = Component =>
       componentDidMount: () => null,
       componentWillUnmount: () => null,
     };
-
-    /**
-     * The component props.
-     */
-    props: Props;
 
     /**
      * Handler which is invoked immediately before mounting occurs.
@@ -56,7 +57,9 @@ const lifecycle = Component =>
      * @returns The component.
      */
     render() {
-      const { componentWillMount, componentDidMount, componentWillUnmount, ...rest } = this.props;
+      const {
+        componentWillMount, componentDidMount, componentWillUnmount, ...rest
+      } = this.props;
 
       return <Component {...rest} />;
     }

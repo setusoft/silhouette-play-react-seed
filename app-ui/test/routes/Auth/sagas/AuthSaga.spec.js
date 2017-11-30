@@ -19,7 +19,6 @@ describe('(Saga) Auth/AuthSaga', () => {
         .spawn(...activateAccountSagaBinding)
         .spawn(...recoverPasswordSagaBinding)
         .spawn(...resetPasswordSagaBinding)
-        .run({ silenceTimeout: true }),
-    );
+        .run({ silenceTimeout: true }));
   });
 });

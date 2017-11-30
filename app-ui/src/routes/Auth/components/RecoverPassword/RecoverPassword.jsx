@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Panel, Button } from 'react-bootstrap';
 import { Form } from 'react-redux-form';
-import { WithI18n, Trans } from 'lingui-react';
+import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/RecoverPasswordModule';
 import InputField from 'components/InputField';
@@ -22,7 +22,9 @@ type Props = {
   $form: FormProps,
 }
 
-export const RecoverPasswordComponent = ({ email, isPending, i18n, onSend, $form }: Props) => (
+export const RecoverPasswordComponent = ({
+  email, isPending, i18n, onSend, $form,
+}: Props) => (
   <Panel className="recover-password" header={i18n.t`Recover password`}>
     <p>
       <Trans>
@@ -49,4 +51,4 @@ export const RecoverPasswordComponent = ({ email, isPending, i18n, onSend, $form
   </Panel>
 );
 
-export default WithI18n()(RecoverPasswordComponent);
+export default withI18n()(RecoverPasswordComponent);

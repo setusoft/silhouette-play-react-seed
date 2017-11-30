@@ -11,10 +11,12 @@ describe('(Layout) Admin/AdminLayout', () => {
   });
 
   it('Should extend the `ContentLayout`', () => {
-    expect(wrapper.contains(
+    const layout = (
       <InitializedContentLayout>
         <Dashboard />
-      </InitializedContentLayout>,
-    )).to.be.true();
+      </InitializedContentLayout>
+    );
+
+    expect(wrapper.contains(layout)).to.be.true();
   });
 });

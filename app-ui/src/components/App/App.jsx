@@ -14,7 +14,6 @@ type Props = {
  * App component.
  */
 class App extends React.Component<Props> {
-
   /**
    * The component props.
    */

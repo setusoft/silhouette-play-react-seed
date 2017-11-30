@@ -21,14 +21,16 @@ describe('(Component) App', () => {
   it('Should render the content', () => {
     wrapper = shallow(<App routes={routes} store={store} />);
 
-    expect(wrapper.contains(
+    const component = (
       <Provider store={store}>
         <I18nLoaderContainer>
           <PreloaderContainer>
             <Router history={browserHistory}>{routes}</Router>
           </PreloaderContainer>
         </I18nLoaderContainer>
-      </Provider>,
-    )).to.be.true();
+      </Provider>
+    );
+
+    expect(wrapper.contains(component)).to.be.true();
   });
 });

@@ -15,14 +15,19 @@ describe('(Component) Header', () => {
   let children;
   let wrapper;
 
-  const getWrapper = () => shallow(
-    <Header
-      current={current}
-      user={user}
-      route={route}
-      onSignOut={onSignOut}
-    >{children}</Header>,
-  );
+  const getWrapper = () => {
+    const header = (
+      <Header
+        current={current}
+        user={user}
+        route={route}
+        onSignOut={onSignOut}
+      >{children}
+      </Header>
+    );
+
+    return shallow(header);
+  };
 
   beforeEach(() => {
     current = '';
@@ -32,10 +37,10 @@ describe('(Component) Header', () => {
     wrapper = getWrapper();
   });
 
-  it('Should contain the company icon', () => {
-    expect(wrapper.contains(
-      <img src={Logo} width="30px" height="30px" alt="Silhouette Play React Seed Template" />,
-    )).to.be.true();
+  it('Should contain the company logo', () => {
+    const logo = <img src={Logo} width="30px" height="30px" alt="Silhouette Play React Seed Template" />;
+
+    expect(wrapper.contains(logo)).to.be.true();
   });
 
   it('Should be possible to inject additional navigation points', () => {
@@ -81,11 +86,13 @@ describe('(Component) Header', () => {
         user = { name: 'John Doe' };
         wrapper = getWrapper();
 
-        expect(wrapper.contains(
+        const username = (
           <Navbar.Text className="authenticated" pullRight>
             Signed in as: <span>{user.name}</span>
-          </Navbar.Text>,
-        )).to.be.true();
+          </Navbar.Text>
+        );
+
+        expect(wrapper.contains(username)).to.be.true();
       });
 
       describe('(Button) Sign-out', () => {
@@ -93,9 +100,7 @@ describe('(Component) Header', () => {
           user = { name: 'John Doe' };
           wrapper = getWrapper();
 
-          expect(wrapper.contains(
-            <FaSignOut width="25px" height="25px" />,
-          )).to.be.true();
+          expect(wrapper.contains(<FaSignOut width="25px" height="25px" />)).to.be.true();
         });
 
         it('Should execute the `onSignOut` handler on click', () => {

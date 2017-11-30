@@ -2,7 +2,7 @@
 import Alert from 'react-s-alert';
 import { browserHistory } from 'react-router';
 import { combineSagas } from 'util/Saga';
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import {
   activateAccount,
   sendActivationEmail,
@@ -44,10 +44,10 @@ export function* sendActivationEmailWorker(api: AuthAPI): Generator<*, *, *> {
 }
 
 export function* activateAccountSaga(api: AuthAPI): Generator<*, *, *> {
-  yield combineSagas([
+  yield all(combineSagas([
     [activateAccountWorker, api],
     [sendActivationEmailWorker, api],
-  ]);
+  ]));
 }
 
 const api = new AuthAPI();

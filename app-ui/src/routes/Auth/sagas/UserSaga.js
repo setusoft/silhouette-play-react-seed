@@ -1,5 +1,5 @@
 // @flow
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import { initApp } from 'modules/AppModule';
 import { resetState } from 'modules/StateModule';
 import { initUser, fetchUser, saveUser, deleteUser, resetUserState } from 'routes/Auth/modules/UserModule';
@@ -37,11 +37,11 @@ export function* resetUserStateWorker(): Generator<*, *, *> {
 }
 
 export function* userSaga(api: AuthAPI): Generator<*, *, *> {
-  yield combineSagas([
+  yield all(combineSagas([
     [initUserWorker, api],
     [fetchUserWorker, api],
     [resetUserStateWorker],
-  ]);
+  ]));
 }
 
 const api = new AuthAPI();

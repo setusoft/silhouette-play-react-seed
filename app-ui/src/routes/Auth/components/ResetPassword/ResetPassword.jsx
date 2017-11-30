@@ -2,7 +2,7 @@
 import React from 'react';
 import { Panel, Button } from 'react-bootstrap';
 import { Form } from 'react-redux-form';
-import { WithI18n, Trans } from 'lingui-react';
+import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/ResetPasswordModule';
 import InputField from 'components/InputField';
@@ -18,7 +18,9 @@ type Props = {
   $form: FormProps,
 }
 
-export const ResetPasswordComponent = ({ token, password, isPending, i18n, onReset, $form }: Props) => (
+export const ResetPasswordComponent = ({
+  token, password, isPending, i18n, onReset, $form,
+}: Props) => (
   <Panel className="reset-password" header={i18n.t`Reset password`}>
     <p>
       <Trans>Strong passwords include numbers, letters and special characters.</Trans>
@@ -41,4 +43,4 @@ export const ResetPasswordComponent = ({ token, password, isPending, i18n, onRes
   </Panel>
 );
 
-export default WithI18n()(ResetPasswordComponent);
+export default withI18n()(ResetPasswordComponent);

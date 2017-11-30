@@ -28,6 +28,10 @@
         "render"
       ]
     }],
+    "jsx-a11y/anchor-is-valid": [ "error", { // Allow Link component from react-router (https://github.com/evcohen/eslint-plugin-jsx-a11y/issues/340)
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }],
     "no-constant-condition": ["error", { "checkLoops": false }],
     "no-duplicate-imports": 0, // does not support flow type imports (https://github.com/babel/eslint-plugin-babel/issues/59)
     "import/no-duplicates": 2  // does support flow type imports
