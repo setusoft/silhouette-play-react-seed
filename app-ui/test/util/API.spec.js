@@ -27,7 +27,9 @@ describe('(Util) API', () => {
 
       const route = 'some-get';
       const maybeResult = api.request(route);
-      return maybeResult.then(testAPI.get(route));
+      return maybeResult
+        .then(response => response.json())
+        .then(testAPI.get(route));
     });
   });
 
@@ -42,7 +44,9 @@ describe('(Util) API', () => {
 
       const route = 'some-json-post';
       const maybeResult = api.jsonRequest(route, json);
-      return maybeResult.then(testAPI.jsonPost(route, json));
+      return maybeResult
+        .then(response => response.json())
+        .then(testAPI.jsonPost(route, json));
     });
   });
 
@@ -52,7 +56,9 @@ describe('(Util) API', () => {
 
       const route = 'some-json-post';
       const maybeResult = api.formRequest(route);
-      return maybeResult.then(testAPI.formPost(route));
+      return maybeResult
+        .then(response => response.json())
+        .then(testAPI.formPost(route));
     });
   });
 
@@ -61,9 +67,11 @@ describe('(Util) API', () => {
       fetchMock.postOnce('*', { status: statusCode(200, 299), body: apiResponse });
 
       const maybeResult = api.statusHandler(fetch('/route', { method: 'POST' }));
-      return maybeResult.then((response) => {
-        expect(response).to.eql(apiResponse);
-      });
+      return maybeResult
+        .then(response => response.json())
+        .then((response) => {
+          expect(response).to.eql(apiResponse);
+        });
     });
 
     it('Should return an API error for all 4xx status codes', () => {

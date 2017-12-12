@@ -15,8 +15,10 @@ export default class AuthAPI extends API {
    * @param data The sign-up data.
    * @return A resolved or rejected promise containing an API result.
    */
-  signUp(data: SignUpForm): Promise<APIResponse> {
-    return this.jsonRequest('api/auth/sign-up', data);
+  async signUp(data: SignUpForm): Promise<APIResponse> {
+    const response = await this.jsonRequest('api/auth/sign-up', data);
+
+    return response.json();
   }
 
   /**
@@ -25,8 +27,10 @@ export default class AuthAPI extends API {
    * @param data The sign-in data.
    * @returns An object indicating if the process was successful or not.
    */
-  signIn(data: SignInForm): Promise<APIResponse> {
-    return this.jsonRequest('api/auth/sign-in', data);
+  async signIn(data: SignInForm): Promise<APIResponse> {
+    const response = await this.jsonRequest('api/auth/sign-in', data);
+
+    return response.json();
   }
 
   /**
@@ -34,8 +38,10 @@ export default class AuthAPI extends API {
    *
    * @returns An object indicating if the process was successful or not.
    */
-  signOut(): Promise<APIResponse> {
-    return this.request('api/auth/sign-out');
+  async signOut(): Promise<APIResponse> {
+    const response = await this.request('api/auth/sign-out');
+
+    return response.json();
   }
 
   /**
@@ -43,8 +49,10 @@ export default class AuthAPI extends API {
    *
    * @returns An object indicating if the process was successful or not.
    */
-  user(): Promise<APIResponse> {
-    return this.request('api/auth/user');
+  async user(): Promise<APIResponse> {
+    const response = await this.request('api/auth/user');
+
+    return response.json();
   }
 
   /**
@@ -53,8 +61,10 @@ export default class AuthAPI extends API {
    * @param token The token for which the account should be activated.
    * @returns An object indicating if the process was successful or not.
    */
-  activateAccount(token: string): Promise<APIResponse> {
-    return this.request(`api/auth/account/activation/${token}`);
+  async activateAccount(token: string): Promise<APIResponse> {
+    const response = await this.request(`api/auth/account/activation/${token}`);
+
+    return response.json();
   }
 
   /**
@@ -63,8 +73,10 @@ export default class AuthAPI extends API {
    * @param email The email address to send the email to.
    * @returns An object indicating if the process was successful or not.
    */
-  sendActivationMail(email: string): Promise<APIResponse> {
-    return this.jsonRequest('api/auth/account/activation', { email });
+  async sendActivationMail(email: string): Promise<APIResponse> {
+    const response = await this.jsonRequest('api/auth/account/activation', { email });
+
+    return response.json();
   }
 
   /**
@@ -73,8 +85,10 @@ export default class AuthAPI extends API {
    * @param data The forgot password data.
    * @returns An object indicating if the process was successful or not.
    */
-  recoverPassword(data: RecoverPasswordForm): Promise<APIResponse> {
-    return this.jsonRequest('api/auth/password/recovery', data);
+  async recoverPassword(data: RecoverPasswordForm): Promise<APIResponse> {
+    const response = await this.jsonRequest('api/auth/password/recovery', data);
+
+    return response.json();
   }
 
   /**
@@ -83,8 +97,10 @@ export default class AuthAPI extends API {
    * @param token The token to validate.
    * @returns An object indicating if the token is valid or not.
    */
-  validatePasswordToken(token: string): Promise<APIResponse> {
-    return this.request(`api/auth/password/recovery/${token}`);
+  async validatePasswordToken(token: string): Promise<APIResponse> {
+    const response = await this.request(`api/auth/password/recovery/${token}`);
+
+    return response.json();
   }
 
   /**
@@ -94,7 +110,9 @@ export default class AuthAPI extends API {
    * @param data  The reset password data.
    * @returns An object indicating if the process was successful or not.
    */
-  resetPassword(token: string, data: ResetPasswordForm): Promise<APIResponse> {
-    return this.jsonRequest(`api/auth/password/recovery/${token}`, data);
+  async resetPassword(token: string, data: ResetPasswordForm): Promise<APIResponse> {
+    const response = await this.jsonRequest(`api/auth/password/recovery/${token}`, data);
+
+    return response.json();
   }
 }
