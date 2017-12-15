@@ -6,7 +6,7 @@ import { Form } from 'react-redux-form';
 import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignUpModule';
-import InputField from 'components/InputField';
+import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
 import Spinner from 'components/Spinner';
 import config from 'config/index';
@@ -29,33 +29,42 @@ export const SignUpComponent = ({
 }: Props) => (
   <Panel className="sign-up" header={i18n.t`Sign-Up`}>
     <Form model={modelPath} onSubmit={onSignUp} autoComplete="off">
-      <InputField
+      <FormControl
         id="name"
-        type="text"
         label={i18n.t`Name`}
         formProps={name}
-        maxLength="255"
+        controlProps={{
+          type: 'text',
+          placeholder: i18n.t`Name`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
         }}
       />
-      <InputField
+      <FormControl
         id="email"
-        type="email"
         label={i18n.t`Email`}
         formProps={email}
-        maxLength="255"
+        controlProps={{
+          type: 'email',
+          placeholder: i18n.t`Email`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
           isEmail,
         }}
       />
-      <InputField
+      <FormControl
         id="password"
-        type="password"
         label={i18n.t`Password`}
         formProps={password}
-        maxLength="255"
+        controlProps={{
+          type: 'password',
+          placeholder: i18n.t`Password`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
         }}

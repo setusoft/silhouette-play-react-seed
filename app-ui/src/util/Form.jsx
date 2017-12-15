@@ -10,6 +10,7 @@ import type { Node } from 'react';
 export type FormProps = {
   submitted: boolean,
   touched: boolean,
+  pristine: boolean,
   valid: boolean,
   validated: boolean,
 }
@@ -17,17 +18,14 @@ export type FormProps = {
 /**
  * A helper which returns the "react-bootstrap" validation state.
  *
+ * We show only errors, because then the form looks more tidy and consistent especially if fields are prefilled
+ * and not touched.
+ *
  * @param field The field.
- * @returns If the field was not touched then null, otherwise 'success' if the validation was
- * successful or 'error' if the validation has failed.
+ * @returns If the field was not touched or the field is valid then null, otherwise 'error' if the validation
+ * has failed.
  */
-export const validationState = (field: FormProps): ?string => {
-  if (!field.touched) {
-    return null;
-  }
-
-  return field.valid ? 'success' : 'error';
-};
+export const validationState = (field: FormProps): ?string => (!field.touched || field.valid ? null : 'error');
 
 /**
  * Wraps a "react-redux-form" field error into a "react-bootstrap" `HelpBlock`.

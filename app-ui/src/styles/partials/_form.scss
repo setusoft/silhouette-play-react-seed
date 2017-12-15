@@ -17,10 +17,13 @@ form label.checkbox-inline {
 
 form input[type="text"],
 form input[type="email"],
-form input[type="password"] {
+form input[type="password"],
+form textarea.form-control {
   border-radius: 0;
 }
 
 form .has-feedback label~.form-control-feedback {
   top: 22px!important;
 }
+
+form textarea { resize: vertical; }

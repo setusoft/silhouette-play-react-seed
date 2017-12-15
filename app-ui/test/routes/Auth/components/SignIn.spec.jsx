@@ -8,7 +8,7 @@ import { Panel, Button } from 'react-bootstrap';
 import { Form } from 'react-redux-form';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignInModule';
-import InputField from 'components/InputField';
+import FormControl from 'components/FormControl';
 import Spinner from 'components/Spinner';
 import { SignInComponent } from 'routes/Auth/components/SignIn/SignIn';
 import isEmail from 'validator/lib/isEmail';
@@ -84,20 +84,20 @@ describe('(Component) Auth/SignIn', () => {
     });
 
     describe('(Field) email', () => {
-      it('Should be a `InputField`', () => {
-        expect(wrapper.find('#email').find(InputField)).to.have.length(1);
-      });
-
-      it('Should be an email field', () => {
-        expect(wrapper.find('#email').get(0).props.type).to.be.equal('email');
+      it('Should be a `FormControl`', () => {
+        expect(wrapper.find('#email').find(FormControl)).to.have.length(1);
       });
 
       it('Should have a label set to "Email"', () => {
         expect(wrapper.find('#email').get(0).props.label).to.be.equal('Email');
       });
 
-      it('Should have a maxLength set to 255', () => {
-        expect(wrapper.find('#email').get(0).props.maxLength).to.be.equal('255');
+      it('Should have the correct controlProps set', () => {
+        expect(wrapper.find('#email').get(0).props.controlProps).to.eql({
+          type: 'email',
+          placeholder: 'Email',
+          maxLength: 255,
+        });
       });
 
       it('Should have the correct validator set', () => {
@@ -109,20 +109,20 @@ describe('(Component) Auth/SignIn', () => {
     });
 
     describe('(Field) password', () => {
-      it('Should be a `InputField`', () => {
-        expect(wrapper.find('#password').find(InputField)).to.have.length(1);
-      });
-
-      it('Should be a password field', () => {
-        expect(wrapper.find('#password').get(0).props.type).to.be.equal('password');
+      it('Should be a `FormControl`', () => {
+        expect(wrapper.find('#password').find(FormControl)).to.have.length(1);
       });
 
       it('Should have a label set to "Password"', () => {
         expect(wrapper.find('#password').get(0).props.label).to.be.equal('Password');
       });
 
-      it('Should have a maxLength set to 255', () => {
-        expect(wrapper.find('#password').get(0).props.maxLength).to.be.equal('255');
+      it('Should have the correct controlProps set', () => {
+        expect(wrapper.find('#password').get(0).props.controlProps).to.eql({
+          type: 'password',
+          placeholder: 'Password',
+          maxLength: 255,
+        });
       });
 
       it('Should have the correct validator set', () => {
