@@ -6,7 +6,7 @@ import { Form, Control } from 'react-redux-form';
 import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/SignInModule';
-import InputField from 'components/InputField';
+import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
 import Spinner from 'components/Spinner';
 import config from 'config/index';
@@ -28,23 +28,29 @@ export const SignInComponent = ({
 }: Props) => (
   <Panel className="sign-in" header={i18n.t`Sign-In`}>
     <Form model={modelPath} onSubmit={onSignIn} autoComplete="off">
-      <InputField
+      <FormControl
         id="email"
-        type="email"
         label={i18n.t`Email`}
         formProps={email}
-        maxLength="255"
+        controlProps={{
+          type: 'email',
+          placeholder: i18n.t`Email`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
           isEmail,
         }}
       />
-      <InputField
+      <FormControl
         id="password"
-        type="password"
         label={i18n.t`Password`}
         formProps={password}
-        maxLength="255"
+        controlProps={{
+          type: 'password',
+          placeholder: i18n.t`Password`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
         }}

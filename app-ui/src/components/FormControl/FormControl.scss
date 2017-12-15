@@ -1,0 +1,11 @@
+@import '../../styles/partials/variables';
+
+.custom-form-control {
+  .help {
+    color: $gray;
+  }
+
+  .control {
+    position: relative;
+  }
+}

@@ -13,8 +13,8 @@ describe('(Util) Form', () => {
       expect(validationState({ touched: false })).to.be.null();
     });
 
-    it('Should return "success" if the form is valid', () => {
-      expect(validationState({ touched: true, valid: true })).to.equal('success');
+    it('Should return null if the form is valid', () => {
+      expect(validationState({ touched: true, valid: true })).to.be.null();
     });
 
     it('Should return "error" if the form is not valid', () => {

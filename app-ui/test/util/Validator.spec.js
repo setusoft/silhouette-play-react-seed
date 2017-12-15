@@ -6,12 +6,8 @@ describe('(Util) Validator', () => {
       expect(isRequired).to.be.a('function');
     });
 
-    it('Should return false for a undefined value', () => {
-      expect(isRequired(undefined)).to.be.false();
-    });
-
-    it('Should return false for a null value', () => {
-      expect(isRequired(null)).to.be.false();
+    it('Should throw an error for a non string value', () => {
+      expect(() => isRequired(undefined)).to.throw(TypeError);
     });
 
     it('Should return false for an empty string', () => {

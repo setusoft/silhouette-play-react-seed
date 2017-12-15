@@ -1,13 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
+import { userState } from 'modules/StateModule';
 
 export const initialState = {
   initialized: false,
   data: {},
 };
-
-export const userState = [
-  // Add here the state keys you would like to reset
-];
 
 export const initUser = createAction('AUTH_INIT_USER');
 export const fetchUser = createAction('AUTH_FETCH_USER');

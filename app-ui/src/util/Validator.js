@@ -1,3 +1,5 @@
 // @flow
+import isEmpty from 'validator/lib/isEmpty';
+
 /* eslint-disable import/prefer-default-export */
-export const isRequired = (val: string): boolean => (typeof val === 'string' && val.length !== 0);
+export const isRequired = (val: string): boolean => !isEmpty(val);

@@ -1,8 +1,8 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
 import { initApp } from 'modules/AppModule';
-import { resetState } from 'modules/StateModule';
-import { userState, initUser, fetchUser, saveUser, deleteUser, resetUserState } from 'routes/Auth/modules/UserModule';
+import { userState, resetState } from 'modules/StateModule';
+import { initUser, fetchUser, saveUser, deleteUser, resetUserState } from 'routes/Auth/modules/UserModule';
 import saga, {
   fetchUserTask,
   initUserWorker,

@@ -5,7 +5,7 @@ import { Form } from 'react-redux-form';
 import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/ResetPasswordModule';
-import InputField from 'components/InputField';
+import FormControl from 'components/FormControl';
 import Spinner from 'components/Spinner';
 import type { FormProps } from 'util/Form';
 
@@ -26,12 +26,15 @@ export const ResetPasswordComponent = ({
       <Trans>Strong passwords include numbers, letters and special characters.</Trans>
     </p>
     <Form model={modelPath} onSubmit={data => onReset(token, data)} autoComplete="off">
-      <InputField
+      <FormControl
         id="password"
-        type="password"
         label={i18n.t`Password`}
         formProps={password}
-        maxLength="255"
+        controlProps={{
+          type: 'password',
+          placeholder: i18n.t`Password`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
         }}

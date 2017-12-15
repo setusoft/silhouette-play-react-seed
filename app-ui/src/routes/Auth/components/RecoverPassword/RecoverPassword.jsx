@@ -6,7 +6,7 @@ import { Form } from 'react-redux-form';
 import { withI18n, Trans } from 'lingui-react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'routes/Auth/modules/RecoverPasswordModule';
-import InputField from 'components/InputField';
+import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
 import Spinner from 'components/Spinner';
 import config from 'config/index';
@@ -32,12 +32,15 @@ export const RecoverPasswordComponent = ({
       </Trans>
     </p>
     <Form model={modelPath} onSubmit={onSend} autoComplete="off">
-      <InputField
+      <FormControl
         id="email"
-        type="email"
         label={i18n.t`Email`}
         formProps={email}
-        maxLength="255"
+        controlProps={{
+          type: 'email',
+          placeholder: i18n.t`Email`,
+          maxLength: 255,
+        }}
         validators={{
           isRequired,
           isEmail,
