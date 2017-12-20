@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import locationReducer from 'modules/LocationModule';
 import i18nReducer from 'modules/I18nModule';
 import stateReducer from 'modules/StateModule';
-import authReducer from 'routes/Auth/modules/AuthModule';
+import userReducer from 'modules/UserModule';
 
 export const makeRootReducer = (asyncReducers) => {
   const appReducer = combineReducers({
     location: locationReducer,
     i18n: i18nReducer,
-    auth: authReducer,
+    user: userReducer,
     ...asyncReducers,
   });
 

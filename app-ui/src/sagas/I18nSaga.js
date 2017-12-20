@@ -1,14 +1,15 @@
 // @flow
-import { call, put, take } from 'redux-saga/effects';
+import { all, call, put, take } from 'redux-saga/effects';
 import {
   fetchCatalog,
   fetchCatalogPending,
   fetchCatalogFulfilled,
   fetchCatalogRejected,
 } from 'modules/I18nModule';
+import { combineSagas } from 'util/Saga';
 import I18nAPI from 'apis/I18nAPI';
 
-export function* fetchCatalogSaga(api: I18nAPI): Generator<*, *, *> {
+export function* fetchCatalogWorker(api: I18nAPI): Generator<*, *, *> {
   while (true) {
     const { payload } = yield take(fetchCatalog().type);
     try {
@@ -21,5 +22,11 @@ export function* fetchCatalogSaga(api: I18nAPI): Generator<*, *, *> {
   }
 }
 
+export function* i18nSaga(api: I18nAPI): Generator<*, *, *> {
+  yield all(combineSagas([
+    [fetchCatalogWorker, api],
+  ]));
+}
+
 const api = new I18nAPI();
-export default [fetchCatalogSaga, api];
+export default [i18nSaga, api];

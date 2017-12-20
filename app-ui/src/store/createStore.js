@@ -1,6 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import { browserHistory } from 'react-router';
-import { updateLocation } from 'modules/LocationModule';
+import { history, updateLocation } from 'modules/LocationModule';
 import { middleware, sagaMiddleware } from './middleware';
 import { makeRootReducer } from './reducers';
 import { rootSaga } from './sagas';
@@ -35,7 +34,7 @@ export default (initialState = {}) => {
   store.asyncSagas = {};
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-  store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
+  store.unsubscribeHistory = history.listen(updateLocation(store));
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {

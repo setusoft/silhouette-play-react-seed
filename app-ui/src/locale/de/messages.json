@@ -1,43 +1,11 @@
 {
-  "This field is required": {
-    "translation": "Dies ist ein Pflichtfeld",
-    "origin": [
-      [
-        "src\\components\\InputField\\InputField.jsx",
-        22
-      ]
-    ]
-  },
-  "Valid email required": {
-    "translation": "Keine gültige E-Mail-Adresse",
-    "origin": [
-      [
-        "src\\components\\InputField\\InputField.jsx",
-        23
-      ]
-    ]
-  },
-  "The Page you are looking for could not be found!": {
-    "translation": "Die Seite konnte nicht gefunden werden!",
-    "origin": [
-      [
-        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
-        14
-      ]
-    ]
-  },
-  "Back to Home": {
-    "translation": "Zur Startseite",
-    "origin": [
-      [
-        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
-        15
-      ]
-    ]
-  },
   "Activate account": {
     "translation": "Account aktivieren",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        19
+      ],
       [
         "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         17
@@ -48,6 +16,10 @@
     "translation": "Du kannst dich leider noch nicht einloggen. Wir haben dir eine Aktivierungs-E-Mail an folgende Adresse geschickt:",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        20
+      ],
+      [
         "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         18
       ]
@@ -56,6 +28,10 @@
   "Please follow the instructions in that email to activate your account.": {
     "translation": "Bitte folge den Instruktionen in dieser E-Mail um deinen Account zu aktivieren.",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        22
+      ],
       [
         "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         20
@@ -66,6 +42,10 @@
     "translation": "Klicke auf den folgenden Button um eine neue Aktivierungs-E-Mail zu senden.",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        23
+      ],
+      [
         "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         21
       ]
@@ -74,6 +54,14 @@
   "Send": {
     "translation": "Senden",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        25
+      ],
+      [
+        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        25
+      ],
       [
         "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         23
@@ -88,6 +76,10 @@
     "translation": "Passwort wiederherstellen",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        28
+      ],
+      [
         "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         26
       ]
@@ -97,6 +89,10 @@
     "translation": "Gib bitte deine E-Mail-Adresse, mit der du dich registriert hast, an. Wir senden dir dann eine E-Mail mit einem Link, mit dem du dein Passwort zurücksetzen kannst.",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        30
+      ],
+      [
         "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         28
       ]
@@ -105,6 +101,30 @@
   "Email": {
     "translation": "E-Mail",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        37
+      ],
+      [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        41
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        33
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        37
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        47
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        51
+      ],
       [
         "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         36
@@ -123,6 +143,14 @@
     "translation": "Absenden",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        50
+      ],
+      [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        50
+      ],
+      [
         "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         45
       ],
@@ -136,6 +164,10 @@
     "translation": "Zurück zum Login",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
+        52
+      ],
+      [
         "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         47
       ]
@@ -144,6 +176,10 @@
   "Reset password": {
     "translation": "Passwort zurücksetzen",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        24
+      ],
       [
         "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         22
@@ -154,6 +190,10 @@
     "translation": "Sichere Passwörter enthalten Zahlen, Buchstaben und Sonderzeichen.",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        26
+      ],
+      [
         "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         24
       ]
@@ -162,6 +202,30 @@
   "Password": {
     "translation": "Passwort",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        31
+      ],
+      [
+        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        35
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        47
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        51
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        61
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        65
+      ],
       [
         "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         30
@@ -180,6 +244,14 @@
     "translation": "Zurücksetzen",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        43
+      ],
+      [
+        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
+        43
+      ],
+      [
         "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         38
       ],
@@ -193,6 +265,10 @@
     "translation": "Login",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        29
+      ],
+      [
         "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
         27
       ]
@@ -202,6 +278,10 @@
     "translation": "Login auf diesem Gerät merken",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        62
+      ],
+      [
         "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
         54
       ]
@@ -210,6 +290,14 @@
   "Sign in": {
     "translation": "Anmelden",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        65
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        65
+      ],
       [
         "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
         57
@@ -224,6 +312,10 @@
     "translation": "Passwort vergessen?",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        69
+      ],
+      [
         "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
         61
       ]
@@ -232,6 +324,10 @@
   "Sign-Up": {
     "translation": "Registrierung",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        30
+      ],
       [
         "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
         28
@@ -242,6 +338,14 @@
     "translation": "Name",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        34
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        38
+      ],
+      [
         "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
         33
       ]
@@ -250,6 +354,14 @@
   "Sign up": {
     "translation": "Registrieren",
     "origin": [
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        73
+      ],
+      [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        73
+      ],
       [
         "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
         62
@@ -264,6 +376,10 @@
     "translation": "Bereits ein Mitglied?",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        77
+      ],
+      [
         "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
         66
       ]
@@ -273,8 +389,64 @@
     "translation": "Jetzt einloggen",
     "origin": [
       [
+        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        77
+      ],
+      [
         "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
         66
+      ]
+    ]
+  },
+  "This field is required": {
+    "translation": "Dies ist ein Pflichtfeld",
+    "origin": [
+      [
+        "src\\components\\FormControl\\FormControl.jsx",
+        25
+      ],
+      [
+        "src\\components\\InputField\\InputField.jsx",
+        22
+      ]
+    ]
+  },
+  "Valid email required": {
+    "translation": "Keine gültige E-Mail-Adresse",
+    "origin": [
+      [
+        "src\\components\\FormControl\\FormControl.jsx",
+        26
+      ],
+      [
+        "src\\components\\InputField\\InputField.jsx",
+        23
+      ]
+    ]
+  },
+  "The Page you are looking for could not be found!": {
+    "translation": "Die Seite konnte nicht gefunden werden!",
+    "origin": [
+      [
+        "src\\components\\NotFound\\NotFound.jsx",
+        19
+      ],
+      [
+        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
+        14
+      ]
+    ]
+  },
+  "Back to Home": {
+    "translation": "Zur Startseite",
+    "origin": [
+      [
+        "src\\components\\NotFound\\NotFound.jsx",
+        20
+      ],
+      [
+        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
+        15
       ]
     ]
   }

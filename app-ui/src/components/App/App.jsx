@@ -1,12 +1,15 @@
 // @flow
 import React from 'react';
-import { browserHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
+import { Switch, Router, Route, Redirect } from 'react-router-dom';
+import { history } from 'modules/LocationModule';
 import I18nLoaderContainer from 'containers/I18nLoaderContainer';
 import PreloaderContainer from 'containers/PreloaderContainer';
+import { CaptureNotFoundRoute, NotFoundRoute } from 'components/NotFound';
+import { secured, unsecured } from 'util/Auth';
+import * as Bundles from 'bundles';
 
 type Props = {
-  routes: Object,
   store: Object,
 }
 
@@ -34,13 +37,22 @@ class App extends React.Component<Props> {
    * @returns The component.
    */
   render() {
-    const { routes, store } = this.props;
+    const { store } = this.props;
 
     return (
       <Provider store={store}>
         <I18nLoaderContainer>
           <PreloaderContainer>
-            <Router history={browserHistory}>{routes}</Router>
+            <Router history={history}>
+              <CaptureNotFoundRoute>
+                <Switch>
+                  <Redirect exact from="/" to="/admin" />
+                  <Route path="/admin" component={secured(Bundles.admin(store))} />
+                  <Route path="/auth" component={unsecured(Bundles.auth(store))} />
+                  <NotFoundRoute />
+                </Switch>
+              </CaptureNotFoundRoute>
+            </Router>
           </PreloaderContainer>
         </I18nLoaderContainer>
       </Provider>

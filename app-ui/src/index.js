@@ -23,16 +23,14 @@ const store = createStore(initialState);
 const MOUNT_NODE = document.getElementById('root');
 
 let render = () => {
-  // eslint-disable-next-line import/no-extraneous-dependencies,global-require
-  const routes = require('./routes/index').default(store);
   // eslint-disable-next-line react/jsx-filename-extension
-  const AppComponent = lifecycle(App, { componentWillMount: initApp });
+  const AppComponent = lifecycle(App, { componentWillMount: initApp() });
 
   ReactDOM.render(
     // https://github.com/gaearon/react-hot-loader/issues/666
     // eslint-disable-next-line react/jsx-filename-extension
     <AppContainer warnings={false}>
-      <AppComponent store={store} routes={routes} />
+      <AppComponent store={store} />
     </AppContainer>,
     MOUNT_NODE,
   );
@@ -60,13 +58,6 @@ if (process.env.NODE_ENV === 'development') {
         renderError(error);
       }
     };
-
-    // Setup hot module replacement
-    module.hot.accept('./routes/index', () =>
-      setImmediate(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-        render();
-      }));
   }
 }
 

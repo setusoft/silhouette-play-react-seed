@@ -1,8 +1,9 @@
 import get from 'lodash/get';
-import browserHistory from 'react-router/lib/browserHistory';
+import createHistory from 'history/createBrowserHistory';
 import { createAction, handleActions } from 'redux-actions';
 
-export const initialState = browserHistory.getCurrentLocation();
+export const history = createHistory();
+export const initialState = history.location;
 
 export const getPathname = state => get(state, 'pathname', window.location.pathname);
 

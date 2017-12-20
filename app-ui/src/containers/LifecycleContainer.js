@@ -17,7 +17,7 @@ export default (Component, actions) => {
    * @returns {Object} The props passed to the react component.
    */
   const mapDispatchToProps = dispatch =>
-    reduce(actions, (acc, value, key) => ({ ...acc, [key]: () => dispatch(value()) }), {});
+    reduce(actions, (acc, action, key) => ({ ...acc, [key]: () => dispatch(action) }), {});
 
   return connect(mapStateToProps, mapDispatchToProps)(lifecycle(Component));
 };
