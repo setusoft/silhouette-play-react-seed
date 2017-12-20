@@ -1,11 +1,18 @@
 import { isFSA } from 'flux-standard-action';
 import locationReducer, {
+  history,
   initialState,
   locationChange,
   updateLocation,
 } from 'modules/LocationModule';
 
-describe('(Internal Module) Location', () => {
+describe('(Redux Module) Location', () => {
+  describe('(Object) history', () => {
+    it('Should be exported as a object', () => {
+      expect(history).to.be.a('object');
+    });
+  });
+
   describe('(Action Creator) locationChange', () => {
     it('Should be exported as a function', () => {
       expect(locationChange).to.be.a('function');

@@ -1,0 +1,18 @@
+#header {
+  .navbar-nav.authenticated .sign-out {
+    padding-top: 7px;
+  }
+
+  .navbar-nav.authenticated a {
+    padding: 5px;
+  }
+
+  .navbar-text.navbar-right.authenticated {
+    margin: 17px 15px 15px 13px;
+    font-size: 13px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+}
