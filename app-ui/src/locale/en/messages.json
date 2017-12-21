@@ -5,10 +5,6 @@
       [
         "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         19
-      ],
-      [
-        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        17
       ]
     ]
   },
@@ -18,10 +14,6 @@
       [
         "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         20
-      ],
-      [
-        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        18
       ]
     ]
   },
@@ -31,10 +23,6 @@
       [
         "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         22
-      ],
-      [
-        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        20
       ]
     ]
   },
@@ -44,10 +32,6 @@
       [
         "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         23
-      ],
-      [
-        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        21
       ]
     ]
   },
@@ -61,14 +45,6 @@
       [
         "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
         25
-      ],
-      [
-        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        23
-      ],
-      [
-        "src\\routes\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        23
       ]
     ]
   },
@@ -78,10 +54,6 @@
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         28
-      ],
-      [
-        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        26
       ]
     ]
   },
@@ -91,10 +63,6 @@
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         30
-      ],
-      [
-        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        28
       ]
     ]
   },
@@ -124,18 +92,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         51
-      ],
-      [
-        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        36
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        32
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        43
       ]
     ]
   },
@@ -149,14 +105,6 @@
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         50
-      ],
-      [
-        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        45
-      ],
-      [
-        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        45
       ]
     ]
   },
@@ -166,10 +114,6 @@
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
         52
-      ],
-      [
-        "src\\routes\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        47
       ]
     ]
   },
@@ -179,10 +123,6 @@
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         24
-      ],
-      [
-        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        22
       ]
     ]
   },
@@ -192,10 +132,6 @@
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         26
-      ],
-      [
-        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        24
       ]
     ]
   },
@@ -225,18 +161,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         65
-      ],
-      [
-        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        30
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        43
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        54
       ]
     ]
   },
@@ -250,14 +174,6 @@
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
         43
-      ],
-      [
-        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        38
-      ],
-      [
-        "src\\routes\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        38
       ]
     ]
   },
@@ -267,10 +183,6 @@
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
         29
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        27
       ]
     ]
   },
@@ -280,10 +192,6 @@
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
         62
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        54
       ]
     ]
   },
@@ -297,14 +205,6 @@
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
         65
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        57
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        57
       ]
     ]
   },
@@ -314,10 +214,6 @@
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
         69
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignIn\\SignIn.jsx",
-        61
       ]
     ]
   },
@@ -327,10 +223,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         30
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        28
       ]
     ]
   },
@@ -344,10 +236,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         38
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        33
       ]
     ]
   },
@@ -361,14 +249,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         73
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        62
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        62
       ]
     ]
   },
@@ -378,10 +258,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         77
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        66
       ]
     ]
   },
@@ -391,10 +267,6 @@
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
         77
-      ],
-      [
-        "src\\routes\\Auth\\components\\SignUp\\SignUp.jsx",
-        66
       ]
     ]
   },
@@ -404,10 +276,6 @@
       [
         "src\\components\\FormControl\\FormControl.jsx",
         25
-      ],
-      [
-        "src\\components\\InputField\\InputField.jsx",
-        22
       ]
     ]
   },
@@ -417,10 +285,6 @@
       [
         "src\\components\\FormControl\\FormControl.jsx",
         26
-      ],
-      [
-        "src\\components\\InputField\\InputField.jsx",
-        23
       ]
     ]
   },
@@ -430,10 +294,6 @@
       [
         "src\\components\\NotFound\\NotFound.jsx",
         19
-      ],
-      [
-        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
-        14
       ]
     ]
   },
@@ -443,10 +303,6 @@
       [
         "src\\components\\NotFound\\NotFound.jsx",
         20
-      ],
-      [
-        "src\\layouts\\NotFoundLayout\\NotFoundLayout.jsx",
-        15
       ]
     ]
   }

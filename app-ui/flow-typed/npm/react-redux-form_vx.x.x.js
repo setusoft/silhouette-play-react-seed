@@ -1,4 +1,4 @@
-// flow-typed signature: e848e56ceb71d9e527fac17037e814ee
+// flow-typed signature: 8fc6d14824daf93d74d3860192be060f
 // flow-typed version: <<STUB>>/react-redux-form_v^1.16.1/flow_v0.59.0
 
 /**
@@ -427,6 +427,10 @@ declare module 'react-redux-form/lib/utils/shallow-compare-without-children' {
 }
 
 declare module 'react-redux-form/lib/utils/shallow-equal' {
+  declare module.exports: any;
+}
+
+declare module 'react-redux-form/lib/utils/to-array' {
   declare module.exports: any;
 }
 
@@ -1236,6 +1240,9 @@ declare module 'react-redux-form/lib/utils/shallow-compare-without-children.js' 
 }
 declare module 'react-redux-form/lib/utils/shallow-equal.js' {
   declare module.exports: $Exports<'react-redux-form/lib/utils/shallow-equal'>;
+}
+declare module 'react-redux-form/lib/utils/to-array.js' {
+  declare module.exports: $Exports<'react-redux-form/lib/utils/to-array'>;
 }
 declare module 'react-redux-form/lib/utils/to-path.js' {
   declare module.exports: $Exports<'react-redux-form/lib/utils/to-path'>;
