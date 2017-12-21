@@ -19,7 +19,7 @@ describe('(Component) Auth/Layout', () => {
     wrapper = shallow(<Layout />);
   });
 
-  it('Should contain the `Provider` as root element', () => {
+  it('Should contain the `CoreLayout` as root element', () => {
     expect(wrapper.first().is(CoreLayout)).to.be.true();
   });
 
