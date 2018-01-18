@@ -40,8 +40,8 @@ export default class I18nLoader extends React.Component<Props> {
   static loadIntlPolyfill(lang: string): void {
     if (!global.Intl) {
       Promise.all([
-        import(/* webpackMode: "lazy", webpackChunkName: "intl-[index]" */ 'intl'),
-        import(/* webpackMode: "lazy", webpackChunkName: "intl-[index]" */ `intl/locale-data/jsonp/${lang}.js`),
+        import(/* webpackChunkName: "intl" */ 'intl'),
+        import(/* webpackChunkName: "intl" */ `intl/locale-data/jsonp/${lang}.js`),
       ]);
     }
   }

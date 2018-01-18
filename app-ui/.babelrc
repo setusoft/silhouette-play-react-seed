@@ -1,5 +1,4 @@
 {
-  "presets": ["lingui-react"],
   "env": {
     "test": {
       "plugins": [
