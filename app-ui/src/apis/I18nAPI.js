@@ -14,15 +14,9 @@ export default class I18nAPI {
    */
   async fetchCatalog(language: string): Promise<Object> {
     try {
-      // eslint-disable-next-line function-paren-newline
-      return unpackCatalog(await import(
-        /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
-        `locale/${language}/messages.js`));
+      return unpackCatalog(await import(/* webpackChunkName: "i18n" */ `locale/${language}/messages.js`));
     } catch (e) {
-      // eslint-disable-next-line function-paren-newline
-      return unpackCatalog(await import(
-        /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
-        'locale/en/messages.js'));
+      return unpackCatalog(await import(/* webpackChunkName: "i18n" */ 'locale/en/messages.js'));
     }
   }
 }

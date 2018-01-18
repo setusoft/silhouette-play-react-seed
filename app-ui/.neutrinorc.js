@@ -9,6 +9,11 @@ module.exports = {
           "Access-Control-Allow-Origin": "*",
         }
       },
+      babel: {
+        presets: [
+          'lingui-react',
+        ],
+      },
     }],
     'neutrino-webpack.js',
     'neutrino-sass.js',
