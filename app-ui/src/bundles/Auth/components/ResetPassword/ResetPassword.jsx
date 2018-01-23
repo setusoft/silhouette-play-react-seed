@@ -11,15 +11,14 @@ import type { FormProps } from 'util/Form';
 
 type Props = {
   token: string,
-  password: FormProps,
+  form: {[string]: FormProps},
   isPending: boolean,
   i18n: Object,
   onReset: (token: string, data: Object) => any,
-  $form: FormProps,
 }
 
 export const ResetPasswordComponent = ({
-  token, password, isPending, i18n, onReset, $form,
+  token, form, isPending, i18n, onReset,
 }: Props) => (
   <Panel className="reset-password" header={i18n.t`Reset password`}>
     <p>
@@ -29,7 +28,7 @@ export const ResetPasswordComponent = ({
       <FormControl
         id="password"
         label={i18n.t`Password`}
-        formProps={password}
+        formProps={form.password}
         controlProps={{
           type: 'password',
           placeholder: i18n.t`Password`,
@@ -39,7 +38,7 @@ export const ResetPasswordComponent = ({
           isRequired,
         }}
       />
-      <Button bsStyle="primary" type="submit" disabled={!$form.valid || isPending} block>
+      <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
         {isPending ? <div><Spinner /> <Trans>Reset</Trans></div> : <Trans>Reset</Trans>}
       </Button>
     </Form>

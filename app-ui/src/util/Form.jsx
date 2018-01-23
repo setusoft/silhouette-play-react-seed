@@ -13,19 +13,26 @@ export type FormProps = {
   pristine: boolean,
   valid: boolean,
   validated: boolean,
+  $form?: FormProps,
 }
 
 /**
- * A helper which returns the "react-bootstrap" validation state.
+ * A helper which indicates if errors should be shown in a form.
  *
- * We show only errors, because then the form looks more tidy and consistent especially if fields are prefilled
- * and not touched.
+ * Forms can be infinitely nested. You can have a form inside a form inside a form! Any sub-model inside a form that
+ * isn't a primitive value, such as an object or array, is considered a form. Its form state is accessed with .$form.
+ * @see https://davidkpiano.github.io/react-redux-form/docs/api/formReducer.html
  *
- * @param field The field.
- * @returns If the field was not touched or the field is valid then null, otherwise 'error' if the validation
- * has failed.
+ * @param formProps The form props.
+ * @returns True if the field is invalid and if it's either touched or focused, false otherwise.
  */
-export const validationState = (field: FormProps): ?string => (!field.touched || field.valid ? null : 'error');
+export const showErrors = (formProps: FormProps): boolean => {
+  if (formProps.$form) {
+    return showErrors(formProps.$form);
+  }
+
+  return (formProps.touched || formProps.submitted) && !formProps.valid;
+};
 
 /**
  * Wraps a "react-redux-form" field error into a "react-bootstrap" `HelpBlock`.
@@ -33,6 +40,7 @@ export const validationState = (field: FormProps): ?string => (!field.touched ||
  * It shows also only one error instead of all errors.
  *
  * @param children The field errors.
+ * @returns A "react-bootstrap" `HelpBlock`
  */
 export const ErrorWrapper = ({ children }: { children: Node }) => (
   <HelpBlock>

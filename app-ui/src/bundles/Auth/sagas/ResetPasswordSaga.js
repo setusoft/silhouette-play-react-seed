@@ -2,7 +2,8 @@
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
 import { call, put, take, all } from 'redux-saga/effects';
-import { combineSagas } from 'util/Saga';
+import { combineSagas, handleError, formErrorHandler } from 'util/Saga';
+import { APIError } from 'util/API';
 import { history } from 'modules/LocationModule';
 import {
   modelPath,
@@ -23,7 +24,7 @@ export function* validatePasswordTokenWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(Alert.success, response.description);
     } catch (e) {
       yield call(history.push, config.route.auth.passwordRecovery);
-      yield call(Alert.error, e.response.description);
+      yield all(handleError(e));
     }
   }
 }
@@ -40,20 +41,13 @@ export function* resetPasswordWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
       yield put(resetPasswordRejected(e));
-      switch (e.response.code) {
-        case 'auth.password.reset.form.invalid': {
-          const details = e.response.details || [];
-          yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
-          break;
-        }
-        case 'auth.password.reset.token.invalid':
-          yield call(history.push, config.route.auth.signIn);
-          yield call(Alert.error, e.response.description);
-          break;
-
-        default:
-          yield call(Alert.error, e.response.description);
-      }
+      yield all(handleError(e, {
+        'auth.password.reset.form.invalid': formErrorHandler(modelPath),
+        'auth.password.reset.token.invalid': (error: APIError) => ([
+          call(history.push, config.route.auth.signIn),
+          call(Alert.error, error.response.description),
+        ]),
+      }));
     }
   }
 }

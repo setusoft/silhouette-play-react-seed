@@ -3,8 +3,10 @@ package core.utils.mongo
 import core.exceptions.MongoException
 import play.api.libs.json.{ JsObject, Reads }
 import play.modules.reactivemongo.json._
+import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, ReadPreference }
+import reactivemongo.play.json.JSONSerializationPack
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ ExecutionContext, Future }
@@ -13,6 +15,7 @@ import scala.concurrent.{ ExecutionContext, Future }
  * Base model for all models which persists data in a MongoDB.
  */
 trait MongoModel {
+  type JSONQueryBuilder = GenericQueryBuilder[JSONSerializationPack.type]
 
   /**
    * The execution context.
@@ -27,21 +30,23 @@ trait MongoModel {
   /**
    * Helper method to query documents.
    *
-   * @param query      The query to execute.
-   * @param projection An optional projection to apply to the query.
-   * @param maxDocs    The max number of docs to query.
-   * @param reader     The JSON reads.
-   * @tparam T         The type of the document to read.
+   * @param query         The query to execute.
+   * @param queryModifier An optional query modifier function.
+   * @param maxDocs       The max number of docs to query.
+   * @param reader        The JSON reads.
+   * @tparam T            The type of the document to read.
    * @return The list of found documents.
    */
-  protected def find[T](query: JsObject, projection: Option[JsObject] = None, maxDocs: Int = Int.MaxValue)(
+  protected def find[T](
+    query: JsObject,
+    queryModifier: Option[JSONQueryBuilder => JSONQueryBuilder] = None,
+    maxDocs: Int = Int.MaxValue
+  )(
     implicit
     reader: Reads[T]
   ): Future[List[T]] = collection.flatMap { coll =>
-    (projection match {
-      case Some(p) => coll.find(query, p)
-      case None    => coll.find(query)
-    }).cursor[T](ReadPreference.nearest).collect[List](maxDocs, Cursor.FailOnError[List[T]]())
+    queryModifier.map(f => f(coll.find(query))).getOrElse(coll.find(query))
+      .cursor[T](ReadPreference.nearest).collect[List](maxDocs, Cursor.FailOnError[List[T]]())
   }
 
   /**

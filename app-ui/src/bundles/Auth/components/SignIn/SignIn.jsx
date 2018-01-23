@@ -15,23 +15,21 @@ import type { FormProps } from 'util/Form';
 import './SignIn.scss';
 
 type Props = {
-  email: FormProps,
-  password: FormProps,
+  form: {[string]: FormProps},
   isPending: boolean,
   i18n: Object,
   onSignIn: () => any,
-  $form: FormProps
 }
 
 export const SignInComponent = ({
-  email, password, isPending, i18n, onSignIn, $form,
+  form, isPending, i18n, onSignIn,
 }: Props) => (
   <Panel className="sign-in" header={i18n.t`Sign-In`}>
     <Form model={modelPath} onSubmit={onSignIn} autoComplete="off">
       <FormControl
         id="email"
         label={i18n.t`Email`}
-        formProps={email}
+        formProps={form.email}
         controlProps={{
           type: 'email',
           placeholder: i18n.t`Email`,
@@ -45,7 +43,7 @@ export const SignInComponent = ({
       <FormControl
         id="password"
         label={i18n.t`Password`}
-        formProps={password}
+        formProps={form.password}
         controlProps={{
           type: 'password',
           placeholder: i18n.t`Password`,
@@ -61,7 +59,7 @@ export const SignInComponent = ({
       >
         <Trans>Remember my login on this computer</Trans>
       </Control.checkbox>
-      <Button bsStyle="primary" type="submit" disabled={!$form.valid || isPending} block>
+      <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
         {isPending ? <div><Spinner /> <Trans>Sign in</Trans></div> : <Trans>Sign in</Trans>}
       </Button>
     </Form>

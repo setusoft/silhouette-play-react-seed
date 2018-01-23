@@ -15,30 +15,25 @@ import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 
 describe('(Component) Auth/SignUp', () => {
-  let name;
-  let email;
-  let password;
   let isPending;
   let onSignUp;
-  let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(<SignUpComponent
-    name={name}
-    email={email}
-    password={password}
+  const getWrapper = (valid = true) => shallow(<SignUpComponent
+    form={{
+      name: {},
+      email: {},
+      password: {},
+      $form: { valid },
+    }}
     isPending={isPending}
     i18n={i18n}
     onSignUp={onSignUp}
-    $form={$form}
   />);
 
   beforeEach(() => {
-    name = 'John Doe';
-    email = 'john@doe.com';
     isPending = true;
     onSignUp = sinon.spy();
-    $form = { valid: true };
     wrapper = getWrapper();
   });
 
@@ -174,15 +169,13 @@ describe('(Component) Auth/SignUp', () => {
 
     it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
       isPending = false;
-      $form = { valid: false };
-      wrapper = getWrapper();
+      wrapper = getWrapper(false);
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
     });
 
     it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
       isPending = true;
-      $form = { valid: true };
       wrapper = getWrapper();
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
@@ -191,7 +184,6 @@ describe('(Component) Auth/SignUp', () => {
     it('Should have prop `disabled` set to false if `$form.valid` is set to true and' +
       '`isPending` is set to false', () => {
       isPending = false;
-      $form = { valid: true };
       wrapper = getWrapper();
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);

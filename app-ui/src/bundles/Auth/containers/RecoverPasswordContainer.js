@@ -11,7 +11,7 @@ import RecoverPassword from 'bundles/Auth/components/RecoverPassword';
  * @returns {Object} The props passed to the react component.
  */
 const mapStateToProps = state => ({
-  ...state.auth.recoverPassword.form,
+  form: state.auth.recoverPassword.form,
   ...state.auth.recoverPassword.request,
 });
 

@@ -1,6 +1,6 @@
 // @flow
 import Alert from 'react-s-alert';
-import { combineSagas } from 'util/Saga';
+import { combineSagas, handleError } from 'util/Saga';
 import { call, put, take, all } from 'redux-saga/effects';
 import { history } from 'modules/LocationModule';
 import {
@@ -22,7 +22,7 @@ export function* activateAccountWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(Alert.success, response.description);
     } catch (e) {
       yield call(history.push, config.route.auth.signIn);
-      yield call(Alert.error, e.response.description);
+      yield all(handleError(e));
     }
   }
 }
@@ -38,7 +38,7 @@ export function* sendActivationEmailWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
       yield put(sendActivationEmailRejected(e));
-      yield call(Alert.error, e.response.description);
+      yield all(handleError(e));
     }
   }
 }

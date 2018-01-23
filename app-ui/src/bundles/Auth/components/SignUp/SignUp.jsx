@@ -15,24 +15,21 @@ import type { FormProps } from 'util/Form';
 import './SignUp.scss';
 
 type Props = {
-  name: FormProps,
-  email: FormProps,
-  password: FormProps,
+  form: {[string]: FormProps},
   isPending: boolean,
   i18n: Object,
   onSignUp: () => any,
-  $form: FormProps
 }
 
 export const SignUpComponent = ({
-  name, email, password, isPending, i18n, onSignUp, $form,
+  form, isPending, i18n, onSignUp,
 }: Props) => (
   <Panel className="sign-up" header={i18n.t`Sign-Up`}>
     <Form model={modelPath} onSubmit={onSignUp} autoComplete="off">
       <FormControl
         id="name"
         label={i18n.t`Name`}
-        formProps={name}
+        formProps={form.name}
         controlProps={{
           type: 'text',
           placeholder: i18n.t`Name`,
@@ -45,7 +42,7 @@ export const SignUpComponent = ({
       <FormControl
         id="email"
         label={i18n.t`Email`}
-        formProps={email}
+        formProps={form.email}
         controlProps={{
           type: 'email',
           placeholder: i18n.t`Email`,
@@ -59,7 +56,7 @@ export const SignUpComponent = ({
       <FormControl
         id="password"
         label={i18n.t`Password`}
-        formProps={password}
+        formProps={form.password}
         controlProps={{
           type: 'password',
           placeholder: i18n.t`Password`,
@@ -69,7 +66,7 @@ export const SignUpComponent = ({
           isRequired,
         }}
       />
-      <Button bsStyle="primary" type="submit" disabled={!$form.valid || isPending} block>
+      <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
         {isPending ? <div><Spinner /> <Trans>Sign up</Trans></div> : <Trans>Sign up</Trans>}
       </Button>
     </Form>
