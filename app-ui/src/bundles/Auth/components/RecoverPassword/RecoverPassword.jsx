@@ -15,15 +15,14 @@ import type { FormProps } from 'util/Form';
 import './RecoverPassword.scss';
 
 type Props = {
-  email: FormProps,
+  form: {[string]: FormProps},
   isPending: boolean,
   i18n: Object,
   onSend: () => any,
-  $form: FormProps,
 }
 
 export const RecoverPasswordComponent = ({
-  email, isPending, i18n, onSend, $form,
+  form, isPending, i18n, onSend,
 }: Props) => (
   <Panel className="recover-password" header={i18n.t`Recover password`}>
     <p>
@@ -35,7 +34,7 @@ export const RecoverPasswordComponent = ({
       <FormControl
         id="email"
         label={i18n.t`Email`}
-        formProps={email}
+        formProps={form.email}
         controlProps={{
           type: 'email',
           placeholder: i18n.t`Email`,
@@ -46,7 +45,7 @@ export const RecoverPasswordComponent = ({
           isEmail,
         }}
       />
-      <Button bsStyle="primary" type="submit" disabled={!$form.valid || isPending} block>
+      <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
         {isPending ? <div><Spinner /> <Trans>Submit</Trans></div> : <Trans>Submit</Trans>}
       </Button>
       <p className="sign-in-link"><Link to={config.route.auth.signIn}><Trans>Back to Sign-In</Trans></Link></p>

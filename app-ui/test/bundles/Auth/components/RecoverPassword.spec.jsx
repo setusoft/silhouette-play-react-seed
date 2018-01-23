@@ -15,25 +15,23 @@ import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 
 describe('(Component) Auth/RecoverPassword', () => {
-  let email;
   let isPending;
   let onSend;
-  let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(<RecoverPasswordComponent
-    email={email}
+  const getWrapper = (valid = true) => shallow(<RecoverPasswordComponent
+    form={{
+      email: {},
+      $form: { valid },
+    }}
     isPending={isPending}
     i18n={i18n}
     onSend={onSend}
-    $form={$form}
   />);
 
   beforeEach(() => {
-    email = 'john@doe.com';
     isPending = true;
     onSend = sinon.spy();
-    $form = { valid: true };
     wrapper = getWrapper();
   });
 
@@ -126,15 +124,13 @@ describe('(Component) Auth/RecoverPassword', () => {
 
     it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
       isPending = false;
-      $form = { valid: false };
-      wrapper = getWrapper();
+      wrapper = getWrapper(false);
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
     });
 
     it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
       isPending = true;
-      $form = { valid: true };
       wrapper = getWrapper();
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
@@ -143,7 +139,6 @@ describe('(Component) Auth/RecoverPassword', () => {
     it('Should have prop `disabled` set to false if `$form.valid` is set to true and' +
       '`isPending` is set to false', () => {
       isPending = false;
-      $form = { valid: true };
       wrapper = getWrapper();
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);

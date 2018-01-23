@@ -2,6 +2,7 @@
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
 import { call, put, take, all } from 'redux-saga/effects';
+import { handleError, formErrorHandler } from 'util/Saga';
 import {
   modelPath,
   signUp,
@@ -22,12 +23,9 @@ export function* signUpSaga(api: AuthAPI): Generator<*, *, *> {
       yield call(Alert.success, response.description, { timeout: 30000 });
     } catch (e) {
       yield put(signUpRejected(e));
-      if (e.response.code === 'auth.signUp.form.invalid') {
-        const details = e.response.details || [];
-        yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
-      } else {
-        yield call(Alert.error, e.response.description);
-      }
+      yield all(handleError(e, {
+        'auth.signUp.form.invalid': formErrorHandler(modelPath),
+      }));
     }
   }
 }

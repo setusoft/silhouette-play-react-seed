@@ -2,6 +2,7 @@
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
 import { call, put, take, all } from 'redux-saga/effects';
+import { handleError, formErrorHandler } from 'util/Saga';
 import { history } from 'modules/LocationModule';
 import {
   modelPath,
@@ -25,12 +26,9 @@ export function* recoverPasswordSaga(api: AuthAPI): Generator<*, *, *> {
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
       yield put(recoverPasswordRejected(e));
-      if (e.response.code === 'auth.password.recover.form.invalid') {
-        const details = e.response.details || [];
-        yield all(details.map(detail => put(actions.setErrors(`${modelPath}.${detail.key}`, detail.message))));
-      } else {
-        yield call(Alert.error, e.response.description);
-      }
+      yield all(handleError(e, {
+        'auth.password.recover.form.invalid': formErrorHandler(modelPath),
+      }));
     }
   }
 }

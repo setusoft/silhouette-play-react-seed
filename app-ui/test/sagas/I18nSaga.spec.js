@@ -44,7 +44,9 @@ describe('(Saga) I18nSaga', () => {
       return expectSaga(fetchCatalogWorker, api)
         .put(fetchCatalogRejected(error))
         .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true });
+        .run({ silenceTimeout: true })
+        .catch(e =>
+          expect(e).to.equal(error));
     });
 
     it('Should call the `fetchCatalog` method of the API', () => {

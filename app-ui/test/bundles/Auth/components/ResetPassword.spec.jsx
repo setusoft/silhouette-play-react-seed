@@ -12,28 +12,26 @@ import Spinner from 'components/Spinner';
 import { ResetPasswordComponent } from 'bundles/Auth/components/ResetPassword/ResetPassword';
 
 describe('(Component) Auth/ResetPassword', () => {
-  let token;
-  let password;
+  const token = 'some-token';
+  const password = 'some-password';
   let isPending;
   let onReset;
-  let $form;
   let wrapper;
 
-  const getWrapper = () => shallow(<ResetPasswordComponent
+  const getWrapper = (valid = true) => shallow(<ResetPasswordComponent
     token={token}
-    password={password}
+    form={{
+      password: {},
+      $form: { valid },
+    }}
     isPending={isPending}
     i18n={i18n}
     onReset={onReset}
-    $form={$form}
   />);
 
   beforeEach(() => {
-    token = 'some-token';
-    password = 'some-password';
     isPending = true;
     onReset = sinon.spy();
-    $form = { valid: true };
     wrapper = getWrapper();
   });
 
@@ -116,15 +114,13 @@ describe('(Component) Auth/ResetPassword', () => {
 
     it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
       isPending = false;
-      $form = { valid: false };
-      wrapper = getWrapper();
+      wrapper = getWrapper(false);
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
     });
 
     it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
       isPending = true;
-      $form = { valid: true };
       wrapper = getWrapper();
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
@@ -133,7 +129,6 @@ describe('(Component) Auth/ResetPassword', () => {
     it('Should have prop `disabled` set to false if `$form.valid` is set to true and' +
       '`isPending` is set to false', () => {
       isPending = false;
-      $form = { valid: true };
       wrapper = getWrapper();
 
       expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);

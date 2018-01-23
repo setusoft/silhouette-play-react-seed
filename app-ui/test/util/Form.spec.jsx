@@ -1,24 +1,32 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { HelpBlock } from 'react-bootstrap';
-import { validationState, ErrorWrapper } from 'util/Form';
+import { showErrors, ErrorWrapper } from 'util/Form';
 
 describe('(Util) Form', () => {
-  describe('(Function) validationState', () => {
+  describe('(Function) showErrors', () => {
     it('Should be a function', () => {
-      expect(validationState).to.be.a('function');
+      expect(showErrors).to.be.a('function');
     });
 
-    it('Should return null if the form is not touched', () => {
-      expect(validationState({ touched: false })).to.be.null();
+    it('Should return `false` if the form is touched and valid', () => {
+      expect(showErrors({ touched: true, valid: true })).to.be.false();
     });
 
-    it('Should return null if the form is valid', () => {
-      expect(validationState({ touched: true, valid: true })).to.be.null();
+    it('Should return `false` if the form is submitted and valid', () => {
+      expect(showErrors({ submitted: true, valid: true })).to.be.false();
     });
 
-    it('Should return "error" if the form is not valid', () => {
-      expect(validationState({ touched: true, valid: false })).to.equal('error');
+    it('Should return `true` if the form is touched and not valid', () => {
+      expect(showErrors({ touched: true, valid: false })).to.be.true();
+    });
+
+    it('Should return `true` if the form is submitted and not valid', () => {
+      expect(showErrors({ touched: true, valid: false })).to.be.true();
+    });
+
+    it('Should handle nested forms', () => {
+      expect(showErrors({ $form: { touched: true, valid: false } })).to.be.true();
     });
   });
 

@@ -13,7 +13,7 @@ import ResetPassword from 'bundles/Auth/components/ResetPassword';
  */
 const mapStateToProps = (state, ownProps) => ({
   token: ownProps.match.params.token,
-  ...state.auth.resetPassword.form,
+  form: state.auth.resetPassword.form,
   ...state.auth.resetPassword.request,
 });
 

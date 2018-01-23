@@ -21,14 +21,24 @@ export class APIResponse {
 
 /**
  * An API error that can transport an `APIResponse`.
+ *
+ * Works with Babel6 and instanceof.
+ * @see https://stackoverflow.com/a/46971044/2153190
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
  */
-export class APIError extends Error {
+export class APIError {
+  name: string;
+  message: string;
+  stack: string;
   response: APIResponse;
   constructor(response: APIResponse) {
-    super(response.description);
     this.response = response;
+    this.name = this.constructor.name;
+    this.message = response.description;
+    this.stack = (new Error(response.description)).stack;
   }
 }
+Object.setPrototypeOf(APIError, Error);
 
 /**
  * Provides helpers for the API implementations.

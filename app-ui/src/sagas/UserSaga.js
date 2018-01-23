@@ -1,11 +1,10 @@
 // @flow
-import Alert from 'react-s-alert';
 import { call, put, take, all } from 'redux-saga/effects';
 import { initApp } from 'modules/AppModule';
 import { history } from 'modules/LocationModule';
 import { resetState } from 'modules/StateModule';
 import { initUser, fetchUser, saveUser, deleteUser, signOutUser, resetUserState } from 'modules/UserModule';
-import { combineSagas } from 'util/Saga';
+import { combineSagas, handleError } from 'util/Saga';
 import UserAPI from 'apis/UserAPI';
 import config from 'config/index';
 
@@ -40,18 +39,13 @@ export function* signOutUserWorker(api: UserAPI): Generator<*, *, *> {
       yield put(resetUserState());
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
-      switch (e.response.code) {
-        case 'auth.unauthorized': {
-          yield put(deleteUser());
-          yield put(resetUserState());
-          yield call(history.push, config.route.auth.signIn);
-          break;
-        }
-
-        default:
-          yield call(Alert.error, e.response.description);
-          break;
-      }
+      yield all(handleError(e, {
+        'auth.unauthorized': () => ([
+          put(deleteUser()),
+          put(resetUserState()),
+          call(history.push, config.route.auth.signIn),
+        ]),
+      }));
     }
   }
 }

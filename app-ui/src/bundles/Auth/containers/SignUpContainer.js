@@ -11,7 +11,7 @@ import SignUp from 'bundles/Auth/components/SignUp';
  * @returns {Object} The props passed to the react component.
  */
 const mapStateToProps = state => ({
-  ...state.auth.signUp.form,
+  form: state.auth.signUp.form,
   ...state.auth.signUp.request,
 });
 
