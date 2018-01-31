@@ -8,6 +8,7 @@ import type { Node } from 'react';
  * The props for a "react-redux-form" related entity.
  */
 export type FormProps = {
+  focus: boolean,
   submitted: boolean,
   touched: boolean,
   pristine: boolean,
@@ -24,14 +25,15 @@ export type FormProps = {
  * @see https://davidkpiano.github.io/react-redux-form/docs/api/formReducer.html
  *
  * @param formProps The form props.
- * @returns True if the field is invalid and if it's either touched or focused, false otherwise.
+ * @returns True if the field is invalid and if it's either touched, submitted or focused and not pristine,
+ * false otherwise.
  */
 export const showErrors = (formProps: FormProps): boolean => {
   if (formProps.$form) {
     return showErrors(formProps.$form);
   }
 
-  return (formProps.touched || formProps.submitted) && !formProps.valid;
+  return (formProps.touched || formProps.submitted || (formProps.focus && !formProps.pristine)) && !formProps.valid;
 };
 
 /**
