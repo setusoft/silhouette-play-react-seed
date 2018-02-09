@@ -125,8 +125,12 @@ describe('(Component) FormControl', () => {
       });
     });
 
-    it('Should contain the FormControl.Feedback', () => {
-      expect(getWrapper().find(FormControl.Feedback)).to.have.length(1);
+    it('Should contain the FormControl.Feedback component if the `feedback` prop is set to true', () => {
+      expect(getWrapper({ feedback: true }).find(FormControl.Feedback)).to.have.length(1);
+    });
+
+    it('Should not contain the FormControl.Feedback component if the `feedback` prop is set to false', () => {
+      expect(getWrapper({ feedback: false }).find(FormControl.Feedback)).to.have.length(0);
     });
 
     describe('(Component) Errors', () => {

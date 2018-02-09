@@ -1,4 +1,5 @@
 // @flow
+import omit from 'lodash/omit';
 import React from 'react';
 import { withI18n } from 'lingui-react';
 import { Control, Errors } from 'react-redux-form';
@@ -19,6 +20,7 @@ type Props = {
   controlProps?: Object,
   component?: ComponentType<*>,
   optional?: boolean,
+  feedback?: boolean,
   formProps: FormProps,
   showErrors?: FormProps => boolean,
   validators?: { [string]: (string) => boolean },
@@ -49,12 +51,14 @@ export const defaultMessages: (i18n: Object) => { [string]: string } = i18n => (
  *                     and event handlers (such as onChange, onBlur, onFocus, value, etc.) will be mapped as expected.
  *                     Defaults to the react-bootstrap `FormControl` component.
  * @param optional     Indicates if the control is optional.
+ * @param feedback     Indicates if the feedback indicator should be shown.
  * @param formProps    The form props.
  * @param showErrors   A helper which indicates if errors should be shown in a form.
  * @param validators   The list of validators.
  * @param messages     The list of messages for the validators.
  * @param i18n         The i18n object.
  * @param children     An optional children to render.
+ * @param rest         Additional properties that will be passed to the control.
  */
 export const FormControlComponent = ({
   id,
@@ -65,12 +69,14 @@ export const FormControlComponent = ({
   controlProps,
   component,
   optional,
+  feedback,
   formProps,
   showErrors,
   validators,
   messages,
   i18n,
   children,
+  ...rest
 }: Props) => {
   const ControlComponent: ComponentType<*> = control || FormControlComponent.defaultProps.control;
   const hasErrors = (showErrors || defaultShowErrors)(formProps);
@@ -78,6 +84,7 @@ export const FormControlComponent = ({
   const labelComponent = !label || <ControlLabel>{label}</ControlLabel>;
   const optionalComponent = !optional || <span className="optional">{`(${i18n.t`Optional`})`}</span>;
   const helpComponent = !help || <p className="help">{help}</p>;
+  const feedbackComponent = !feedback || <FormControl.Feedback />;
 
   return (
     <FormGroup
@@ -94,10 +101,11 @@ export const FormControlComponent = ({
           component={component}
           autoComplete="off"
           validators={validators}
+          {...omit(rest, 'i18nHash')}
         >
           {children}
         </ControlComponent>
-        <FormControl.Feedback />
+        {feedbackComponent}
       </div>
       <Errors
         model={`.${id}`}
@@ -120,6 +128,7 @@ FormControlComponent.defaultProps = {
   controlProps: undefined,
   component: FormControl,
   optional: false,
+  feedback: true,
   showErrors: defaultShowErrors,
   validators: undefined,
   messages: {},
