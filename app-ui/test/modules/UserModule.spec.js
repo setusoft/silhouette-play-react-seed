@@ -1,10 +1,10 @@
 import { isFSA } from 'flux-standard-action';
 import userReducer, {
   initialState,
-  initUser,
   fetchUser,
-  saveUser,
-  deleteUser,
+  fetchUserPending,
+  fetchUserFulfilled,
+  fetchUserRejected,
   signOutUser,
   resetUserState,
 } from 'modules/UserModule';
@@ -14,16 +14,6 @@ describe('(Redux Module) UserModule', () => {
     name: 'John Doe',
     email: 'john@doe.com',
   };
-
-  describe('(Action Creator) initUser', () => {
-    it('Should be exported as a function', () => {
-      expect(initUser).to.be.a('function');
-    });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(initUser())).to.be.true();
-    });
-  });
 
   describe('(Action Creator) fetchUser', () => {
     it('Should be exported as a function', () => {
@@ -35,23 +25,33 @@ describe('(Redux Module) UserModule', () => {
     });
   });
 
-  describe('(Action Creator) saveUser', () => {
+  describe('(Action Creator) fetchUserPending', () => {
     it('Should be exported as a function', () => {
-      expect(saveUser).to.be.a('function');
+      expect(fetchUserPending).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(saveUser())).to.be.true();
+      expect(isFSA(fetchUserPending())).to.be.true();
     });
   });
 
-  describe('(Action Creator) deleteUser', () => {
+  describe('(Action Creator) fetchUserFulfilled', () => {
     it('Should be exported as a function', () => {
-      expect(deleteUser).to.be.a('function');
+      expect(fetchUserFulfilled).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(deleteUser())).to.be.true();
+      expect(isFSA(fetchUserFulfilled())).to.be.true();
+    });
+  });
+
+  describe('(Action Creator) fetchUserRejected', () => {
+    it('Should be exported as a function', () => {
+      expect(fetchUserRejected).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(fetchUserRejected())).to.be.true();
     });
   });
 
@@ -84,28 +84,31 @@ describe('(Redux Module) UserModule', () => {
       expect(userReducer(undefined, { type: 'UNDEFINED' })).to.eql(initialState);
     });
 
-    it('Should initialize the user if the `initUser` action was dispatched', () => {
+    it('Should set `isPending` to true if the `fetchUserPending` action was dispatched', () => {
       let state = userReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql(initialState);
+      expect(state).to.eql({ ...initialState, isPending: false });
 
-      state = userReducer(state, initUser({ name: 'test' }));
-      expect(state).to.eql({ ...initialState, initialized: true });
+      state = userReducer(state, fetchUserPending());
+      expect(state).to.eql({ ...initialState, isPending: true });
     });
 
-    it('Should save the user if the `saveUser` action was dispatched', () => {
-      let state = userReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql(initialState);
+    it('Should set `initialized` to true, `isPending` to false and the user if the `fetchUserFulfilled` ' +
+      'action was dispatched', () => {
+      let state = userReducer(undefined, fetchUserPending());
+      expect(state).to.eql({ ...initialState, isPending: true });
 
-      state = userReducer(state, saveUser(user));
-      expect(state).to.eql({ ...initialState, data: user });
+      state = userReducer(state, fetchUserFulfilled(user));
+      expect(state).to.eql({
+        ...initialState, initialized: true, isPending: false, model: user,
+      });
     });
 
-    it('Should delete the user if the `deleteUser` action was dispatched', () => {
-      let state = userReducer(undefined, saveUser(user));
-      expect(state).to.eql({ ...initialState, data: user });
+    it('Should set `isPending` to false if the `fetchUserRejected` action was dispatched', () => {
+      let state = userReducer(undefined, fetchUserPending());
+      expect(state).to.eql({ ...initialState, isPending: true });
 
-      state = userReducer(state, deleteUser());
-      expect(state).to.eql(initialState);
+      state = userReducer(state, fetchUserRejected());
+      expect(state).to.eql({ ...initialState, isPending: false });
     });
   });
 });

@@ -3,7 +3,7 @@ import { actions } from 'react-redux-form';
 import { call, put, take, all } from 'redux-saga/effects';
 import { handleError, formErrorHandler } from 'util/Saga';
 import { history } from 'modules/LocationModule';
-import { saveUser } from 'modules/UserModule';
+import { fetchUserFulfilled } from 'modules/UserModule';
 import { saveActivationEmail } from 'bundles/Auth/modules/ActivateAccountModule';
 import {
   modelPath,
@@ -23,7 +23,7 @@ export function* signInSaga(api: AuthAPI): Generator<*, *, *> {
       yield put(signInPending());
       const response = yield call([api, api.signIn], payload);
       yield put(signInFulfilled(response));
-      yield put(saveUser(response.details));
+      yield put(fetchUserFulfilled(response.details));
       yield put(actions.reset(modelPath));
       yield call(history.push, config.route.index);
     } catch (e) {

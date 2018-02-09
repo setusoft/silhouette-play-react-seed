@@ -4,7 +4,7 @@ import { actions } from 'react-redux-form';
 import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
 import { history } from 'modules/LocationModule';
-import { saveUser } from 'modules/UserModule';
+import { fetchUserFulfilled } from 'modules/UserModule';
 import { saveActivationEmail } from 'bundles/Auth/modules/ActivateAccountModule';
 import saga, { signInSaga } from 'bundles/Auth/sagas/SignInSaga';
 import {
@@ -74,7 +74,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should save the user on success', () => {
       const api = { signIn: () => successResponse };
       return expectSaga(signInSaga, api)
-        .put(saveUser(successResponse.details))
+        .put(fetchUserFulfilled(successResponse.details))
         .dispatch(signIn(payload))
         .run({ silenceTimeout: true });
     });
