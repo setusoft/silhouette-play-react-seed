@@ -23,5 +23,9 @@ export default handleActions({
     isPending: false,
     model: action.payload,
   }),
-  [fetchUserRejected]: state => ({ ...state, isPending: false }),
+  [fetchUserRejected]: state => ({
+    ...state,
+    initialized: true,
+    isPending: false,
+  }),
 }, initialState);

@@ -22,8 +22,8 @@ export function* fetchUserWorker(api: UserAPI): Generator<*, *, *> {
       const user = response.details;
       yield put(fetchUserFulfilled(user));
     } catch (e) {
-      yield put(fetchUserRejected(e));
       yield put(resetUserState());
+      yield put(fetchUserRejected(e));
     }
   }
 }
