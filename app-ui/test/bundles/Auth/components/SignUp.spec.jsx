@@ -142,7 +142,6 @@ describe('(Component) Auth/SignUp', () => {
         expect(wrapper.find('#password').get(0).props.controlProps).to.eql({
           type: 'password',
           placeholder: 'Password',
-          maxLength: 255,
         });
       });
 

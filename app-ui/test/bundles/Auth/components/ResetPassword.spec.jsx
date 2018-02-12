@@ -87,7 +87,6 @@ describe('(Component) Auth/ResetPassword', () => {
         expect(wrapper.find('#password').get(0).props.controlProps).to.eql({
           type: 'password',
           placeholder: 'Password',
-          maxLength: 255,
         });
       });
 

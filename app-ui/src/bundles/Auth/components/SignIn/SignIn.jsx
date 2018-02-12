@@ -47,7 +47,6 @@ export const SignInComponent = ({
         controlProps={{
           type: 'password',
           placeholder: i18n.t`Password`,
-          maxLength: 255,
         }}
         validators={{
           isRequired,
