@@ -12,8 +12,8 @@ error.email = Valid email required
 error.required = This field is required
 error.boolean = Must be true or false
 
+request.ok = The request was successfully processed
 invalid.form = The form contains invalid data
-valid.result = Result successfully returned
 
 ##########
 # AUTH

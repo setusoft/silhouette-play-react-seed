@@ -12,8 +12,8 @@ error.email = Keine gültige E-Mail-Adresse
 error.required = Dies ist ein Pflichtfeld
 error.boolean = Muss true oder false sein
 
+request.ok = Der Request wurde erfolgreich verarbeitet
 invalid.form = Das Formular enthält ungültige Daten
-valid.result = Das Resultat wurde erfolgreich zurückgegeben
 
 ##########
 # AUTH

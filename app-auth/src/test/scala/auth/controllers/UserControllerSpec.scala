@@ -35,7 +35,7 @@ class UserControllerSpec extends ApiSpecification with AuthSpecification {
           OK,
           controller.get(request),
           "auth.user.successful",
-          Messages("valid.result"),
+          Messages("request.ok"),
           user
         )
       }

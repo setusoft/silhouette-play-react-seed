@@ -29,7 +29,7 @@ class UserController @Inject() (
   def get: Action[AnyContent] = silhouette.SecuredAction { implicit request =>
     Ok(ApiResponse(
       "auth.user.successful",
-      Messages("valid.result"),
+      Messages("request.ok"),
       Json.toJson(request.identity)
     ))
   }
