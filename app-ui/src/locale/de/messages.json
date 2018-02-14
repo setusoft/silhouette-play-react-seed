@@ -1,4 +1,13 @@
 {
+  "Optional": {
+    "translation": "Optional",
+    "origin": [
+      [
+        "src\\components\\FormControl\\FormControl.jsx",
+        85
+      ]
+    ]
+  },
   "Activate account": {
     "translation": "Account aktivieren",
     "origin": [
@@ -53,16 +62,16 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        28
+        27
       ]
     ]
   },
   "Please enter your email address and we will send you an email with further instructions to reset your password.": {
-    "translation": "Gib bitte deine E-Mail-Adresse, mit der du dich registriert hast, an. Wir senden dir dann eine E-Mail mit einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+    "translation": "Gib bitte deine E-Mail-Adresse an. Wir senden dir dann weitere Anweisungen, zum Zurücksetzen des Passwortes, per E-Mail zu.",
     "origin": [
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        30
+        29
       ]
     ]
   },
@@ -71,27 +80,27 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        37
+        36
       ],
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        41
+        40
       ],
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        33
+        31
       ],
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        37
+        35
       ],
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        47
+        44
       ],
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        51
+        48
       ]
     ]
   },
@@ -100,11 +109,11 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        50
+        49
       ],
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        50
+        49
       ]
     ]
   },
@@ -113,7 +122,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        52
+        51
       ]
     ]
   },
@@ -122,7 +131,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        24
+        23
       ]
     ]
   },
@@ -131,7 +140,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        26
+        25
       ]
     ]
   },
@@ -140,27 +149,27 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        31
+        30
       ],
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        35
+        34
       ],
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        47
+        45
       ],
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        51
+        49
       ],
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        61
+        58
       ],
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        65
+        62
       ]
     ]
   },
@@ -169,11 +178,11 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        43
+        41
       ],
       [
         "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        43
+        41
       ]
     ]
   },
@@ -182,7 +191,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        29
+        27
       ]
     ]
   },
@@ -191,7 +200,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        62
+        59
       ]
     ]
   },
@@ -200,11 +209,11 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        65
+        62
       ],
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        65
+        62
       ]
     ]
   },
@@ -213,7 +222,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        69
+        66
       ]
     ]
   },
@@ -222,7 +231,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        30
+        27
       ]
     ]
   },
@@ -231,11 +240,11 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        34
+        31
       ],
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        38
+        35
       ]
     ]
   },
@@ -244,11 +253,11 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        73
+        69
       ],
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        73
+        69
       ]
     ]
   },
@@ -257,7 +266,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        77
+        73
       ]
     ]
   },
@@ -266,7 +275,7 @@
     "origin": [
       [
         "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        77
+        73
       ]
     ]
   },
@@ -275,7 +284,7 @@
     "origin": [
       [
         "src\\components\\FormControl\\FormControl.jsx",
-        25
+        33
       ]
     ]
   },
@@ -284,7 +293,7 @@
     "origin": [
       [
         "src\\components\\FormControl\\FormControl.jsx",
-        26
+        34
       ]
     ]
   },
