@@ -60,7 +60,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
         .run({ silenceTimeout: true });
     });
 
-    it('Should call the callback with the sign-in route on error', () => {
+    it('Should call the callback with the password/recovery route on error', () => {
       const api = { validatePasswordToken: () => { throw fatalError; } };
       return expectSaga(validatePasswordTokenWorker, api)
         .call(history.push, config.route.auth.passwordRecovery)
@@ -149,7 +149,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
     it('Should handle an invalid token', () => {
       const api = { resetPassword: () => { throw invalidTokenError; } };
       return expectSaga(resetPasswordWorker, api)
-        .call(history.push, config.route.auth.signIn)
+        .call(history.push, config.route.auth.passwordRecovery)
         .call(Alert.error, invalidTokenError.response.description)
         .dispatch(resetPassword(resetPayload))
         .run({ silenceTimeout: true });
