@@ -6,23 +6,57 @@
 
   .s-alert-box {
     z-index: 1200!important;
-    box-shadow: 0 0 2px 1px rgba(42, 42, 42, 0.4);
+    box-shadow: 0 0 1px 1px rgba(42, 42, 42, 0.2);
+
+    .s-alert-close {
+      background: rgba(215, 219, 210, 0.7);
+      border-radius: 50%;
+    }
+
+    .s-alert-box-inner {
+      font-weight: bolder;
+    }
+  }
+
+  .s-alert-top {
+    margin-left: auto!important;
+    margin-right: auto!important;
   }
 
   .s-alert-info {
-    background: $s-alert-info;
-    color: #fff;
+    border-top: 2px solid $brand-info;
+    background: lighten($brand-info, 36%);
+    color: $brand-info;
+
+    .s-alert-close {
+      background: lighten($brand-info, 29%);
+    }
   }
   .s-alert-success {
-    background: $s-alert-success;
-    color: #fff;
+    border-top: 2px solid $brand-success;
+    background: lighten($brand-success, 36%);
+    color: $brand-success;
+
+    .s-alert-close {
+      background: lighten($brand-success, 29%);
+    }
   }
   .s-alert-warning {
-    background: $s-alert-warning;
-    color: #fff;
+    border-top: 2px solid $brand-warning;
+    background: lighten($brand-warning, 32%);
+    color: $brand-warning;
+
+    .s-alert-close {
+      background: lighten($brand-warning, 25%);
+    }
   }
   .s-alert-error {
-    background: $s-alert-error;
-    color: #fff;
+    border-top: 2px solid $brand-danger;
+    background: lighten($brand-danger, 36%);
+    color: $brand-danger;
+
+    .s-alert-close {
+      background: lighten($brand-danger, 29%);
+    }
   }
 }
