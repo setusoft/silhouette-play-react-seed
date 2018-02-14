@@ -5,7 +5,7 @@ import config from 'config/index';
  * Should be used to allow only authenticated user.
  */
 export const secured = connectedRouterRedirect({
-  authenticatedSelector: state => state.user.data.id !== undefined,
+  authenticatedSelector: state => state.user.model.id !== undefined,
   redirectPath: config.route.auth.signIn,
   wrapperDisplayName: 'secured',
 });
@@ -14,7 +14,7 @@ export const secured = connectedRouterRedirect({
  * Should be used to allow only not authenticated user.
  */
 export const unsecured = connectedRouterRedirect({
-  authenticatedSelector: state => state.user.data.id === undefined,
+  authenticatedSelector: state => state.user.model.id === undefined,
   redirectPath: config.route.index,
   wrapperDisplayName: 'unsecured',
 });
