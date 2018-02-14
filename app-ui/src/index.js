@@ -8,7 +8,7 @@ import { AppContainer } from 'react-hot-loader';
 import createStore from 'store/createStore';
 import lifecycle from 'containers/LifecycleContainer';
 import App from 'components/App';
-import { initApp } from 'modules/AppModule';
+import { initApp } from 'modules/InitModule';
 
 // ========================================================
 // Store Instantiation

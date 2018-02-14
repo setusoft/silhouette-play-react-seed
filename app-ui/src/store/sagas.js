@@ -1,13 +1,13 @@
 import { all } from 'redux-saga/effects';
 import { combineSagas } from 'util/Saga';
-import appSagaBinding from 'sagas/AppSaga';
+import initSagaBinding from 'sagas/InitSaga';
 import i18nSagaBinding from 'sagas/I18nSaga';
 import userSagaBinding from 'sagas/UserSaga';
 import { sagaMiddleware } from './middleware';
 
 export function* rootSaga() {
   yield all(combineSagas([
-    appSagaBinding,
+    initSagaBinding,
     i18nSagaBinding,
     userSagaBinding,
   ]));

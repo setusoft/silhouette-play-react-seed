@@ -2,7 +2,6 @@ import { createAction, handleActions } from 'redux-actions';
 import { userState } from 'modules/StateModule';
 
 export const initialState = {
-  initialized: false,
   isPending: false,
   model: {},
 };
@@ -17,15 +16,6 @@ export const resetUserState = createAction('RESET_USER_STATE', () => userState);
 
 export default handleActions({
   [fetchUserPending]: state => ({ ...state, isPending: true }),
-  [fetchUserFulfilled]: (state, action) => ({
-    ...state,
-    initialized: true,
-    isPending: false,
-    model: action.payload,
-  }),
-  [fetchUserRejected]: state => ({
-    ...state,
-    initialized: true,
-    isPending: false,
-  }),
+  [fetchUserFulfilled]: (state, action) => ({ ...state, isPending: false, model: action.payload }),
+  [fetchUserRejected]: state => ({ ...state, isPending: false }),
 }, initialState);

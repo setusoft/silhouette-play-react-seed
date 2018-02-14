@@ -68,6 +68,14 @@ describe('(Redux Module) I18nModule', () => {
       expect(i18nReducer(undefined, { type: 'UNDEFINED' })).to.eql(initialState);
     });
 
+    it('Should set `language` to \'en\' if the `setLanguage` action was dispatched', () => {
+      let state = i18nReducer(undefined, { type: 'UNDEFINED' });
+      expect(state).to.eql({ ...initialState, language: 'de' });
+
+      state = i18nReducer(state, setLanguage('en'));
+      expect(state).to.eql({ ...initialState, language: 'en' });
+    });
+
     it('Should set `isPending` to true if the `fetchCatalogPending` action was dispatched', () => {
       let state = i18nReducer(undefined, { type: 'UNDEFINED' });
       expect(state).to.eql({ ...initialState, isPending: false });
@@ -76,16 +84,14 @@ describe('(Redux Module) I18nModule', () => {
       expect(state).to.eql({ ...initialState, isPending: true });
     });
 
-    it('Should set `initialized` to true, `isPending` to false and the catalog if the `fetchCatalogFulfilled` ' +
+    it('Should set `isPending` to false and the catalog if the `fetchCatalogFulfilled` ' +
       'action was dispatched', () => {
       const catalog = { messages: { Email: 'E-Mail' } };
       let state = i18nReducer(undefined, fetchCatalogPending());
       expect(state).to.eql({ ...initialState, isPending: true });
 
       state = i18nReducer(state, fetchCatalogFulfilled(catalog));
-      expect(state).to.eql({
-        ...initialState, initialized: true, isPending: false, catalog,
-      });
+      expect(state).to.eql({ ...initialState, isPending: false, catalog });
     });
 
     it('Should set `isPending` to false if the `fetchCatalogRejected` action was dispatched', () => {

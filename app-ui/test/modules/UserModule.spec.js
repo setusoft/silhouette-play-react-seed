@@ -92,24 +92,22 @@ describe('(Redux Module) UserModule', () => {
       expect(state).to.eql({ ...initialState, isPending: true });
     });
 
-    it('Should set `initialized` to true, `isPending` to false and the user if the `fetchUserFulfilled` ' +
+    it('Should set `isPending` to false and the user if the `fetchUserFulfilled` ' +
       'action was dispatched', () => {
       let state = userReducer(undefined, fetchUserPending());
       expect(state).to.eql({ ...initialState, isPending: true });
 
       state = userReducer(state, fetchUserFulfilled(user));
-      expect(state).to.eql({
-        ...initialState, initialized: true, isPending: false, model: user,
-      });
+      expect(state).to.eql({ ...initialState, isPending: false, model: user });
     });
 
-    it('Should set `initialized` to true, `isPending` to false if the `fetchUserRejected` action was ' +
+    it('Should set `isPending` to false if the `fetchUserRejected` action was ' +
       'dispatched', () => {
       let state = userReducer(undefined, fetchUserPending());
       expect(state).to.eql({ ...initialState, isPending: true });
 
       state = userReducer(state, fetchUserRejected());
-      expect(state).to.eql({ ...initialState, initialized: true, isPending: false });
+      expect(state).to.eql({ ...initialState, isPending: false });
     });
   });
 });
