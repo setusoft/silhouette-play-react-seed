@@ -24,7 +24,7 @@ describe('(Saga) AppSaga', () => {
       expectSaga(initAppWorker)
         .put(fetchUser())
         .dispatch(initApp())
-        .run({ silenceTimeout: true }));
+        .silentRun());
   });
 
   describe('(Generator) initUserWorker', () => {
@@ -36,13 +36,13 @@ describe('(Saga) AppSaga', () => {
       expectSaga(initUserWorker)
         .put(setInitialized('user'))
         .dispatch(fetchUserFulfilled())
-        .run({ silenceTimeout: true }));
+        .silentRun());
 
     it('Should set `user` to initialized if the `fetchUserRejected` action was dispatched', () =>
       expectSaga(initUserWorker)
         .put(setInitialized('user'))
         .dispatch(fetchUserRejected())
-        .run({ silenceTimeout: true }));
+        .silentRun());
   });
 
   describe('(Generator) initI18nWorker', () => {
@@ -54,7 +54,7 @@ describe('(Saga) AppSaga', () => {
       expectSaga(initI18nWorker)
         .put(setInitialized('i18n'))
         .dispatch(fetchCatalogFulfilled())
-        .run({ silenceTimeout: true }));
+        .silentRun());
   });
 
   describe('(Generator) appSaga', () => {
@@ -68,7 +68,7 @@ describe('(Saga) AppSaga', () => {
         .spawn(initAppWorker)
         .spawn(initUserWorker)
         .spawn(initI18nWorker)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });

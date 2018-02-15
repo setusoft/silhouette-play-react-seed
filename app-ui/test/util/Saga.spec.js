@@ -70,7 +70,7 @@ describe('(Util) Saga', () => {
 
       return expectSaga(testError)
         .call(Alert.error, apiError.response.description)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should use the default error handler if no error handler for the error response code was given', () => {
@@ -80,7 +80,7 @@ describe('(Util) Saga', () => {
 
       return expectSaga(testError)
         .call(Alert.error, apiError.response.description)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should use the matched error handler', () => {
@@ -90,7 +90,7 @@ describe('(Util) Saga', () => {
 
       return expectSaga(testError)
         .call(Alert.info, apiError.response.description)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should throw an error for unhandled error types', () => {
@@ -113,7 +113,7 @@ describe('(Util) Saga', () => {
       return expectSaga(testError)
         .put(actions.setErrors(`${modelPath}.${details[0].key}`, details[0].message))
         .put(actions.setErrors(`${modelPath}.${details[1].key}`, details[1].message))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });

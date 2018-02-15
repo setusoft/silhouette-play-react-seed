@@ -1,5 +1,6 @@
 // @flow
-import { call, put, take, all } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { call, put, take, race, all } from 'redux-saga/effects';
 import { history } from 'modules/LocationModule';
 import { resetState } from 'modules/StateModule';
 import {
@@ -24,6 +25,23 @@ export function* fetchUserWorker(api: UserAPI): Generator<*, *, *> {
     } catch (e) {
       yield put(resetUserState());
       yield put(fetchUserRejected(e));
+    }
+  }
+}
+
+export function* fetchUserPeriodicallyWorker(duration: number): Generator<*, *, *> {
+  while (yield take(fetchUserFulfilled().type)) {
+    while (true) {
+      const { stop } = yield race({
+        stop: take(resetUserState().type),
+        tick: call(delay, duration),
+      });
+
+      if (stop) {
+        break;
+      }
+
+      yield put(fetchUser());
     }
   }
 }
@@ -55,6 +73,7 @@ export function* resetUserStateWorker(): Generator<*, *, *> {
 export function* userSaga(api: UserAPI): Generator<*, *, *> {
   yield all(combineSagas([
     [fetchUserWorker, api],
+    [fetchUserPeriodicallyWorker, 5 * 60 * 1000],
     [signOutUserWorker, api],
     [resetUserStateWorker],
   ]));

@@ -37,7 +37,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .put(signUpPending())
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to fulfilled if the call to the API was successful', () => {
@@ -45,7 +45,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .put(signUpFulfilled(successResponse))
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to rejected if the call to the API failed', () => {
@@ -53,7 +53,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .put(signUpRejected(fatalError))
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the `signUp` method of the API', () => {
@@ -61,7 +61,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .call([api, api.signUp], payload)
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should reset the form on success', () => {
@@ -69,7 +69,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .put(actions.reset(modelPath))
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the success alert box on success', () => {
@@ -77,7 +77,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .call(Alert.success, successResponse.description, { timeout: 30000 })
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should handle an invalid form', () => {
@@ -85,7 +85,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .put(actions.setErrors(`${modelPath}.${formError.key}`, formError.message))
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the error alert box on error', () => {
@@ -93,7 +93,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
       return expectSaga(signUpSaga, api)
         .call(Alert.error, fatalError.response.description)
         .dispatch(signUp(payload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });

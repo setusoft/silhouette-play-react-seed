@@ -1,4 +1,5 @@
 import Alert from 'react-s-alert';
+import { delay } from 'redux-saga';
 import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
 import { history } from 'modules/LocationModule';
@@ -13,6 +14,7 @@ import {
 } from 'modules/UserModule';
 import saga, {
   fetchUserWorker,
+  fetchUserPeriodicallyWorker,
   signOutUserWorker,
   resetUserStateWorker,
   userSaga,
@@ -42,7 +44,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(fetchUserWorker, api)
         .put(fetchUserPending())
         .dispatch(fetchUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the `user` method of the API', () => {
@@ -50,7 +52,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(fetchUserWorker, api)
         .call([api, api.get])
         .dispatch(fetchUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to fulfilled if the call to the API was successful', () => {
@@ -58,7 +60,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(fetchUserWorker, api)
         .put(fetchUserFulfilled(successResponse.details))
         .dispatch(fetchUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to rejected if the call to the API failed', () => {
@@ -66,7 +68,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(fetchUserWorker, api)
         .put(fetchUserRejected(fatalError))
         .dispatch(fetchUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should reset the user state on error', () => {
@@ -74,8 +76,21 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(fetchUserWorker, api)
         .put(resetUserState())
         .dispatch(fetchUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
+  });
+
+  describe('(Generator) fetchUserPeriodicallyWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(fetchUserPeriodicallyWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+
+    it('Should fetch the user after 1ms the worker gets activated', () =>
+      expectSaga(fetchUserPeriodicallyWorker, 1)
+        .call(delay, 1)
+        .put(fetchUser())
+        .dispatch(fetchUserFulfilled())
+        .silentRun());
   });
 
   describe('(Generator) signOutUserWorker', () => {
@@ -88,7 +103,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(signOutUserWorker, api)
         .call([api, api.signOut])
         .dispatch(signOutUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should reset the user state on success', () => {
@@ -96,7 +111,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(signOutUserWorker, api)
         .put(resetUserState())
         .dispatch(signOutUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should route to the sign-in page on success', () => {
@@ -104,7 +119,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(signOutUserWorker, api)
         .call(history.push, config.route.auth.signIn)
         .dispatch(signOutUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should reset the user if the user is unauthorized', () => {
@@ -112,7 +127,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(signOutUserWorker, api)
         .put(resetUserState())
         .dispatch(signOutUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should route to the sign-in page if the user is unauthorized', () => {
@@ -120,7 +135,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(signOutUserWorker, api)
         .call(history.push, config.route.auth.signIn)
         .dispatch(signOutUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the error alert box on error', () => {
@@ -128,7 +143,7 @@ describe('(Saga) UserSaga', () => {
       return expectSaga(signOutUserWorker, api)
         .call(Alert.error, fatalError.response.description)
         .dispatch(signOutUser())
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 
@@ -141,7 +156,7 @@ describe('(Saga) UserSaga', () => {
       expectSaga(resetUserStateWorker)
         .put(resetState(userState))
         .dispatch(resetUserState())
-        .run({ silenceTimeout: true }));
+        .silentRun());
   });
 
   describe('(Generator) userSaga', () => {
@@ -153,9 +168,10 @@ describe('(Saga) UserSaga', () => {
       const api = {};
       return expectSaga(userSaga, api)
         .spawn(fetchUserWorker, api)
+        .spawn(fetchUserPeriodicallyWorker, 5 * 60 * 1000)
         .spawn(signOutUserWorker, api)
         .spawn(resetUserStateWorker)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });

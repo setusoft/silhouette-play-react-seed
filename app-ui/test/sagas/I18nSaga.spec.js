@@ -27,7 +27,7 @@ describe('(Saga) I18nSaga', () => {
       return expectSaga(fetchCatalogWorker, api)
         .put(fetchCatalogPending())
         .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to fulfilled if the call to the API was successful', () => {
@@ -35,7 +35,7 @@ describe('(Saga) I18nSaga', () => {
       return expectSaga(fetchCatalogWorker, api)
         .put(fetchCatalogFulfilled(catalog))
         .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to rejected if the call to the API failed', () => {
@@ -44,7 +44,7 @@ describe('(Saga) I18nSaga', () => {
       return expectSaga(fetchCatalogWorker, api)
         .put(fetchCatalogRejected(error))
         .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true })
+        .silentRun()
         .catch(e =>
           expect(e).to.equal(error));
     });
@@ -54,7 +54,7 @@ describe('(Saga) I18nSaga', () => {
       return expectSaga(fetchCatalogWorker, api)
         .call([api, api.fetchCatalog], 'de')
         .dispatch(fetchCatalog('de'))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 
@@ -67,7 +67,7 @@ describe('(Saga) I18nSaga', () => {
       const api = {};
       return expectSaga(i18nSaga, api)
         .spawn(fetchCatalogWorker, api)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });

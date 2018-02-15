@@ -11,6 +11,6 @@ describe('(Saga) sagas', () => {
         .spawn(...initSagaBinding)
         .spawn(...i18nSagaBinding)
         .spawn(...userSagaBinding)
-        .run({ silenceTimeout: true }));
+        .silentRun());
   });
 });

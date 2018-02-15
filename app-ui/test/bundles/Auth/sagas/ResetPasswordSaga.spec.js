@@ -49,7 +49,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(validatePasswordTokenWorker, api)
         .call([api, api.validatePasswordToken], validationPayload)
         .dispatch(validatePasswordToken(validationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the success alert box on success', () => {
@@ -57,7 +57,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(validatePasswordTokenWorker, api)
         .call(Alert.success, successResponse.description)
         .dispatch(validatePasswordToken(validationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the callback with the password/recovery route on error', () => {
@@ -65,7 +65,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(validatePasswordTokenWorker, api)
         .call(history.push, config.route.auth.passwordRecovery)
         .dispatch(validatePasswordToken(validationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the error alert box on error', () => {
@@ -73,7 +73,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(validatePasswordTokenWorker, api)
         .call(Alert.error, fatalError.response.description)
         .dispatch(validatePasswordToken(validationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 
@@ -87,7 +87,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .put(resetPasswordPending())
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to fulfilled if the call to the API was successful', () => {
@@ -95,7 +95,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .put(resetPasswordFulfilled(successResponse))
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to rejected if the call to the API failed', () => {
@@ -103,7 +103,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .put(resetPasswordRejected(fatalError))
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the `resetPassword` method of the API', () => {
@@ -111,7 +111,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .call([api, api.resetPassword], resetPayload.token, resetPayload.data)
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should reset the form on success', () => {
@@ -119,7 +119,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .put(actions.reset(modelPath))
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the success alert box on success', () => {
@@ -127,7 +127,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .call(Alert.success, successResponse.description)
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should route to the sign-in page on success', () => {
@@ -135,7 +135,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .call(history.push, config.route.auth.signIn)
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should handle an invalid form', () => {
@@ -143,7 +143,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .put(actions.setErrors(`${modelPath}.${formError.key}`, formError.message))
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should handle an invalid token', () => {
@@ -152,7 +152,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
         .call(history.push, config.route.auth.passwordRecovery)
         .call(Alert.error, invalidTokenError.response.description)
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the error alert box on error', () => {
@@ -160,7 +160,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordWorker, api)
         .call(Alert.error, fatalError.response.description)
         .dispatch(resetPassword(resetPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 
@@ -174,7 +174,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
       return expectSaga(resetPasswordSaga, api)
         .spawn(validatePasswordTokenWorker, api)
         .spawn(resetPasswordWorker, api)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });

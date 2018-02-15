@@ -39,7 +39,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(activateAccountWorker, api)
         .call([api, api.activateAccount], activationPayload)
         .dispatch(activateAccount(activationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the callback with the sign-in route on success', () => {
@@ -47,7 +47,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(activateAccountWorker, api)
         .call(history.push, config.route.auth.signIn)
         .dispatch(activateAccount(activationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the success alert box on success', () => {
@@ -55,7 +55,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(activateAccountWorker, api)
         .call(Alert.success, successResponse.description)
         .dispatch(activateAccount(activationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the callback with the sign-in route on error', () => {
@@ -63,7 +63,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(activateAccountWorker, api)
         .call(history.push, config.route.auth.signIn)
         .dispatch(activateAccount(activationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the error alert box on error', () => {
@@ -71,7 +71,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(activateAccountWorker, api)
         .call(Alert.error, fatalError.response.description)
         .dispatch(activateAccount(activationPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 
@@ -85,7 +85,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .put(sendActivationEmailPending())
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to fulfilled if the call to the API was successful', () => {
@@ -93,7 +93,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .put(sendActivationEmailFulfilled(successResponse))
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should set the state to rejected if the call to the API failed', () => {
@@ -101,7 +101,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .put(sendActivationEmailRejected(fatalError))
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should call the `sendActivationMail` method of the API', () => {
@@ -109,7 +109,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .call([api, api.sendActivationMail], emailPayload)
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should route to the sign-in page on success', () => {
@@ -117,7 +117,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .call(history.push, config.route.auth.signIn)
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the success alert box on success', () => {
@@ -125,7 +125,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .call(Alert.success, successResponse.description, { timeout: 30000 })
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
 
     it('Should display the error alert box on error', () => {
@@ -133,7 +133,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(sendActivationEmailWorker, api)
         .call(Alert.error, fatalError.response.description)
         .dispatch(sendActivationEmail(emailPayload))
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 
@@ -147,7 +147,7 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       return expectSaga(activateAccountSaga, api)
         .spawn(activateAccountWorker, api)
         .spawn(sendActivationEmailWorker, api)
-        .run({ silenceTimeout: true });
+        .silentRun();
     });
   });
 });
