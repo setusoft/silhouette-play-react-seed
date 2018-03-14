@@ -88,7 +88,7 @@ export const FormControlComponent = ({
 
   return (
     <FormGroup
-      controlId={id}
+      controlId={`custom-form-control-${id}`}
       className={`custom-form-control ${id}`}
       validationState={hasErrors ? 'error' : null}
     >
