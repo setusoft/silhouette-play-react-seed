@@ -26,8 +26,8 @@ describe('(Component) FormControl', () => {
   };
 
   describe('(Component) FormGroup', () => {
-    it('Should have prop `controlId` set to "test"', () => {
-      expect(getWrapper().find(FormGroup).get(0).props.controlId).to.equal(id);
+    it('Should have prop `controlId` set to "custom-form-control-test"', () => {
+      expect(getWrapper().find(FormGroup).get(0).props.controlId).to.equal(`custom-form-control-${id}`);
     });
 
     it('Should have prop `className` set to "custom-form-control" and the ID', () => {
