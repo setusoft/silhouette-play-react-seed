@@ -18,16 +18,16 @@ module.exports = (neutrino) => {
 
   neutrino.config.module.rule('scss').test(/\.scss$/)
     .use('style')
-      .loader(STYLE_LOADER)
-      .end()
+    .loader(STYLE_LOADER)
+    .end()
     .use('css')
-      .loader(CSS_LOADER)
-        .options(cssOptions)
-      .end()
+    .loader(CSS_LOADER)
+    .options(cssOptions)
+    .end()
     .use('postcss')
-      .loader(POSTCSS_LOADER)
-      .end()
+    .loader(POSTCSS_LOADER)
+    .end()
     .use('sass')
-      .loader(SASS_LOADER)
-        .options(sassOptions);
+    .loader(SASS_LOADER)
+    .options(sassOptions);
 };
