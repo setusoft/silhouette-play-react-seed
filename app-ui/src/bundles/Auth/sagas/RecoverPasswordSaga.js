@@ -1,7 +1,7 @@
 // @flow
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
-import { call, put, take, all } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 import { handleError, formErrorHandler } from 'util/Saga';
 import { history } from 'modules/LocationModule';
 import {
@@ -26,9 +26,9 @@ export function* recoverPasswordSaga(api: AuthAPI): Generator<*, *, *> {
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
       yield put(recoverPasswordRejected(e));
-      yield all(handleError(e, {
+      yield call(handleError, e, {
         'auth.password.recover.form.invalid': formErrorHandler(modelPath),
-      }));
+      });
     }
   }
 }

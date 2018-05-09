@@ -1,6 +1,6 @@
 // @flow
 import { actions } from 'react-redux-form';
-import { call, put, take, all } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 import { handleError, formErrorHandler } from 'util/Saga';
 import { history } from 'modules/LocationModule';
 import { fetchUserFulfilled } from 'modules/UserModule';
@@ -28,13 +28,13 @@ export function* signInSaga(api: AuthAPI): Generator<*, *, *> {
       yield call(history.push, config.route.index);
     } catch (e) {
       yield put(signInRejected(e));
-      yield all(handleError(e, {
+      yield call(handleError, e, {
         'auth.signIn.form.invalid': formErrorHandler(modelPath),
         'auth.signIn.account.inactive': (error: APIError) => ([
           put(saveActivationEmail(error.response.details.email)),
           call(history.push, config.route.auth.accountActivation),
         ]),
-      }));
+      });
     }
   }
 }

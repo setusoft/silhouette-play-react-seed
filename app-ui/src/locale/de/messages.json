@@ -1,4 +1,13 @@
 {
+  "An unexpected error occurred! Please try again later.": {
+    "translation": "Ein unerwarteter Fehler ist aufgetreten! Bitte versuchen Sie es später noch einmal.",
+    "origin": [
+      [
+        "src\\util\\Saga.js",
+        62
+      ]
+    ]
+  },
   "Optional": {
     "translation": "Optional",
     "origin": [

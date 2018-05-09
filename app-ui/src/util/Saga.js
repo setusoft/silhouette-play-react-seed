@@ -2,7 +2,8 @@
 import get from 'lodash/get';
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
-import { call, put, spawn } from 'redux-saga/effects';
+import { call, put, spawn, all, select } from 'redux-saga/effects';
+import { getI18n } from 'selectors/I18nSelector';
 import { APIError } from './API';
 
 /**
@@ -37,24 +38,30 @@ export const refineSaga = (saga: * | Array<*>) => {
  *
  * @param sagas The sagas to combine.
  */
-export const combineSagas = (sagas: Array<*>) => sagas.map(saga => spawn(...refineSaga(saga)));
+export const combineSagas = (sagas: Array<Function | *>): any[] => sagas.map(saga => spawn(...refineSaga(saga)));
 
 /**
  * Handles the errors in the catch block of a saga.
  *
  * @param e        The caught error.
  * @param handlers An object that can handle API errors for specific error codes.
- * @return An array of effects.
- * @throws All errors expect API errors.
  */
-export const handleError = (e: Error | APIError, handlers: {[string]: (APIError) => Array<*>} = {}) => {
+export function* handleError(
+  e: Error | APIError,
+  handlers: {[string]: (APIError) => Array<*>} = {},
+): Generator<*, *, *> {
   if (e instanceof APIError) {
     const defaultHandler = (error: APIError) => ([call(Alert.error, error.response.description)]);
-    return get(handlers, e.response.code, defaultHandler)(e);
-  }
+    yield all(get(handlers, e.response.code, defaultHandler)(e));
+  } else {
+    const i18n = yield select(getI18n);
 
-  throw e;
-};
+    // TODO: Log error to API
+    // eslint-disable-next-line no-console
+    console.error(e);
+    yield call(Alert.error, i18n.t`An unexpected error occurred! Please try again later.`);
+  }
+}
 
 /**
  * A default form error handler that maps server side form errors to client side form errors.

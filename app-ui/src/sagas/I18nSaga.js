@@ -18,7 +18,7 @@ export function* fetchCatalogWorker(api: I18nAPI): Generator<*, *, *> {
       yield put(fetchCatalogFulfilled(catalog));
     } catch (e) {
       yield put(fetchCatalogRejected(e));
-      yield all(handleError(e));
+      yield call(handleError, e);
     }
   }
 }

@@ -2,6 +2,9 @@
 flow-libs
 flow-typed
 
+[ignore]
+.*/node_modules/config-chain/test/broken.json
+
 [options]
 module.file_ext=.js
 module.file_ext=.json
@@ -11,11 +14,6 @@ module.file_ext=.scss
 module.file_ext=.png
 
 module.ignore_non_literal_requires=true
-
-# See: https://github.com/facebook/flow/issues/2826
-# See: https://github.com/lingui/js-lingui/issues/25#issuecomment-311971289
-unsafe.enable_getters_and_setters=true
-
 module.system.node.resolve_dirname=./src
 module.system.node.resolve_dirname=node_modules
 

@@ -1,7 +1,7 @@
 // @flow
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
-import { call, put, take, all } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 import { handleError, formErrorHandler } from 'util/Saga';
 import {
   modelPath,
@@ -23,9 +23,9 @@ export function* signUpSaga(api: AuthAPI): Generator<*, *, *> {
       yield call(Alert.success, response.description, { timeout: 30000 });
     } catch (e) {
       yield put(signUpRejected(e));
-      yield all(handleError(e, {
+      yield call(handleError, e, {
         'auth.signUp.form.invalid': formErrorHandler(modelPath),
-      }));
+      });
     }
   }
 }

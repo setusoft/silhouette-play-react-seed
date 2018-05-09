@@ -53,12 +53,12 @@ export function* signOutUserWorker(api: UserAPI): Generator<*, *, *> {
       yield put(resetUserState());
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
-      yield all(handleError(e, {
+      yield call(handleError, e, {
         'auth.unauthorized': () => ([
           put(resetUserState()),
           call(history.push, config.route.auth.signIn),
         ]),
-      }));
+      });
     }
   }
 }

@@ -1,4 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
+import { call } from 'redux-saga/effects';
+import { handleError } from 'util/Saga';
 import saga, { fetchCatalogWorker, i18nSaga } from 'sagas/I18nSaga';
 import {
   fetchCatalog,
@@ -42,11 +44,10 @@ describe('(Saga) I18nSaga', () => {
       const error = new Error('');
       const api = { fetchCatalog: () => { throw error; } };
       return expectSaga(fetchCatalogWorker, api)
+        .provide([[call(handleError, error)]])
         .put(fetchCatalogRejected(error))
         .dispatch(fetchCatalog('de'))
-        .silentRun()
-        .catch(e =>
-          expect(e).to.equal(error));
+        .silentRun();
     });
 
     it('Should call the `fetchCatalog` method of the API', () => {

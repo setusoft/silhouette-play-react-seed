@@ -22,7 +22,7 @@ export function* activateAccountWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(Alert.success, response.description);
     } catch (e) {
       yield call(history.push, config.route.auth.signIn);
-      yield all(handleError(e));
+      yield call(handleError, e);
     }
   }
 }
@@ -38,7 +38,7 @@ export function* sendActivationEmailWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
       yield put(sendActivationEmailRejected(e));
-      yield all(handleError(e));
+      yield call(handleError, e);
     }
   }
 }
