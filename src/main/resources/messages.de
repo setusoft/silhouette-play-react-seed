@@ -13,6 +13,8 @@ error.required = Dies ist ein Pflichtfeld
 error.boolean = Muss true oder false sein
 
 request.ok = Der Request wurde erfolgreich verarbeitet
+request.not.found = Die Daten konnten nicht gefunden werden
+request.service.unavailable = Der Service ist zur Zeit nicht erreichbar
 invalid.form = Das Formular enthält ungültige Daten
 
 ##########

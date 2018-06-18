@@ -3,23 +3,22 @@ import { shallow } from 'enzyme';
 import Preloader from 'components/Preloader';
 
 describe('(Component) Preloader', () => {
-  let wrapper;
+  const wrapper = ({ preloaded = false, children } = {}) =>
+    shallow(<Preloader preloaded={preloaded}>{children}</Preloader>);
 
   it('Should render the preloader if the `preloaded` flag is set to false', () => {
-    wrapper = shallow(<Preloader preloaded={false}><div /></Preloader>);
-
-    const content = (
+    const children = (
       <div className="preloader-wrapper">
         <div className="preloader" />
       </div>
     );
 
-    expect(wrapper.contains(content)).to.be.true();
+    expect(wrapper({ preloaded: false, children }).contains(children)).to.be.true();
   });
 
   it('Should render the content if the `preloaded` flag is set to true', () => {
-    wrapper = shallow(<Preloader preloaded><div /></Preloader>);
+    const children = <div />;
 
-    expect(wrapper.contains(<div />)).to.be.true();
+    expect(wrapper({ preloaded: true, children }).contains(children)).to.be.true();
   });
 });

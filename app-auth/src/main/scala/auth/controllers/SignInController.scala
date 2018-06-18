@@ -1,12 +1,8 @@
 package auth.controllers
 
 import java.time.Clock
-import javax.inject.Inject
 
 import auth.forms.SignInForm
-import auth.models.User
-import auth.models.services.UserService
-import auth.utils.DefaultEnv
 import auth.utils.json.APIFormats._
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
@@ -14,6 +10,11 @@ import com.mohiva.play.silhouette.api.util.Credentials
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
 import com.mohiva.play.silhouette.impl.providers._
 import core.controllers.ApiController
+import core.models.User
+import core.models.services.UserService
+import core.utils.DefaultEnv
+import core.utils.json.APIFormats._
+import javax.inject.Inject
 import net.ceedubs.ficus.Ficus._
 import org.joda.time.DateTime
 import play.api.Configuration

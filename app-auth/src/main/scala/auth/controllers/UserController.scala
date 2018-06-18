@@ -1,11 +1,11 @@
 package auth.controllers
 
-import javax.inject.Inject
-
-import auth.utils.DefaultEnv
 import auth.utils.json.APIFormats._
 import com.mohiva.play.silhouette.api.Silhouette
 import core.controllers.ApiController
+import core.utils.DefaultEnv
+import core.utils.json.APIFormats._
+import javax.inject.Inject
 import play.api.i18n.Messages
 import play.api.libs.json.Json
 import play.api.mvc.{ Action, AnyContent, ControllerComponents }

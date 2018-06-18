@@ -1,6 +1,6 @@
-import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { signOutUser } from 'modules/UserModule';
+import { getUserName } from 'selectors/UserSelector';
 import Authenticated from 'components/Header/Authenticated';
 
 /**
@@ -10,7 +10,7 @@ import Authenticated from 'components/Header/Authenticated';
  * @returns {Object} The props passed to the react component.
  */
 const mapStateToProps = state => ({
-  user: get(state, 'auth.user.model', {}),
+  userName: getUserName(state),
 });
 
 /**

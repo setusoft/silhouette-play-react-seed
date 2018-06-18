@@ -1,8 +1,9 @@
 package auth.controllers
 
-import auth.AuthSpecification
 import auth.utils.json.APIFormats._
 import com.mohiva.play.silhouette.test._
+import core.AuthSpecification
+import core.utils.json.APIFormats._
 import play.api.i18n.Messages
 import play.api.test.{ FakeRequest, WithApplication }
 import test.ApiSpecification

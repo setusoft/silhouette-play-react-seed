@@ -1,6 +1,6 @@
 package auth.utils.json
 
-import auth.models.{ AuthToken, Registration, Settings, User }
+import auth.models.AuthToken
 import com.mohiva.play.silhouette.api.util.PasswordInfo
 import play.api.libs.json.{ Json, OFormat, OWrites, Reads }
 
@@ -13,11 +13,6 @@ trait Formats extends core.utils.json.Formats {
    * Converts a [[PasswordInfo]] instance to JSON and vice versa.
    */
   implicit val passwordInfoFormat: OFormat[PasswordInfo] = Json.format
-
-  /**
-   * Converts a [[Settings]] instance to JSON and vice versa.
-   */
-  implicit val settingsFormat: OFormat[Settings] = Json.format
 }
 
 /**
@@ -25,21 +20,6 @@ trait Formats extends core.utils.json.Formats {
  */
 object MongoFormats extends core.utils.json.MongoFormats with Formats {
   import reactivemongo.play.json.BSONFormats._
-
-  /**
-   * Converts a [[Registration]] instance to JSON and vice versa.
-   */
-  implicit val registrationFormat: OFormat[Registration] = Json.format
-
-  /**
-   * Converts JSON into a [[User]] instance.
-   */
-  implicit val userReads: Reads[User] = IDReads("id") andThen Json.reads
-
-  /**
-   * Converts a [[User]] instance to JSON.
-   */
-  implicit val userWrites: OWrites[User] = Json.writes.transform(IDWrites("id"))
 
   /**
    * Converts JSON into a [[AuthToken]] instance.
@@ -55,15 +35,4 @@ object MongoFormats extends core.utils.json.MongoFormats with Formats {
 /**
  * API centric JSON formats.
  */
-object APIFormats extends core.utils.json.APIFormats with Formats {
-
-  /**
-   * Converts a [[Registration]] instance to JSON and vice versa.
-   */
-  implicit val registrationFormat: OFormat[Registration] = Json.format
-
-  /**
-   * Converts a [[User]] instance to JSON and vice versa.
-   */
-  implicit val userFormat: OFormat[User] = Json.format
-}
+object APIFormats extends core.utils.json.APIFormats with Formats

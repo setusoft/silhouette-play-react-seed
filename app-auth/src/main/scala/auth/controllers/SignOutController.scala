@@ -1,10 +1,9 @@
 package auth.controllers
 
 import javax.inject.Inject
-
-import auth.utils.DefaultEnv
 import com.mohiva.play.silhouette.api.{ LogoutEvent, Silhouette }
 import core.controllers.ApiController
+import core.utils.DefaultEnv
 import play.api.i18n.Messages
 import play.api.mvc.{ Action, AnyContent, ControllerComponents }
 

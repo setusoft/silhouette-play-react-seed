@@ -6,6 +6,7 @@ import { initialState as i18nState } from 'modules/I18nModule';
 import App from 'components/App';
 import I18nLoaderContainer from 'containers/I18nLoaderContainer';
 import PreloaderContainer from 'containers/PreloaderContainer';
+import MaintenanceContainer from 'containers/MaintenanceContainer';
 import { CaptureNotFoundRoute, NotFoundRoute } from 'components/NotFound';
 import { createStore } from '../test-helpers';
 
@@ -30,8 +31,12 @@ describe('(Component) App', () => {
     expect(wrapper.find(I18nLoaderContainer).children().first().is(PreloaderContainer)).to.be.true();
   });
 
-  it('Should contain the `Router` component as child of the `PreloaderContainer` component', () => {
-    expect(wrapper.find(PreloaderContainer).children().first().is(Router)).to.be.true();
+  it('Should contain the `MaintenanceContainer` component as child of the `PreloaderContainer` component', () => {
+    expect(wrapper.find(PreloaderContainer).children().first().is(MaintenanceContainer)).to.be.true();
+  });
+
+  it('Should contain the `Router` component as child of the `MaintenanceContainer` component', () => {
+    expect(wrapper.find(MaintenanceContainer).children().first().is(Router)).to.be.true();
   });
 
   it('Should contain the `CaptureNotFoundRoute` component as child of the `Router` component', () => {

@@ -26,9 +26,13 @@ val core: Project = Project(id = "app-core", base = file("app-core"))
   .dependsOn(test % Test)
   .settings(
     libraryDependencies ++= Seq(
+      Library.ficus,
       Library.scalaGuice,
       Library.apacheCommonsIO,
-      Library.playReactiveMongo
+      Library.playReactiveMongo,
+      Library.Silhouette.core,
+      Library.Silhouette.cryptoJca,
+      Library.Silhouette.testkit % Test,
     )
   )
   .enablePlugins(PlayScala, DisablePackageSettings)
@@ -38,16 +42,13 @@ val core: Project = Project(id = "app-core", base = file("app-core"))
 //// Auth module
 ////*******************************
 val auth: Project = Project(id = "app-auth", base = file("app-auth"))
-  .dependsOn(core, test % Test)
+  .dependsOn(core % "compile->compile;test->test", test % Test)
   .settings(
     libraryDependencies ++= Seq(
-      Library.Silhouette.core,
       Library.Silhouette.passwordBcrypt,
       Library.Silhouette.persistence,
-      Library.Silhouette.cryptoJca,
       Library.Silhouette.persistenceReactiveMongo,
       Library.scalaGuice,
-      Library.ficus,
       Library.playMailer,
       Library.playMailerGuice,
       Library.akkaQuartzScheduler,
@@ -66,7 +67,7 @@ val auth: Project = Project(id = "app-auth", base = file("app-auth"))
 //// Admin module
 ////*******************************
 val admin: Project = Project(id = "app-admin", base = file("app-admin"))
-  .dependsOn(auth % "compile->compile;test->test", test % Test)
+  .dependsOn(core % "compile->compile;test->test", test % Test)
   .enablePlugins(PlayScala, DisablePackageSettings)
   .disablePlugins(PlayLayoutPlugin)
 

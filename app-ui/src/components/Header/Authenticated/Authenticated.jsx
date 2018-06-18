@@ -7,14 +7,14 @@ import Header from '../Header';
 import './Authenticated.scss';
 
 type Props = {
-  user: Object,
+  userName: string,
   onSignOut: () => any,
 };
 
-export default ({ user, onSignOut }: Props) => (
+export default ({ userName, onSignOut }: Props) => (
   <Header>
     <Navbar.Text className="authenticated" pullRight>
-      Signed in as: <span>{user.name}</span>
+      Signed in as: <span>{userName}</span>
     </Navbar.Text>
     <Nav className="authenticated" pullRight>
       <NavItem className="sign-out" onSelect={onSignOut} title="Sign out">

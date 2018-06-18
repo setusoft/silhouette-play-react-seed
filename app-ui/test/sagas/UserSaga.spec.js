@@ -4,6 +4,9 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { APIResponse, APIError } from 'util/API';
 import { history } from 'modules/LocationModule';
 import { userState, resetState } from 'modules/StateModule';
+import { changeToHealthy, changeToUnhealthy } from 'modules/HealthModule';
+import { setUserInitialized } from 'modules/InitModule';
+import { fetchConfig } from 'modules/ConfigModule';
 import {
   fetchUser,
   fetchUserPending,
@@ -13,14 +16,19 @@ import {
   resetUserState,
 } from 'modules/UserModule';
 import saga, {
+  initUserWorker,
+  initAppWorker,
+  handleHealthySwitchWorker,
+  handleUnhealthySwitchWorker,
   fetchUserWorker,
+  fetchUserFulfilledWorker,
   fetchUserPeriodicallyWorker,
   signOutUserWorker,
   resetUserStateWorker,
   userSaga,
 } from 'sagas/UserSaga';
 import UserAPI from 'apis/UserAPI';
-import config from 'config/index';
+import config, { USER_DURATION } from 'config/index';
 
 describe('(Saga) UserSaga', () => {
   const errorResponse = new APIResponse('auth.unauthorized', 'You don\'t have permission to access this endpoint!');
@@ -32,6 +40,54 @@ describe('(Saga) UserSaga', () => {
     expect(saga).to.be.a('array');
     expect(saga[0]).to.equal(userSaga);
     expect(saga[1]).to.eql(new UserAPI());
+  });
+
+  describe('(Generator) initUserWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(initUserWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+
+    it('Should set `user` to initialized if the `fetchUserFulfilled` action was dispatched', () =>
+      expectSaga(initUserWorker)
+        .put(setUserInitialized())
+        .dispatch(fetchUserFulfilled())
+        .silentRun());
+
+    it('Should set `user` to initialized if the `resetUserState` action was dispatched', () =>
+      expectSaga(initUserWorker)
+        .put(setUserInitialized())
+        .dispatch(resetUserState())
+        .silentRun());
+  });
+
+  describe('(Generator) initAppWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(initAppWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+  });
+
+  describe('(Generator) handleHealthySwitchWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(handleHealthySwitchWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+
+    it('Should fetch the user on transition', () =>
+      expectSaga(handleHealthySwitchWorker)
+        .put(fetchUser())
+        .dispatch(changeToHealthy())
+        .silentRun());
+  });
+
+  describe('(Generator) handleUnhealthySwitchWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(handleUnhealthySwitchWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+
+    it('Should reset the user state on transition', () =>
+      expectSaga(handleUnhealthySwitchWorker)
+        .put(resetUserState())
+        .dispatch(changeToUnhealthy())
+        .silentRun());
   });
 
   describe('(Generator) fetchUserWorker', () => {
@@ -47,7 +103,7 @@ describe('(Saga) UserSaga', () => {
         .silentRun();
     });
 
-    it('Should call the `user` method of the API', () => {
+    it('Should call the `get` method of the API', () => {
       const api = { get: () => successResponse };
       return expectSaga(fetchUserWorker, api)
         .call([api, api.get])
@@ -78,6 +134,18 @@ describe('(Saga) UserSaga', () => {
         .dispatch(fetchUser())
         .silentRun();
     });
+  });
+
+  describe('(Generator) fetchUserFulfilledWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(fetchUserFulfilledWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+
+    it('Should fetch the config if the user was loaded successfully', () =>
+      expectSaga(fetchUserFulfilledWorker)
+        .put(fetchConfig())
+        .dispatch(fetchUserFulfilled())
+        .silentRun());
   });
 
   describe('(Generator) fetchUserPeriodicallyWorker', () => {
@@ -167,8 +235,12 @@ describe('(Saga) UserSaga', () => {
     it('Should spawn all workers', () => {
       const api = {};
       return expectSaga(userSaga, api)
+        .spawn(initAppWorker)
+        .spawn(handleHealthySwitchWorker)
+        .spawn(handleUnhealthySwitchWorker)
         .spawn(fetchUserWorker, api)
-        .spawn(fetchUserPeriodicallyWorker, 5 * 60 * 1000)
+        .spawn(fetchUserFulfilledWorker)
+        .spawn(fetchUserPeriodicallyWorker, USER_DURATION)
         .spawn(signOutUserWorker, api)
         .spawn(resetUserStateWorker)
         .silentRun();
