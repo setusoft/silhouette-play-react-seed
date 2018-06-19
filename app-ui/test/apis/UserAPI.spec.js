@@ -21,7 +21,7 @@ describe('(API) UserAPI', () => {
   });
 
   describe('(Method) get', () => {
-    it('Should execute a GET request to /api/core/user', () => {
+    it('Should execute a GET request to /api/auth/user', () => {
       fetchMock.getOnce('*', { status: 200, body: apiResponse });
 
       const maybeResult = userApi.get();

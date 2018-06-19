@@ -7,9 +7,6 @@ export const initialState = {
   catalog: {},
 };
 
-export const getLanguage = (state: Object) => state.i18n.language;
-export const getCatalog = (state: Object) => state.i18n.catalog;
-
 export const setLanguage = createAction('I18N_SET_LANGUAGE');
 
 export const fetchCatalog = createAction('I18N_FETCH_CATALOG');

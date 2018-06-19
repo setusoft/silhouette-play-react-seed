@@ -13,6 +13,8 @@ error.required = This field is required
 error.boolean = Must be true or false
 
 request.ok = The request was successfully processed
+request.not.found = The data couldn''t be found
+request.service.unavailable = The service is temporary unavailable
 invalid.form = The form contains invalid data
 
 ##########

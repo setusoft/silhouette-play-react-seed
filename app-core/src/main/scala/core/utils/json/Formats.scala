@@ -1,12 +1,14 @@
 package core.utils.json
 
 import java.time.Instant
+import java.util.UUID
 
+import core.models.{ Config, Registration, Settings, User }
 import play.api.i18n.Lang
 import play.api.libs.json._
 import reactivemongo.bson.BSONObjectID
 
-import scala.util.{ Failure, Success }
+import scala.util.{ Failure, Success, Try }
 
 /**
  * Implicit JSON formats.
@@ -42,7 +44,33 @@ trait Formats {
     def reads(json: JsValue): JsResult[Lang] = JsSuccess(Lang(json.as[String]))
     def writes(o: Lang): JsValue = JsString(o.code)
   }
+
+  /**
+   * Converts [[java.util.UUID]] object to JSON and vice versa.
+   */
+  implicit object UUIDFormat extends Format[UUID] {
+    def reads(json: JsValue): JsResult[UUID] = Try(UUID.fromString(json.as[String])) match {
+      case Success(id) => JsSuccess(id)
+      case Failure(e)  => JsError(e.getMessage)
+    }
+    def writes(o: UUID): JsValue = JsString(o.toString)
+  }
+
+  /**
+   * Converts a [[Settings]] instance to JSON and vice versa.
+   */
+  implicit val settingsFormat: OFormat[Settings] = Json.format
+
+  /**
+   * Converts a [[Config]] instance to JSON and vice versa.
+   */
+  implicit val configFormat: OFormat[Config] = Json.format
 }
+
+/**
+ * Implicit JSON formats.
+ */
+object Formats extends Formats
 
 /**
  * Mongo centric JSON formats.
@@ -76,4 +104,42 @@ trait APIFormats extends Formats {
     }
     def writes(o: BSONObjectID): JsValue = JsString(o.stringify)
   }
+}
+
+/**
+ * Mongo centric JSON formats.
+ */
+object MongoFormats extends MongoFormats with Formats {
+  import reactivemongo.play.json.BSONFormats._
+
+  /**
+   * Converts a [[Registration]] instance to JSON and vice versa.
+   */
+  implicit val registrationFormat: OFormat[Registration] = Json.format
+
+  /**
+   * Converts JSON into a [[User]] instance.
+   */
+  implicit val userReads: Reads[User] = IDReads("id") andThen Json.reads
+
+  /**
+   * Converts a [[User]] instance to JSON.
+   */
+  implicit val userWrites: OWrites[User] = Json.writes.transform(IDWrites("id"))
+}
+
+/**
+ * API centric JSON formats.
+ */
+object APIFormats extends APIFormats with Formats {
+
+  /**
+   * Converts a [[Registration]] instance to JSON and vice versa.
+   */
+  implicit val registrationFormat: OFormat[Registration] = Json.format
+
+  /**
+   * Converts a [[User]] instance to JSON and vice versa.
+   */
+  implicit val userFormat: OFormat[User] = Json.format
 }

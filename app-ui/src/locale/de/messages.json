@@ -1,4 +1,22 @@
 {
+  "Maintenance": {
+    "translation": "Wartungsarbeiten",
+    "origin": [
+      [
+        "src\\components\\Maintenance\\Maintenance.jsx",
+        23
+      ]
+    ]
+  },
+  "The Page is currently under maintenance!": {
+    "translation": "Die Seite wird derzeit gepflegt!",
+    "origin": [
+      [
+        "src\\components\\Maintenance\\Maintenance.jsx",
+        24
+      ]
+    ]
+  },
   "An unexpected error occurred! Please try again later.": {
     "translation": "Ein unerwarteter Fehler ist aufgetreten! Bitte versuchen Sie es später noch einmal.",
     "origin": [

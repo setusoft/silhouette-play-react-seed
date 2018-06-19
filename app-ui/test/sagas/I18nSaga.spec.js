@@ -1,7 +1,8 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga/effects';
 import { handleError } from 'util/Saga';
-import saga, { fetchCatalogWorker, i18nSaga } from 'sagas/I18nSaga';
+import saga, { initI18nWorker, initAppWorker, fetchCatalogWorker, i18nSaga } from 'sagas/I18nSaga';
+import { setI18nInitialized } from 'modules/InitModule';
 import {
   fetchCatalog,
   fetchCatalogPending,
@@ -17,6 +18,24 @@ describe('(Saga) I18nSaga', () => {
     expect(saga).to.be.a('array');
     expect(saga[0]).to.equal(i18nSaga);
     expect(saga[1]).to.eql(new I18nAPI());
+  });
+
+  describe('(Generator) initI18nWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(initI18nWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
+
+    it('Should set `i18n` to initialized if the `fetchCatalogFulfilled` action was dispatched', () =>
+      expectSaga(initI18nWorker)
+        .put(setI18nInitialized())
+        .dispatch(fetchCatalogFulfilled())
+        .silentRun());
+  });
+
+  describe('(Generator) initAppWorker', () => {
+    it('Should be exported as a generator function', () => {
+      expect(initAppWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
+    });
   });
 
   describe('(Generator) fetchCatalogWorker', () => {

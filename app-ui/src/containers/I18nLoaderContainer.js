@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchCatalog } from 'modules/I18nModule';
+import { getLanguage, getCatalog } from 'selectors/I18nSelector';
 import I18nLoader from 'components/I18nLoader';
 
 /**
@@ -9,8 +10,8 @@ import I18nLoader from 'components/I18nLoader';
  * @returns {Object} The props passed to the react component.
  */
 const mapStateToProps = state => ({
-  language: state.i18n.language,
-  catalog: state.i18n.catalog,
+  language: getLanguage(state),
+  catalog: getCatalog(state),
 });
 
 /**

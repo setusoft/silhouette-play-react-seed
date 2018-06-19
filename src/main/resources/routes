@@ -6,6 +6,7 @@
 GET         /                                controllers.ApplicationController.index
 
 # Include sub routes
+->          /api/core                        core.Routes
 ->          /api/auth                        auth.Routes
 ->          /api/admin                       admin.Routes
 

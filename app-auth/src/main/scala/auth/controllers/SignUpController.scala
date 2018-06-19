@@ -1,19 +1,19 @@
 package auth.controllers
 
 import java.time.Clock
-import javax.inject.Inject
 
 import auth.forms.SignUpForm
-import auth.models.services.{ AuthTokenService, UserService }
-import auth.models.{ Registration, Settings, User }
-import auth.utils.DefaultEnv
+import auth.models.services.AuthTokenService
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.services.AvatarService
 import com.mohiva.play.silhouette.api.util.PasswordHasherRegistry
 import com.mohiva.play.silhouette.impl.providers._
 import core.controllers.ApiController
-import core.utils.JSRouter
+import core.models.services.UserService
+import core.models.{ Registration, Settings, User }
+import core.utils.{ DefaultEnv, JSRouter }
+import javax.inject.Inject
 import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
 import play.api.http.HeaderNames

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { history, getPathname } from 'modules/LocationModule';
+import { history } from 'modules/LocationModule';
+import { getPathname } from 'selectors/LocationSelector';
 import Unauthenticated from 'components/Header/Unauthenticated';
 
 /**

@@ -1,17 +1,17 @@
 package auth.controllers
 
 import java.util.UUID
-import javax.inject.Inject
 
+import javax.inject.Inject
 import auth.models.AuthToken
-import auth.models.services.{ AuthTokenService, UserService }
-import auth.utils.DefaultEnv
+import auth.models.services.AuthTokenService
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.util.{ PasswordHasherRegistry, PasswordInfo }
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import core.controllers.ApiController
-import core.utils.JSRouter
+import core.models.services.UserService
+import core.utils.{ DefaultEnv, JSRouter }
 import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
 import play.api.data.Forms._

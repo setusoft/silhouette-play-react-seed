@@ -3,13 +3,15 @@ package auth.controllers
 import java.time.Clock
 import java.util.UUID
 
-import auth.AuthSpecification
-import auth.models.services.{ AuthTokenService, UserService }
-import auth.models.{ AuthToken, User }
+import auth.models.AuthToken
+import auth.models.services.AuthTokenService
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.services.AvatarService
 import com.mohiva.play.silhouette.api.util.{ PasswordHasher, PasswordHasherRegistry, PasswordInfo }
 import com.mohiva.play.silhouette.test._
+import core.AuthSpecification
+import core.models.User
+import core.models.services.UserService
 import net.codingwell.scalaguice.ScalaModule
 import org.specs2.control.NoLanguageFeatures
 import org.specs2.mock.Mockito

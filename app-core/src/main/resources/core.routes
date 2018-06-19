@@ -1,0 +1,6 @@
+# Routes
+# This file defines all module routes (Higher priority routes first)
+# ~~~~
+# Home page
+GET     /health                      core.controllers.HealthController.get
+GET     /config                      core.controllers.ConfigController.get

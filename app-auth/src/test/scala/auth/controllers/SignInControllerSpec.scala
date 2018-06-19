@@ -2,13 +2,14 @@ package auth.controllers
 
 import java.time.Clock
 
-import auth.AuthSpecification
-import auth.models.services.UserService
 import auth.utils.json.APIFormats._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
 import com.mohiva.play.silhouette.api.util.Credentials
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import com.mohiva.play.silhouette.test._
+import core.AuthSpecification
+import core.models.services.UserService
+import core.utils.json.APIFormats._
 import net.codingwell.scalaguice.ScalaModule
 import org.specs2.mock.Mockito
 import play.api.i18n.Messages
