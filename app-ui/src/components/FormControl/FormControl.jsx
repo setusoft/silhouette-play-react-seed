@@ -1,7 +1,7 @@
 // @flow
 import omit from 'lodash/omit';
 import React from 'react';
-import { withI18n } from 'lingui-react';
+import { withI18n } from '@lingui/react';
 import { Control, Errors } from 'react-redux-form';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { showErrors as defaultShowErrors, ErrorWrapper } from 'util/Form';
@@ -81,9 +81,21 @@ export const FormControlComponent = ({
   const ControlComponent: ComponentType<*> = control || FormControlComponent.defaultProps.control;
   const hasErrors = (showErrors || defaultShowErrors)(formProps);
 
-  const labelComponent = !label || <ControlLabel>{label}</ControlLabel>;
-  const optionalComponent = !optional || <span className="optional">{`(${i18n.t`Optional`})`}</span>;
-  const helpComponent = !help || <p className="help">{help}</p>;
+  const labelComponent = !label || (
+    <ControlLabel>
+      {label}
+    </ControlLabel>
+  );
+  const optionalComponent = !optional || (
+    <span className="optional">
+      {`(${i18n.t`Optional`})`}
+    </span>
+  );
+  const helpComponent = !help || (
+    <p className="help">
+      {help}
+    </p>
+  );
   const feedbackComponent = !feedback || <FormControl.Feedback />;
 
   return (
@@ -92,7 +104,9 @@ export const FormControlComponent = ({
       className={`custom-form-control ${id}`}
       validationState={hasErrors ? 'error' : null}
     >
-      {labelComponent} {optionalComponent}
+      {labelComponent}
+      {' '}
+      {optionalComponent}
       {helpComponent}
       <div className="control">
         <ControlComponent

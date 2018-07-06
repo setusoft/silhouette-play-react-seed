@@ -3,8 +3,11 @@ import { shallow } from 'enzyme';
 import Preloader from 'components/Preloader';
 
 describe('(Component) Preloader', () => {
-  const wrapper = ({ preloaded = false, children } = {}) =>
-    shallow(<Preloader preloaded={preloaded}>{children}</Preloader>);
+  const wrapper = ({ preloaded = false, children } = {}) => shallow(
+    <Preloader preloaded={preloaded}>
+      {children}
+    </Preloader>,
+  );
 
   it('Should render the preloader if the `preloaded` flag is set to false', () => {
     const children = (

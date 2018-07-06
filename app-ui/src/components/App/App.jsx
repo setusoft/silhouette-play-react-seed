@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Switch, Router, Route, Redirect } from 'react-router-dom';
+import {
+  Switch, Router, Route, Redirect,
+} from 'react-router-dom';
 import { history } from 'modules/LocationModule';
 import I18nLoaderContainer from 'containers/I18nLoaderContainer';
 import PreloaderContainer from 'containers/PreloaderContainer';

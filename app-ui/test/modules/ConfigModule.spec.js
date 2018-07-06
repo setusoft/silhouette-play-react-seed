@@ -65,8 +65,8 @@ describe('(Redux Module) ConfigModule', () => {
       expect(state).to.eql({ ...initialState, isPending: true });
     });
 
-    it('Should set `isPending` to false and the model if the `fetchConfigFulfilled` ' +
-      'action was dispatched', () => {
+    it('Should set `isPending` to false and the model if the `fetchConfigFulfilled` '
+      + 'action was dispatched', () => {
       const model = { data: 'test' };
       let state = i18nReducer(undefined, fetchConfigPending());
       expect(state).to.eql({ ...initialState, isPending: true });

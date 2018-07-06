@@ -16,8 +16,11 @@ export default (Component, actions) => {
    * @param {Function} dispatch The Redux store dispatch function.
    * @returns {Object} The props passed to the react component.
    */
-  const mapDispatchToProps = dispatch =>
-    reduce(actions, (acc, action, key) => ({ ...acc, [key]: () => dispatch(action) }), {});
+  const mapDispatchToProps = dispatch => reduce(
+    actions,
+    (acc, action, key) => ({ ...acc, [key]: () => dispatch(action) }),
+    {},
+  );
 
   return connect(mapStateToProps, mapDispatchToProps)(lifecycle(Component));
 };

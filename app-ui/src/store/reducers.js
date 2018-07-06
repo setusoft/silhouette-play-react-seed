@@ -7,6 +7,13 @@ import i18nReducer from 'modules/I18nModule';
 import stateReducer from 'modules/StateModule';
 import userReducer from 'modules/UserModule';
 
+// https://github.com/zalmoxisus/redux-devtools-instrument/pull/19#issuecomment-400637274
+// https://github.com/reduxjs/redux/issues/2943
+const reduxModule = require('redux');
+
+// eslint-disable-next-line no-underscore-dangle
+reduxModule.__DO_NOT_USE__ActionTypes.REPLACE = '@@redux/INIT';
+
 export const makeRootReducer = (asyncReducers) => {
   const appReducer = combineReducers({
     init: initReducer,

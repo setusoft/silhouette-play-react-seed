@@ -1,5 +1,7 @@
 // @flow
-import { call, put, take, all } from 'redux-saga/effects';
+import {
+  call, put, take, all,
+} from 'redux-saga/effects';
 import {
   fetchConfig,
   fetchConfigPending,

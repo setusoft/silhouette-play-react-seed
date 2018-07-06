@@ -14,8 +14,7 @@ type Props = {
  *
  * @param Component The component to wrap.
  */
-const lifecycle = (Component: ComponentType<*>) =>
-  class extends React.Component<Props> {
+const lifecycle = (Component: ComponentType<*>) => class extends React.Component<Props> {
     /**
      * The component props.
      */
@@ -34,21 +33,27 @@ const lifecycle = (Component: ComponentType<*>) =>
      * Handler which is invoked immediately before mounting occurs.
      */
     componentWillMount() {
-      if (this.props.componentWillMount !== undefined) this.props.componentWillMount();
+      const { componentWillMount } = this.props;
+
+      if (componentWillMount !== undefined) componentWillMount();
     }
 
     /**
      * Handler which is invoked immediately after a component is mounted.
      */
     componentDidMount() {
-      if (this.props.componentDidMount !== undefined) this.props.componentDidMount();
+      const { componentDidMount } = this.props;
+
+      if (componentDidMount !== undefined) componentDidMount();
     }
 
     /**
      * Handler which is invoked immediately before a component is unmounted and destroyed.
      */
     componentWillUnmount() {
-      if (this.props.componentWillUnmount !== undefined) this.props.componentWillUnmount();
+      const { componentWillUnmount } = this.props;
+
+      if (componentWillUnmount !== undefined) componentWillUnmount();
     }
 
     /**
@@ -63,6 +68,6 @@ const lifecycle = (Component: ComponentType<*>) =>
 
       return <Component {...rest} />;
     }
-  };
+};
 
 export default lifecycle;

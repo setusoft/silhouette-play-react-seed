@@ -6,6 +6,8 @@ import './Dashboard.scss';
 
 export default () => (
   <Panel className="dashboard">
-    This can be adapted to fit your needs
+    <Panel.Body collapsible={false}>
+      This can be adapted to fit your needs
+    </Panel.Body>
   </Panel>
 );

@@ -1,8 +1,6 @@
 // @flow
-import { i18n } from 'lingui-i18n';
+import { i18n } from '@lingui/core';
 import { createSelector } from 'reselect';
-
-i18n.development(require('lingui-i18n/dev'));
 
 export const getLanguage = (state: Object) => state.i18n.language;
 export const getCatalog = (state: Object) => state.i18n.catalog;

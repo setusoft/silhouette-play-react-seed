@@ -1,343 +1,312 @@
 {
-  "Maintenance": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\components\\Maintenance\\Maintenance.jsx",
-        23
-      ]
-    ]
-  },
-  "The Page is currently under maintenance!": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\components\\Maintenance\\Maintenance.jsx",
-        24
-      ]
-    ]
-  },
-  "An unexpected error occurred! Please try again later.": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\util\\Saga.js",
-        62
-      ]
-    ]
-  },
-  "Optional": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\components\\FormControl\\FormControl.jsx",
-        85
-      ]
-    ]
-  },
   "Activate account": {
-    "translation": "",
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
+        "src/bundles/Auth/components/ActivateAccount/ActivateAccount.jsx",
         19
       ]
     ]
   },
-  "You can't log in yet. We previously sent an activation email to you at:": {
-    "translation": "",
+  "Already a member?": {
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        20
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        73
       ]
     ]
   },
-  "Please follow the instructions in that email to activate your account.": {
-    "translation": "",
+  "An unexpected error occurred! Please try again later.": {
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        22
-      ]
-    ]
-  },
-  "Click the button to send the activation email again.": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        23
-      ]
-    ]
-  },
-  "Send": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        25
-      ],
-      [
-        "src\\bundles\\Auth\\components\\ActivateAccount\\ActivateAccount.jsx",
-        25
-      ]
-    ]
-  },
-  "Recover password": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        27
-      ]
-    ]
-  },
-  "Please enter your email address and we will send you an email with further instructions to reset your password.": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        29
-      ]
-    ]
-  },
-  "Email": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        36
-      ],
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        40
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        31
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        35
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        44
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        48
-      ]
-    ]
-  },
-  "Submit": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        49
-      ],
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        49
-      ]
-    ]
-  },
-  "Back to Sign-In": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\RecoverPassword\\RecoverPassword.jsx",
-        51
-      ]
-    ]
-  },
-  "Reset password": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        23
-      ]
-    ]
-  },
-  "Strong passwords include numbers, letters and special characters.": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        25
-      ]
-    ]
-  },
-  "Password": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        30
-      ],
-      [
-        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        34
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        45
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        49
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        58
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        "src/util/Saga.js",
         62
       ]
     ]
   },
-  "Reset": {
-    "translation": "",
+  "Back to Home": {
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        41
-      ],
-      [
-        "src\\bundles\\Auth\\components\\ResetPassword\\ResetPassword.jsx",
-        41
+        "src/components/NotFound/NotFound.jsx",
+        20
       ]
     ]
   },
-  "Sign-In": {
-    "translation": "",
+  "Back to Sign-In": {
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
+        51
+      ]
+    ]
+  },
+  "Click the button to send the activation email again.": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ActivateAccount/ActivateAccount.jsx",
+        23
+      ]
+    ]
+  },
+  "Email": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
+        36
+      ],
+      [
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
+        40
+      ],
+      [
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
+        31
+      ],
+      [
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
+        35
+      ],
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        44
+      ],
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        48
+      ]
+    ]
+  },
+  "Forgot your password?": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
+        66
+      ]
+    ]
+  },
+  "Maintenance": {
+    "origin": [
+      [
+        "src/components/Maintenance/Maintenance.jsx",
+        21
+      ]
+    ]
+  },
+  "Name": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        31
+      ],
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        35
+      ]
+    ]
+  },
+  "Optional": {
+    "origin": [
+      [
+        "src/components/FormControl/FormControl.jsx",
+        85
+      ]
+    ]
+  },
+  "Password": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ResetPassword/ResetPassword.jsx",
+        30
+      ],
+      [
+        "src/bundles/Auth/components/ResetPassword/ResetPassword.jsx",
+        34
+      ],
+      [
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
+        45
+      ],
+      [
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
+        49
+      ],
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        58
+      ],
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        62
+      ]
+    ]
+  },
+  "Please enter your email address and we will send you an email with further instructions to reset your password.": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
+        29
+      ]
+    ]
+  },
+  "Please follow the instructions in that email to activate your account.": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ActivateAccount/ActivateAccount.jsx",
+        22
+      ]
+    ]
+  },
+  "Recover password": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
         27
       ]
     ]
   },
   "Remember my login on this computer": {
-    "translation": "",
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
         59
       ]
     ]
   },
+  "Reset": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ResetPassword/ResetPassword.jsx",
+        41
+      ],
+      [
+        "src/bundles/Auth/components/ResetPassword/ResetPassword.jsx",
+        41
+      ]
+    ]
+  },
+  "Reset password": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ResetPassword/ResetPassword.jsx",
+        23
+      ]
+    ]
+  },
+  "Send": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ActivateAccount/ActivateAccount.jsx",
+        25
+      ],
+      [
+        "src/bundles/Auth/components/ActivateAccount/ActivateAccount.jsx",
+        25
+      ]
+    ]
+  },
   "Sign in": {
-    "translation": "",
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
         62
       ],
       [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
         62
-      ]
-    ]
-  },
-  "Forgot your password?": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\SignIn\\SignIn.jsx",
-        66
-      ]
-    ]
-  },
-  "Sign-Up": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        27
-      ]
-    ]
-  },
-  "Name": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        31
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        35
-      ]
-    ]
-  },
-  "Sign up": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        69
-      ],
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        69
-      ]
-    ]
-  },
-  "Already a member?": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
-        73
       ]
     ]
   },
   "Sign in now": {
-    "translation": "",
     "origin": [
       [
-        "src\\bundles\\Auth\\components\\SignUp\\SignUp.jsx",
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
         73
       ]
     ]
   },
-  "This field is required": {
-    "translation": "",
+  "Sign up": {
     "origin": [
       [
-        "src\\components\\FormControl\\FormControl.jsx",
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        69
+      ],
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        69
+      ]
+    ]
+  },
+  "Sign-In": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/SignIn/SignIn.jsx",
+        27
+      ]
+    ]
+  },
+  "Sign-Up": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/SignUp/SignUp.jsx",
+        27
+      ]
+    ]
+  },
+  "Strong passwords include numbers, letters and special characters.": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/ResetPassword/ResetPassword.jsx",
+        25
+      ]
+    ]
+  },
+  "Submit": {
+    "origin": [
+      [
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
+        49
+      ],
+      [
+        "src/bundles/Auth/components/RecoverPassword/RecoverPassword.jsx",
+        49
+      ]
+    ]
+  },
+  "The Page is currently under maintenance!": {
+    "origin": [
+      [
+        "src/components/Maintenance/Maintenance.jsx",
+        22
+      ]
+    ]
+  },
+  "The Page you are looking for could not be found!": {
+    "origin": [
+      [
+        "src/components/NotFound/NotFound.jsx",
+        19
+      ]
+    ]
+  },
+  "This field is required": {
+    "origin": [
+      [
+        "src/components/FormControl/FormControl.jsx",
         33
       ]
     ]
   },
   "Valid email required": {
-    "translation": "",
     "origin": [
       [
-        "src\\components\\FormControl\\FormControl.jsx",
+        "src/components/FormControl/FormControl.jsx",
         34
       ]
     ]
   },
-  "The Page you are looking for could not be found!": {
-    "translation": "",
+  "You can't log in yet. We previously sent an activation email to you at:": {
     "origin": [
       [
-        "src\\components\\NotFound\\NotFound.jsx",
-        19
-      ]
-    ]
-  },
-  "Back to Home": {
-    "translation": "",
-    "origin": [
-      [
-        "src\\components\\NotFound\\NotFound.jsx",
+        "src/bundles/Auth/components/ActivateAccount/ActivateAccount.jsx",
         20
       ]
     ]

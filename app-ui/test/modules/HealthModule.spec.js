@@ -87,8 +87,8 @@ describe('(Redux Module) fetchHealth', () => {
       expect(state).to.eql({ ...initialState, isPending: true });
     });
 
-    it('Should set `isPending` to false and the `isHealthy` to true if the `fetchConfigFulfilled` ' +
-      'action was dispatched', () => {
+    it('Should set `isPending` to false and the `isHealthy` to true if the `fetchConfigFulfilled` '
+      + 'action was dispatched', () => {
       let state = i18nReducer(undefined, fetchHealthPending());
       expect(state).to.eql({ ...initialState, isPending: true });
 

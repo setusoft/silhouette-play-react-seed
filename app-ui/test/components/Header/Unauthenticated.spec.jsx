@@ -7,8 +7,9 @@ import Unauthenticated from 'components/Header/Unauthenticated';
 import config from 'config/index';
 
 describe('(Component) Header/Unauthenticated', () => {
-  const wrapper = ({ current = '', route = () => null } = {}) =>
-    shallow(<Unauthenticated current={current} route={route} />);
+  const wrapper = ({ current = '', route = () => null } = {}) => shallow(
+    <Unauthenticated current={current} route={route} />,
+  );
 
   it('Should contain the `Header` as root element', () => {
     expect(wrapper().first().is(Header)).to.be.true();

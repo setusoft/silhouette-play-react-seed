@@ -37,17 +37,19 @@ describe('(Saga) HealthSaga', () => {
       expect(initHealthWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should set `health` to initialized if the `fetchHealthFulfilled` action was dispatched', () =>
+    it('Should set `health` to initialized if the `fetchHealthFulfilled` action was dispatched', () => {
       expectSaga(initHealthWorker)
         .put(setHealthInitialized())
         .dispatch(fetchHealthFulfilled())
-        .silentRun());
+        .silentRun();
+    });
 
-    it('Should set `health` to initialized if the `fetchHealthRejected` action was dispatched', () =>
+    it('Should set `health` to initialized if the `fetchHealthRejected` action was dispatched', () => {
       expectSaga(initHealthWorker)
         .put(setHealthInitialized())
         .dispatch(fetchHealthRejected())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) initAppWorker', () => {
@@ -139,12 +141,13 @@ describe('(Saga) HealthSaga', () => {
       expect(fetchHealthPeriodicallyWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should fetch the health after 1ms the worker gets activated', () =>
+    it('Should fetch the health after 1ms the worker gets activated', () => {
       expectSaga(fetchHealthPeriodicallyWorker, 1)
         .call(delay, 1)
         .put(fetchHealth())
         .dispatch(fetchHealthFulfilled())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) healthSaga', () => {

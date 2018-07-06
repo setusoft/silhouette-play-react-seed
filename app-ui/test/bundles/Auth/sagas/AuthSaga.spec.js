@@ -8,13 +8,12 @@ import resetPasswordSagaBinding from 'bundles/Auth/sagas/ResetPasswordSaga';
 
 describe('(Saga) Auth/AuthSaga', () => {
   describe('(Generator) authSaga', () => {
-    it('Should spawn all Auth sagas', () =>
-      expectSaga(authSaga)
-        .spawn(...signUpSagaBinding)
-        .spawn(...signInSagaBinding)
-        .spawn(...activateAccountSagaBinding)
-        .spawn(...recoverPasswordSagaBinding)
-        .spawn(...resetPasswordSagaBinding)
-        .silentRun());
+    it('Should spawn all Auth sagas', () => expectSaga(authSaga)
+      .spawn(...signUpSagaBinding)
+      .spawn(...signInSagaBinding)
+      .spawn(...activateAccountSagaBinding)
+      .spawn(...recoverPasswordSagaBinding)
+      .spawn(...resetPasswordSagaBinding)
+      .silentRun());
   });
 });

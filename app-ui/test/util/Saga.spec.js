@@ -1,11 +1,13 @@
 import head from 'lodash/head';
 import Alert from 'react-s-alert';
-import { i18n } from 'lingui-i18n';
+import { i18n } from '@lingui/core';
 import { actions } from 'react-redux-form';
 import { call, spawn, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { getI18n } from 'selectors/I18nSelector';
-import { refineSaga, combineSagas, handleError, formErrorHandler } from 'util/Saga';
+import {
+  refineSaga, combineSagas, handleError, formErrorHandler,
+} from 'util/Saga';
 import { APIError, APIResponse } from 'util/API';
 
 describe('(Util) Saga', () => {
@@ -65,26 +67,28 @@ describe('(Util) Saga', () => {
       expect(handleError[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should use the default error handler if no additional handler was given', () =>
+    it('Should use the default error handler if no additional handler was given', () => {
       expectSaga(handleError, apiError)
         .call(Alert.error, apiError.response.description)
-        .silentRun());
+        .silentRun();
+    });
 
-    it('Should use the default error handler if no error handler for the error response code was given', () =>
+    it('Should use the default error handler if no error handler for the error response code was given', () => {
       expectSaga(handleError, apiError, { notDefined: () => undefined })
         .call(Alert.error, apiError.response.description)
-        .silentRun());
+        .silentRun();
+    });
 
-    it('Should use the matched error handler', () =>
+    it('Should use the matched error handler', () => {
       expectSaga(handleError, apiError, { test: error => ([call(Alert.info, error.response.description)]) })
         .call(Alert.info, apiError.response.description)
-        .silentRun());
+        .silentRun();
+    });
 
-    it('Should show the alert notifier for unhandled error types', () =>
-      expectSaga(handleError, new Error())
-        .provide([[select(getI18n), i18n]])
-        .call(Alert.error, 'An unexpected error occurred! Please try again later.')
-        .silentRun());
+    it('Should show the alert notifier for unhandled error types', () => expectSaga(handleError, new Error())
+      .provide([[select(getI18n), i18n]])
+      .call(Alert.error, 'An unexpected error occurred! Please try again later.')
+      .silentRun());
   });
 
   describe('(Function) formErrorHandler', () => {

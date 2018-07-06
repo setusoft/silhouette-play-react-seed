@@ -4,7 +4,11 @@ import { shallow } from 'enzyme';
 import lifecycle from 'components/Lifecycle';
 
 describe('(HOC) lifecycle', () => {
-  const TestComponent = () => (<div>Test</div>);
+  const TestComponent = () => (
+    <div>
+      Test
+    </div>
+  );
   let componentWillMount;
   let componentDidMount;
   let componentWillUnmount;

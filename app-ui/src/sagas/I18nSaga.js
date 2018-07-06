@@ -1,5 +1,7 @@
 // @flow
-import { all, call, put, take, fork, cancel } from 'redux-saga/effects';
+import {
+  all, call, put, take, fork, cancel,
+} from 'redux-saga/effects';
 import { combineSagas, handleError } from 'util/Saga';
 import { initApp, setI18nInitialized } from 'modules/InitModule';
 import {

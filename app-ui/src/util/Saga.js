@@ -2,9 +2,27 @@
 import get from 'lodash/get';
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
-import { call, put, spawn, all, select } from 'redux-saga/effects';
+import {
+  call, put, spawn, select,
+} from 'redux-saga/effects';
 import { getI18n } from 'selectors/I18nSelector';
 import { APIError } from './API';
+
+/**
+ * Executing calls sequential.
+ *
+ * This is a counterpart to `all` which executes calls in parallel.
+ *
+ * @param calls The calls to execute.
+ * @returns A generator.
+ * @see https://stackoverflow.com/a/45377797/2153190
+ */
+export function* sequence(calls: Array<*>): Generator<*, *, *> {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const c of calls) {
+    yield c;
+  }
+}
 
 /**
  * Returns an instantiable saga regarding if only a generator function was given or if already an
@@ -14,7 +32,7 @@ import { APIError } from './API';
  * @return An array containing the saga as first value and additional parameters as following values.
  * @throws TypeError if an unexpected saga type was given.
  */
-export const refineSaga = (saga: * | Array<*>) => {
+export const refineSaga = (saga: * | Array<*>): Array<*> => {
   // Saga is a generator function without params
   if (typeof saga === 'function') {
     return [saga];
@@ -38,7 +56,7 @@ export const refineSaga = (saga: * | Array<*>) => {
  *
  * @param sagas The sagas to combine.
  */
-export const combineSagas = (sagas: Array<Function | *>): any[] => sagas.map(saga => spawn(...refineSaga(saga)));
+export const combineSagas = (sagas: any[]): any[] => sagas.map(saga => spawn(...refineSaga(saga)));
 
 /**
  * Handles the errors in the catch block of a saga.
@@ -52,7 +70,7 @@ export function* handleError(
 ): Generator<*, *, *> {
   if (e instanceof APIError) {
     const defaultHandler = (error: APIError) => ([call(Alert.error, error.response.description)]);
-    yield all(get(handlers, e.response.code, defaultHandler)(e));
+    yield sequence(get(handlers, e.response.code, defaultHandler)(e));
   } else {
     const i18n = yield select(getI18n);
 

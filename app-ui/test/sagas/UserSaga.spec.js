@@ -47,17 +47,19 @@ describe('(Saga) UserSaga', () => {
       expect(initUserWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should set `user` to initialized if the `fetchUserFulfilled` action was dispatched', () =>
+    it('Should set `user` to initialized if the `fetchUserFulfilled` action was dispatched', () => {
       expectSaga(initUserWorker)
         .put(setUserInitialized())
         .dispatch(fetchUserFulfilled())
-        .silentRun());
+        .silentRun();
+    });
 
-    it('Should set `user` to initialized if the `resetUserState` action was dispatched', () =>
+    it('Should set `user` to initialized if the `resetUserState` action was dispatched', () => {
       expectSaga(initUserWorker)
         .put(setUserInitialized())
         .dispatch(resetUserState())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) initAppWorker', () => {
@@ -71,11 +73,12 @@ describe('(Saga) UserSaga', () => {
       expect(handleHealthySwitchWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should fetch the user on transition', () =>
+    it('Should fetch the user on transition', () => {
       expectSaga(handleHealthySwitchWorker)
         .put(fetchUser())
         .dispatch(changeToHealthy())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) handleUnhealthySwitchWorker', () => {
@@ -83,11 +86,12 @@ describe('(Saga) UserSaga', () => {
       expect(handleUnhealthySwitchWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should reset the user state on transition', () =>
+    it('Should reset the user state on transition', () => {
       expectSaga(handleUnhealthySwitchWorker)
         .put(resetUserState())
         .dispatch(changeToUnhealthy())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) fetchUserWorker', () => {
@@ -141,11 +145,12 @@ describe('(Saga) UserSaga', () => {
       expect(fetchUserFulfilledWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should fetch the config if the user was loaded successfully', () =>
+    it('Should fetch the config if the user was loaded successfully', () => {
       expectSaga(fetchUserFulfilledWorker)
         .put(fetchConfig())
         .dispatch(fetchUserFulfilled())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) fetchUserPeriodicallyWorker', () => {
@@ -153,12 +158,13 @@ describe('(Saga) UserSaga', () => {
       expect(fetchUserPeriodicallyWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should fetch the user after 1ms the worker gets activated', () =>
+    it('Should fetch the user after 1ms the worker gets activated', () => {
       expectSaga(fetchUserPeriodicallyWorker, 1)
         .call(delay, 1)
         .put(fetchUser())
         .dispatch(fetchUserFulfilled())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) signOutUserWorker', () => {
@@ -220,11 +226,12 @@ describe('(Saga) UserSaga', () => {
       expect(resetUserStateWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should reset the state for the given keys', () =>
+    it('Should reset the state for the given keys', () => {
       expectSaga(resetUserStateWorker)
         .put(resetState(userState))
         .dispatch(resetUserState())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) userSaga', () => {

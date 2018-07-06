@@ -1,6 +1,8 @@
 // @flow
 import { delay } from 'redux-saga';
-import { call, put, take, race, all, fork, cancel } from 'redux-saga/effects';
+import {
+  call, put, take, race, all, fork, cancel,
+} from 'redux-saga/effects';
 import { history } from 'modules/LocationModule';
 import { resetState } from 'modules/StateModule';
 import { initApp, setUserInitialized } from 'modules/InitModule';

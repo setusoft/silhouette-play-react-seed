@@ -1,7 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
-import { i18n } from 'lingui-i18n';
-import { Trans } from 'lingui-react';
+import { i18n } from '@lingui/core';
+import { Trans } from '@lingui/react';
 import { shallow } from 'enzyme';
 import { Panel, Button } from 'react-bootstrap';
 import Spinner from 'components/Spinner';
@@ -13,12 +13,14 @@ describe('(Component) Auth/ActivateAccount', () => {
   let onSend;
   let wrapper;
 
-  const getWrapper = () => shallow(<ActivateAccountComponent
-    email={email}
-    isPending={isPending}
-    i18n={i18n}
-    onSend={onSend}
-  />);
+  const getWrapper = () => shallow(
+    <ActivateAccountComponent
+      email={email}
+      isPending={isPending}
+      i18n={i18n}
+      onSend={onSend}
+    />,
+  );
 
   beforeEach(() => {
     email = 'john@doe.com';
@@ -51,59 +53,83 @@ describe('(Component) Auth/ActivateAccount', () => {
       expect(wrapper.find(Panel).get(0).props.className).to.equal('activate-account');
     });
 
-    it('Should have prop `header` set to "Activate account"', () => {
-      expect(wrapper.find(Panel).get(0).props.header).to.equal('Activate account');
-    });
-  });
-
-  describe('(Component) Button', () => {
-    it('Should have prop `bsStyle` set to "primary"', () => {
-      expect(wrapper.find(Button).get(0).props.bsStyle).to.equal('primary');
-    });
-
-    it('Should have prop `type` set to "button"', () => {
-      expect(wrapper.find(Button).get(0).props.type).to.equal('button');
+    it('Should have Panel.Header set to "Activate account"', () => {
+      expect(wrapper.find(Panel).contains(
+        <Panel.Heading>
+          <Trans>
+            Activate account
+          </Trans>
+        </Panel.Heading>,
+      ));
     });
 
-    it('Should have prop `block` set to true', () => {
-      expect(wrapper.find(Button).get(0).props.block).to.equal(true);
-    });
+    describe('(Component) Panel.Body', () => {
+      it('Should have prop `collapsible` set to false', () => {
+        expect(wrapper.find(Panel.Body).get(0).props.collapsible).to.equal(false);
+      });
 
-    it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
-      isPending = true;
-      wrapper = getWrapper();
+      describe('(Component) Button', () => {
+        it('Should have prop `bsStyle` set to "primary"', () => {
+          expect(wrapper.find(Button).get(0).props.bsStyle).to.equal('primary');
+        });
 
-      expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
-    });
+        it('Should have prop `type` set to "button"', () => {
+          expect(wrapper.find(Button).get(0).props.type).to.equal('button');
+        });
 
-    it('Should have prop `disabled` set to false if `isPending` is set to false', () => {
-      isPending = false;
-      wrapper = getWrapper();
+        it('Should have prop `block` set to true', () => {
+          expect(wrapper.find(Button).get(0).props.block).to.equal(true);
+        });
 
-      expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);
-    });
+        it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
+          isPending = true;
+          wrapper = getWrapper();
 
-    it('Should execute the `onSend` handler on click', () => {
-      wrapper.find(Button).simulate('click');
+          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
+        });
 
-      expect(onSend.callCount).to.equal(1);
-      expect(onSend.firstCall.args[0]).to.eql(email);
-    });
+        it('Should have prop `disabled` set to false if `isPending` is set to false', () => {
+          isPending = false;
+          wrapper = getWrapper();
 
-    it('Should show the `Spinner` if `isPending` is set to true', () => {
-      isPending = true;
-      wrapper = getWrapper();
+          expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);
+        });
 
-      expect(wrapper.find(Spinner)).to.have.length(1);
-      expect(wrapper.find(Button).contains(<div><Spinner /> <Trans>Send</Trans></div>)).to.be.true();
-    });
+        it('Should execute the `onSend` handler on click', () => {
+          wrapper.find(Button).simulate('click');
 
-    it('Should not show the `Spinner` if `isPending` is set to false', () => {
-      isPending = false;
-      wrapper = getWrapper();
+          expect(onSend.callCount).to.equal(1);
+          expect(onSend.firstCall.args[0]).to.eql(email);
+        });
 
-      expect(wrapper.find(Spinner)).to.have.length(0);
-      expect(wrapper.find(Button).contains(<Trans>Send</Trans>)).to.be.true();
+        it('Should show the `Spinner` if `isPending` is set to true', () => {
+          isPending = true;
+          wrapper = getWrapper();
+
+          expect(wrapper.find(Spinner)).to.have.length(1);
+          expect(wrapper.find(Button).contains(
+            <div>
+              <Spinner />
+              {' '}
+              <Trans>
+                Send
+              </Trans>
+            </div>,
+          )).to.be.true();
+        });
+
+        it('Should not show the `Spinner` if `isPending` is set to false', () => {
+          isPending = false;
+          wrapper = getWrapper();
+
+          expect(wrapper.find(Spinner)).to.have.length(0);
+          expect(wrapper.find(Button).contains(
+            <Trans>
+              Send
+            </Trans>,
+          )).to.be.true();
+        });
+      });
     });
   });
 });
