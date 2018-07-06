@@ -4,11 +4,11 @@ import java.time.{ Clock, Instant, ZoneId }
 
 import net.codingwell.scalaguice.ScalaModule
 import org.specs2.specification.Scope
-import play.api.Application
 import play.api.i18n.{ Lang, Messages, MessagesApi }
 import play.api.inject.Injector
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.PlaySpecification
+import play.api.{ Application, Configuration }
 
 /**
  * A specification which contains some helpers.
@@ -28,9 +28,27 @@ trait BaseSpecification extends PlaySpecification {
     }
 
     /**
+     * The list of modules to disable.
+     *
+     * Override this to disable modules during testing.
+     *
+     * @return The list of modules to disable.
+     */
+    def disabledModules: List[String] = List(
+      "modules.JobModule",
+      "modules.QuartzSchedulerModule"
+    )
+
+    /**
      * The application builder.
      */
-    def applicationBuilder: GuiceApplicationBuilder = new GuiceApplicationBuilder()
+    def applicationBuilder: GuiceApplicationBuilder = GuiceApplicationBuilder(
+      loadConfiguration = { environment =>
+        val config = Configuration.load(environment)
+        config ++ Configuration(
+          "play.modules.disabled" -> (config.get[Seq[String]]("play.modules.disabled") ++ disabledModules)
+        )
+      })
       .overrides(fakeModule)
 
     /**

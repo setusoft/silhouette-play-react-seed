@@ -4,7 +4,7 @@ object Dependencies {
 
   object Version {
     val specs2 = "3.8.9"
-    val silhouette = "5.0.1"
+    val silhouette = "5.0.5"
     val akka = "2.5.4"
   }
 
@@ -34,20 +34,20 @@ object Dependencies {
       val cryptoJca: ModuleID = "com.mohiva" %% "play-silhouette-crypto-jca" % Version.silhouette
       val testkit: ModuleID = "com.mohiva" %% "play-silhouette-testkit" % Version.silhouette
       val persistenceReactiveMongo: ModuleID =
-        "com.mohiva" %% "play-silhouette-persistence-reactivemongo" % Version.silhouette
+        "com.mohiva" %% "play-silhouette-persistence-reactivemongo" % "5.0.1"
     }
 
     object Akka {
       val testkit: ModuleID = "com.typesafe.akka" %% "akka-testkit" % Version.akka
     }
 
-    val ficus: ModuleID = "com.iheart" %% "ficus" % "1.4.2"
+    val ficus: ModuleID = "com.iheart" %% "ficus" % "1.4.3"
     val scalaGuice: ModuleID = "net.codingwell" %% "scala-guice" % "4.1.0"
     val akkaQuartzScheduler: ModuleID = "com.enragedginger" %% "akka-quartz-scheduler" % "1.6.1-akka-2.5.x"
     val playMailer: ModuleID = "com.typesafe.play" %% "play-mailer" % "6.0.1"
     val playMailerGuice: ModuleID = "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
     val apacheCommonsIO: ModuleID = "commons-io" % "commons-io" % "2.4"
-    val playReactiveMongo: ModuleID = "org.reactivemongo" %% "play2-reactivemongo" % "0.12.6-play26"
+    val playReactiveMongo: ModuleID = "org.reactivemongo" %% "play2-reactivemongo" % "0.13.0-play26"
     val embedMongo: ModuleID = "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "2.0.0"
   }
 }

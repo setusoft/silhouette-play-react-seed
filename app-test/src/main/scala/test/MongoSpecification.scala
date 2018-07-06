@@ -7,10 +7,8 @@ import de.flapdoodle.embed.mongo.distribution.Version
 import de.flapdoodle.embed.mongo.{ Command, MongodProcess, MongodStarter }
 import de.flapdoodle.embed.process.runtime.Network
 import org.specs2.specification.core.Fragments
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.JsObject
-import play.api.test.{ PlaySpecification, WithApplication }
-import play.api.{ Environment, Logger }
+import play.api.{ Application, Environment, Logger }
 import play.modules.reactivemongo.{ ReactiveMongoApi, ReactiveMongoModule }
 import reactivemongo.api.FailoverStrategy
 import reactivemongo.api.commands.DropDatabase
@@ -28,28 +26,19 @@ import scala.concurrent.{ Await, Future }
  * Note: This is handled like a global setup/teardown procedure. So you must clean the database after each test,
  * to get an isolated test case.
  */
-trait MongoSpecification extends PlaySpecification {
+trait MongoSpecification extends BaseSpecification {
   sequential
   override def map(fs: => Fragments): Fragments = step(start()) ^ fs ^ step(stop())
 
-  /**
-   * Runs a fake application with a MongoDB database.
-   */
-  class WithMongo(
-    applicationBuilder: GuiceApplicationBuilder = new GuiceApplicationBuilder,
-    config: Map[String, Any] = MongoConfig.additionalConfig)
-    extends WithApplication(
-      applicationBuilder
-        .configure(config)
-        .bindings(new ReactiveMongoModule)
-        .build()
-    )
+  trait MongoContext extends BaseContext {
 
-  /**
-   * The MongoDB scope.
-   */
-  trait MongoScope extends BeforeAfterWithinAround {
-    self: WithApplication =>
+    /**
+     * The application.
+     */
+    override def application: Application = applicationBuilder
+      .configure(MongoConfig.additionalConfig)
+      .overrides(new ReactiveMongoModule)
+      .build()
 
     /**
      * Some test fixtures to insert into the database.
@@ -59,36 +48,42 @@ trait MongoSpecification extends PlaySpecification {
     /**
      * The ReactiveMongo API.
      */
-    lazy val reactiveMongoAPI = app.injector.instanceOf[ReactiveMongoApi]
+    lazy val reactiveMongoAPI = injector.instanceOf[ReactiveMongoApi]
 
     /**
      * The application environment.
      */
-    implicit val env = app.injector.instanceOf[Environment]
+    implicit val env = injector.instanceOf[Environment]
 
     /**
-     * Inserts the test fixtures.
+     * The MongoDB scope.
      */
-    def before: Unit = {
-      import play.modules.reactivemongo.json._
-      Await.result(reactiveMongoAPI.database.flatMap { db =>
-        Future.sequence(fixtures.flatMap {
-          case (c, files) =>
-            val collection = db.collection[JSONCollection](c)
-            files.map { file =>
-              collection.insert(BaseFixture.load(Paths.get(file)).as[JsObject])
-            }
-        })
-      }, Duration(60, SECONDS))
-    }
+    trait MongoScope extends BeforeAfterWithinAround {
 
-    /**
-     * Drops the database after the test runs to get an isolated environment.
-     */
-    def after: Unit = {
-      Await.result(reactiveMongoAPI.database.flatMap { db =>
-        db.runCommand(DropDatabase, FailoverStrategy.default)
-      }, Duration(60, SECONDS))
+      /**
+       * Inserts the test fixtures.
+       */
+      def before: Unit = {
+        import play.modules.reactivemongo.json._
+        Await.result(reactiveMongoAPI.database.flatMap { db =>
+          Future.sequence(fixtures.flatMap {
+            case (c, files) =>
+              val collection = db.collection[JSONCollection](c)
+              files.map { file =>
+                collection.insert(BaseFixture.load(Paths.get(file)).as[JsObject])
+              }
+          })
+        }, Duration(60, SECONDS))
+      }
+
+      /**
+       * Drops the database after the test runs to get an isolated environment.
+       */
+      def after: Unit = {
+        Await.result(reactiveMongoAPI.database.flatMap { db =>
+          db.runCommand(DropDatabase, FailoverStrategy.default)
+        }, Duration(60, SECONDS))
+      }
     }
   }
 

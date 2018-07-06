@@ -32,15 +32,15 @@ object NpmPlugin extends AutoPlugin {
    */
   object autoImport {
     val Npm = config("npm")
-    lazy val npmDirectory = SettingKey[File]("The directory were the npm app is located") in Npm
-    lazy val npmExec = SettingKey[String]("The npm command") in Npm
-    lazy val npmClean = SettingKey[String]("The npm clean command") in Npm
-    lazy val npmCompile = SettingKey[String]("The npm command to compile the application") in Npm
-    lazy val npmStart = SettingKey[String]("The npm command to start the server on localhost:3000") in Npm
-    lazy val npmDist = SettingKey[String]("The npm command to create the dist files") in Npm
-    lazy val npmTest = SettingKey[String]("The npm command to run the tests") in Npm
-    lazy val npmDir = SettingKey[String]("The directory where the NPM project is located") in Npm
-    lazy val npmLogLevel = settingKey[NpmLogLevel]("Log level for npm commands") in Npm
+    lazy val npmDirectory = SettingKey[File]("the directory were the npm app is located") in Npm
+    lazy val npmExec = SettingKey[String]("the npm command") in Npm
+    lazy val npmClean = SettingKey[String]("the npm clean command") in Npm
+    lazy val npmCompile = SettingKey[String]("the npm command to compile the application") in Npm
+    lazy val npmStart = SettingKey[String]("the npm command to start the server on localhost:3000") in Npm
+    lazy val npmDist = SettingKey[String]("the npm command to create the dist files") in Npm
+    lazy val npmTest = SettingKey[String]("the npm command to run the tests") in Npm
+    lazy val npmDir = SettingKey[String]("the directory where the NPM project is located") in Npm
+    lazy val npmLogLevel = settingKey[NpmLogLevel]("log level for npm commands") in Npm
 
     /**
      * Valid log levels for npm command from docs at: https://docs.npmjs.com/misc/config#loglevel

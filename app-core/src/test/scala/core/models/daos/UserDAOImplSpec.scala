@@ -5,7 +5,7 @@ import java.time.Instant
 import com.mohiva.play.silhouette.api.LoginInfo
 import core.models.{ Registration, Settings, User }
 import play.api.i18n.Lang
-import play.api.test.{ PlaySpecification, WithApplication }
+import play.api.test.WithApplication
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.bson.BSONObjectID
 import test.MongoSpecification
@@ -15,55 +15,66 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Test case for the [[UserDAOImpl]] class.
  */
-class UserDAOImplSpec extends PlaySpecification with MongoSpecification {
+class UserDAOImplSpec extends MongoSpecification {
 
   "The `find` method" should {
-    "find a user for the given login info" in new WithMongo with Context {
-      val result = await(dao.find(loginInfo))
+    "find a user for the given login info" in new Context {
+      new WithApplication(application) with MongoScope {
+        val result = await(dao.find(loginInfo))
 
-      result must beSome(user)
+        result must beSome(user)
+      }
     }
 
-    "find a user for the given ID" in new WithMongo with Context {
-      val result = await(dao.find(userID))
+    "find a user for the given ID" in new Context {
+      new WithApplication(application) with MongoScope {
+        val result = await(dao.find(userID))
 
-      result must beSome(user)
+        result must beSome(user)
+      }
     }
 
-    "return None if no user for the given login info exists" in new WithMongo with Context {
-      val result = await(dao.find(LoginInfo("test", "test")))
+    "return None if no user for the given login info exists" in new Context {
+      new WithApplication(application) with MongoScope {
+        val result = await(dao.find(LoginInfo("test", "test")))
 
-      result should beNone
+        result should beNone
+      }
     }
 
-    "return None if no user for the given ID exists" in new WithMongo with Context {
-      val result = await(dao.find(BSONObjectID.generate()))
+    "return None if no user for the given ID exists" in new Context {
+      new WithApplication(application) with MongoScope {
+        val result = await(dao.find(BSONObjectID.generate()))
 
-      result should beNone
+        result should beNone
+      }
     }
   }
 
   "The `save` method" should {
-    "insert a user" in new WithMongo with Context {
-      val newUser = user.copy(id = BSONObjectID.generate())
+    "insert a user" in new Context {
+      new WithApplication(application) with MongoScope {
+        val newUser = user.copy(id = BSONObjectID.generate())
 
-      await(dao.save(newUser)) must be equalTo newUser
-      await(dao.find(newUser.id)) must beSome(newUser)
+        await(dao.save(newUser)) must be equalTo newUser
+        await(dao.find(newUser.id)) must beSome(newUser)
+      }
     }
 
-    "update an existing user" in new WithMongo with Context {
-      val updatedUser = user.copy(name = Some("Jane Doe"))
+    "update an existing user" in new Context {
+      new WithApplication(application) with MongoScope {
+        val updatedUser = user.copy(name = Some("Jane Doe"))
 
-      await(dao.save(updatedUser)) must be equalTo updatedUser
-      await(dao.find(user.id)) must beSome(updatedUser)
+        await(dao.save(updatedUser)) must be equalTo updatedUser
+        await(dao.find(user.id)) must beSome(updatedUser)
+      }
     }
   }
 
   /**
    * The context.
    */
-  trait Context extends MongoScope {
-    self: WithApplication =>
+  trait Context extends MongoContext {
 
     /**
      * The test fixtures to insert.
@@ -75,7 +86,7 @@ class UserDAOImplSpec extends PlaySpecification with MongoSpecification {
     /**
      * The user DAO implementation.
      */
-    val dao = new UserDAOImpl(app.injector.instanceOf[ReactiveMongoApi])
+    val dao = new UserDAOImpl(injector.instanceOf[ReactiveMongoApi])
 
     /**
      * A userID for the stored user.

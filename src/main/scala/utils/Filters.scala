@@ -14,8 +14,8 @@ import play.filters.headers.SecurityHeadersFilter
 class Filters @Inject() (
   corsSFilter: CORSFilter,
   csrfFilter: CSRFFilter,
-  securityHeadersFilter: SecurityHeadersFilter)
-  extends HttpFilters {
+  securityHeadersFilter: SecurityHeadersFilter
+) extends HttpFilters {
 
   /**
    * Returns the list of filters.

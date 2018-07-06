@@ -1,6 +1,7 @@
 import java.io.File
 
 import NpmPlugin.autoImport._
+import com.typesafe.sbt.packager.linux.LinuxPlugin.autoImport.{ configWithNoReplace, linuxPackageMappings }
 import play.sbt.{ Play, PlayScala }
 import play.sbt.PlayImport.PlayKeys
 import play.sbt.routes.RoutesKeys
@@ -131,7 +132,9 @@ object PackageSettings extends AutoPlugin {
     rpmRequirements ++= Seq("java-1.8.0-openjdk", "bash"),
     rpmVendor := "test",
     rpmLicense := Some("Proprietary"),
-    packageBin in Rpm := (packageBin in Rpm).dependsOn(dist in Npm).value
+    packageBin in Rpm := (packageBin in Rpm).dependsOn(dist in Npm).value,
+    // https://www.scala-sbt.org/sbt-native-packager/formats/rpm.html#marking-config-files-as-noreplace
+    linuxPackageMappings in Rpm := configWithNoReplace((linuxPackageMappings in Rpm).value)
   )
 }
 
