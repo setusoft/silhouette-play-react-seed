@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
-import { Trans } from 'lingui-react';
+import { Trans } from '@lingui/react';
 import { Router, Link, Redirect } from 'react-router-dom';
 import { history } from 'modules/LocationModule';
 import CoreLayout from 'components/CoreLayout';
@@ -19,15 +19,33 @@ describe('(Component) NotFound', () => {
   });
 
   it('Should contain the 404 status code', () => {
-    expect(wrapper.contains(<p className="code">404</p>)).to.be.true();
+    expect(wrapper.contains(
+      <p className="code">
+        404
+      </p>,
+    )).to.be.true();
   });
 
   it('Should contain an error description', () => {
-    expect(wrapper.contains(<p><Trans>The Page you are looking for could not be found!</Trans></p>)).to.be.true();
+    expect(wrapper.contains(
+      <p>
+        <Trans>
+          The Page you are looking for could not be found!
+        </Trans>
+      </p>,
+    )).to.be.true();
   });
 
   it('Should contain the link to the home page', () => {
-    expect(wrapper.contains(<p><Link to={config.route.index}><Trans>Back to Home</Trans></Link></p>)).to.be.true();
+    expect(wrapper.contains(
+      <p>
+        <Link to={config.route.index}>
+          <Trans>
+            Back to Home
+          </Trans>
+        </Link>
+      </p>,
+    )).to.be.true();
   });
 
   describe('(Component) NotFoundRoute', () => {

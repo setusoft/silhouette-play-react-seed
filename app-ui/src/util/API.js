@@ -10,8 +10,11 @@ import config from 'config/index';
  */
 export class APIResponse {
   code: string;
+
   description: string;
+
   details: any;
+
   constructor(code: string, description: string, details: any = []) {
     this.code = code;
     this.description = description;
@@ -28,9 +31,13 @@ export class APIResponse {
  */
 export class APIError {
   name: string;
+
   message: string;
+
   stack: string;
+
   response: APIResponse;
+
   constructor(response: APIResponse) {
     this.response = response;
     this.name = this.constructor.name;

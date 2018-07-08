@@ -7,12 +7,11 @@ import userSagaBinding from 'sagas/UserSaga';
 
 describe('(Saga) sagas', () => {
   describe('(Generator) rootSaga', () => {
-    it('Should spawn all sagas', () =>
-      expectSaga(rootSaga)
-        .spawn(...healthSagaBinding)
-        .spawn(...configSagaBinding)
-        .spawn(...i18nSagaBinding)
-        .spawn(...userSagaBinding)
-        .silentRun());
+    it('Should spawn all sagas', () => expectSaga(rootSaga)
+      .spawn(...healthSagaBinding)
+      .spawn(...configSagaBinding)
+      .spawn(...i18nSagaBinding)
+      .spawn(...userSagaBinding)
+      .silentRun());
   });
 });

@@ -20,8 +20,8 @@ and [Play]. It's a starting point which can be extended to fit your needs.
 * Password reset functionality
 * Account activation functionality
 * Email sending and auth token cleanup
-* [Security headers](https://www.playframework.com/documentation/2.5.x/SecurityHeaders)
-* [CSRF Protection](https://www.playframework.com/documentation/2.5.x/ScalaCsrf)
+* [Security headers](https://www.playframework.com/documentation/2.6.x/SecurityHeaders)
+* [CSRF Protection](https://www.playframework.com/documentation/2.6.x/ScalaCsrf)
 
 
 ## Documentation
@@ -155,5 +155,5 @@ static type checker for JavaScript.
 [Express]: http://expressjs.com/de/
 [Flow]: https://flow.org/
 [Hot Module Replacement]: https://webpack.js.org/concepts/hot-module-replacement/
-[SBT's Multi-project builds]: http://www.scala-sbt.org/0.13/docs/Multi-Project.html
+[SBT's Multi-project builds]: https://www.scala-sbt.org/1.x/docs/Multi-Project.html
 [SBT Native Packager]: http://sbt-native-packager.readthedocs.io/en/stable/

@@ -1,7 +1,9 @@
 // @flow
 import Alert from 'react-s-alert';
 import { combineSagas, handleError } from 'util/Saga';
-import { call, put, take, all } from 'redux-saga/effects';
+import {
+  call, put, take, all,
+} from 'redux-saga/effects';
 import { history } from 'modules/LocationModule';
 import {
   activateAccount,

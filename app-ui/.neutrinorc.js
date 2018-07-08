@@ -11,7 +11,7 @@ module.exports = {
       },
       babel: {
         presets: [
-          'lingui-react',
+          '@lingui/babel-preset-react',
         ],
       },
     }],

@@ -8,7 +8,11 @@ describe('(Component) Header', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<Header><div className="children" /></Header>);
+    wrapper = shallow(
+      <Header>
+        <div className="children" />
+      </Header>,
+    );
   });
 
   it('Should contain the company logo', () => {

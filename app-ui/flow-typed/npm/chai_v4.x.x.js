@@ -1,5 +1,5 @@
-// flow-typed signature: c46b11661e19e83f574595250845c8e1
-// flow-typed version: a5452d3be3/chai_v4.x.x/flow_>=v0.25.0
+// flow-typed signature: e3d42118a34a627d9c121880be7d1a52
+// flow-typed version: 120d43bb08/chai_v4.x.x/flow_>=v0.25.0
 
 declare module "chai" {
   declare type ExpectChain<T> = {
@@ -49,7 +49,7 @@ declare module "chai" {
     nested: ExpectChain<T>,
     property: <P>(
       name: string,
-      value?: P, 
+      value?: P,
       message?: string
     ) => ExpectChain<P> & ((name: string) => ExpectChain<mixed>),
 
@@ -141,7 +141,10 @@ declare module "chai" {
     state: (key: string, val?: any) => ExpectChain<T>,
     value: (val: string) => ExpectChain<T>,
     className: (val: string) => ExpectChain<T>,
-    text: (val: string) => ExpectChain<T>
+    text: (val: string) => ExpectChain<T>,
+
+    // chai-karma-snapshot
+    matchSnapshot: (lang?: any, update?: boolean, msg?: any) => ExpectChain<T>
   };
 
   declare function expect<T>(actual: T, message?: string): ExpectChain<T>;

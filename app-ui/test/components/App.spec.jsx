@@ -1,7 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
-import { Switch, Router, Route, Redirect } from 'react-router-dom';
+import {
+  Switch, Router, Route, Redirect,
+} from 'react-router-dom';
 import { initialState as i18nState } from 'modules/I18nModule';
 import App from 'components/App';
 import I18nLoaderContainer from 'containers/I18nLoaderContainer';

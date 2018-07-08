@@ -1,7 +1,9 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga/effects';
 import { handleError } from 'util/Saga';
-import saga, { initI18nWorker, initAppWorker, fetchCatalogWorker, i18nSaga } from 'sagas/I18nSaga';
+import saga, {
+  initI18nWorker, initAppWorker, fetchCatalogWorker, i18nSaga,
+} from 'sagas/I18nSaga';
 import { setI18nInitialized } from 'modules/InitModule';
 import {
   fetchCatalog,
@@ -25,11 +27,12 @@ describe('(Saga) I18nSaga', () => {
       expect(initI18nWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should set `i18n` to initialized if the `fetchCatalogFulfilled` action was dispatched', () =>
+    it('Should set `i18n` to initialized if the `fetchCatalogFulfilled` action was dispatched', () => {
       expectSaga(initI18nWorker)
         .put(setI18nInitialized())
         .dispatch(fetchCatalogFulfilled())
-        .silentRun());
+        .silentRun();
+    });
   });
 
   describe('(Generator) initAppWorker', () => {

@@ -16,7 +16,7 @@
         "transform-object-rest-spread",
         "syntax-dynamic-import"
       ],
-      "presets": ["react"]
+      "presets": ["react", "@lingui/babel-preset-react"]
     }
   }
 }

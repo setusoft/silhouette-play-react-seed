@@ -14,7 +14,11 @@ type Props = {
 export default ({ userName, onSignOut }: Props) => (
   <Header>
     <Navbar.Text className="authenticated" pullRight>
-      Signed in as: <span>{userName}</span>
+      Signed in as:
+      {' '}
+      <span>
+        {userName}
+      </span>
     </Navbar.Text>
     <Nav className="authenticated" pullRight>
       <NavItem className="sign-out" onSelect={onSignOut} title="Sign out">

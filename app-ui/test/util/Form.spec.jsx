@@ -36,10 +36,27 @@ describe('(Util) Form', () => {
     });
 
     it('Should render only the first error message', () => {
-      const error1 = <p>Error1</p>;
-      const error2 = <p>Error2</p>;
-      const wrapper = shallow(<ErrorWrapper>{error1}{error2}</ErrorWrapper>);
-      const helpBlock = <HelpBlock>{error1}</HelpBlock>;
+      const error1 = (
+        <p>
+          Error1
+        </p>
+      );
+      const error2 = (
+        <p>
+          Error2
+        </p>
+      );
+      const wrapper = shallow(
+        <ErrorWrapper>
+          {error1}
+          {error2}
+        </ErrorWrapper>,
+      );
+      const helpBlock = (
+        <HelpBlock>
+          {error1}
+        </HelpBlock>
+      );
 
       expect(wrapper.contains(helpBlock)).to.be.true();
     });

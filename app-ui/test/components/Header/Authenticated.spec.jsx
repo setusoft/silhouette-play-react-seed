@@ -7,8 +7,9 @@ import Authenticated from 'components/Header/Authenticated';
 import FaSignOut from 'react-icons/lib/fa/sign-out';
 
 describe('(Component) Header/Authenticated', () => {
-  const wrapper = ({ userName = '', onSignOut = () => null } = {}) =>
-    shallow(<Authenticated userName={userName} onSignOut={onSignOut} />);
+  const wrapper = ({ userName = '', onSignOut = () => null } = {}) => shallow(
+    <Authenticated userName={userName} onSignOut={onSignOut} />,
+  );
 
   it('Should contain the `Header` as root element', () => {
     expect(wrapper().first().is(Header)).to.be.true();
@@ -19,7 +20,11 @@ describe('(Component) Header/Authenticated', () => {
 
     const container = (
       <Navbar.Text className="authenticated" pullRight>
-        Signed in as: <span>{userName}</span>
+        Signed in as:
+        {' '}
+        <span>
+          {userName}
+        </span>
       </Navbar.Text>
     );
 

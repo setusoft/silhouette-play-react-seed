@@ -1,7 +1,9 @@
 // @flow
 import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
-import { call, put, take, all } from 'redux-saga/effects';
+import {
+  call, put, take, all,
+} from 'redux-saga/effects';
 import { combineSagas, handleError, formErrorHandler } from 'util/Saga';
 import { APIError } from 'util/API';
 import { history } from 'modules/LocationModule';

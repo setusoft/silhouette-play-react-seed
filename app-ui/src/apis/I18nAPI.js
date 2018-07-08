@@ -1,6 +1,5 @@
 // @flow
 /* eslint-disable class-methods-use-this */
-import { unpackCatalog } from 'lingui-i18n';
 
 /**
  * API to handle I18n resources.
@@ -14,9 +13,11 @@ export default class I18nAPI {
    */
   async fetchCatalog(language: string): Promise<Object> {
     try {
-      return unpackCatalog(await import(/* webpackChunkName: "i18n" */ `locale/${language}/messages.js`));
+      return await import(/* webpackChunkName: "i18n" */ `locale/${language}/messages.js`);
     } catch (e) {
-      return unpackCatalog(await import(/* webpackChunkName: "i18n" */ 'locale/en/messages.js'));
+      const catalog = await import(/* webpackChunkName: "i18n" */ 'locale/en/messages.js');
+
+      return catalog;
     }
   }
 }

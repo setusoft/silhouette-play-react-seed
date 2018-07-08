@@ -1,13 +1,8 @@
 // @flow
 import React from 'react';
-import { I18nProvider, Catalog } from 'lingui-react';
+import { I18nProvider, Catalog } from '@lingui/react';
 
 import type { Node } from 'react';
-
-const dev = process.env.NODE_ENV !== 'production'
-  // this import is required in development only
-  ? require('lingui-i18n/dev')
-  : null;
 
 type Props = {
   language: string,
@@ -50,8 +45,10 @@ export default class I18nLoader extends React.Component<Props> {
    * Handler which gets called after the component was applied to the DOM.
    */
   componentDidMount(): void {
-    this.props.fetchCatalog(this.props.language);
-    I18nLoader.loadIntlPolyfill(this.props.language);
+    const { language, fetchCatalog } = this.props;
+
+    fetchCatalog(language);
+    I18nLoader.loadIntlPolyfill(language);
   }
 
   /**
@@ -61,14 +58,16 @@ export default class I18nLoader extends React.Component<Props> {
    * @returns True if the component should be updated, false otherwise.
    */
   shouldComponentUpdate(nextProps: Props): boolean {
-    if (this.props.language !== nextProps.language) {
-      this.props.fetchCatalog(nextProps.language);
+    const { language, catalog, fetchCatalog } = this.props;
+
+    if (language !== nextProps.language) {
+      fetchCatalog(nextProps.language);
       I18nLoader.loadIntlPolyfill(nextProps.language);
 
       return true;
     }
 
-    return this.props.catalog !== nextProps.catalog;
+    return catalog !== nextProps.catalog;
   }
 
   /**
@@ -80,7 +79,7 @@ export default class I18nLoader extends React.Component<Props> {
     const { language, catalog, children } = this.props;
 
     return (
-      <I18nProvider language={language} catalogs={{ [language]: catalog }} development={dev}>
+      <I18nProvider language={language} catalogs={{ [language]: catalog }}>
         {children}
       </I18nProvider>
     );

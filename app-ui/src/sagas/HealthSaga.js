@@ -1,6 +1,8 @@
 // @flow
 import { delay } from 'redux-saga';
-import { call, put, take, select, all, race, fork, cancel } from 'redux-saga/effects';
+import {
+  call, put, take, select, all, race, fork, cancel,
+} from 'redux-saga/effects';
 import { isHealthy } from 'selectors/HealthSelector';
 import { initApp, setHealthInitialized } from 'modules/InitModule';
 import {

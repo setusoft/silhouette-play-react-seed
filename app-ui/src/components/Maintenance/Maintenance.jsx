@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Trans } from 'lingui-react';
+import { Trans } from '@lingui/react';
 
 import type { Node } from 'react';
 
@@ -18,8 +18,16 @@ const Maintenance = ({ healthy, children }: Props) => {
 
   return (
     <div id="maintenance">
-      <p className="title"><Trans>Maintenance</Trans></p>
-      <p><Trans>The Page is currently under maintenance!</Trans></p>
+      <p className="title">
+        <Trans>
+          Maintenance
+        </Trans>
+      </p>
+      <p>
+        <Trans>
+          The Page is currently under maintenance!
+        </Trans>
+      </p>
     </div>
   );
 };

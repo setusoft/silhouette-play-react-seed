@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import 'babel-polyfill/dist/polyfill';
 import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
