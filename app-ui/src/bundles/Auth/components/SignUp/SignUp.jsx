@@ -11,7 +11,8 @@ import isEmail from 'validator/lib/isEmail';
 import Spinner from 'components/Spinner';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
-
+import Request from 'containers/RequestContainer';
+import { signUp } from "../../modules/SignUpModule";
 import './SignUp.scss';
 
 type Props = {
@@ -19,10 +20,11 @@ type Props = {
   isPending: boolean,
   i18n: Object,
   onSignUp: () => any,
+  request: Object,
 }
 
 export const SignUpComponent = ({
-  form, isPending, i18n, onSignUp,
+  form, i18n, onSignUp, request: { isPending }
 }: Props) => (
   <Panel className="sign-up">
     <Panel.Heading>
@@ -71,21 +73,23 @@ export const SignUpComponent = ({
             isRequired,
           }}
         />
-        <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
-          {isPending ? (
-            <div>
-              <Spinner />
-              {' '}
+        <Request rId={signUp().type} passivePending errorTooltip >
+          <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
+            {isPending ? (
+              <div>
+                <Spinner />
+                {' '}
+                <Trans>
+                  Sign up
+                </Trans>
+              </div>
+            ) : (
               <Trans>
                 Sign up
               </Trans>
-            </div>
-          ) : (
-            <Trans>
-              Sign up
-            </Trans>
-          )}
-        </Button>
+            )}
+          </Button>
+        </Request>
       </Form>
       <p className="sign-in">
         <Trans>
