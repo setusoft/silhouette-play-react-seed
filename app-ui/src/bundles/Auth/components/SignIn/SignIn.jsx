@@ -11,7 +11,7 @@ import isEmail from 'validator/lib/isEmail';
 import Spinner from 'components/Spinner';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
-
+import type { Request } from "modules/RequestStateModule";
 import './SignIn.scss';
 
 type Props = {
@@ -19,10 +19,11 @@ type Props = {
   isPending: boolean,
   i18n: Object,
   onSignIn: () => any,
+  request: Request
 }
 
 export const SignInComponent = ({
-  form, isPending, i18n, onSignIn,
+  form, i18n, onSignIn, request: { isPending }
 }: Props) => (
   <Panel className="sign-in">
     <Panel.Heading>

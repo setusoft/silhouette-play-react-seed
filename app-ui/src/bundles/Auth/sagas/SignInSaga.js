@@ -15,19 +15,21 @@ import {
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 import config from 'config/index';
 import { APIError } from '../../../util/API';
+import { requestPending, requestFailed, requestSuccessful } from "modules/RequestStateModule";
 
 export function* signInSaga(api: AuthAPI): Generator<*, *, *> {
   while (true) {
     const { payload } = yield take(signIn().type);
+    const rId = signIn().type;
     try {
-      yield put(signInPending());
+      yield put(requestPending(rId));
       const response = yield call([api, api.signIn], payload);
-      yield put(signInFulfilled(response));
+      yield put(requestSuccessful({rId, description: response.details }));
       yield put(fetchUserFulfilled(response.details));
       yield put(actions.reset(modelPath));
       yield call(history.push, config.route.index);
     } catch (e) {
-      yield put(signInRejected(e));
+      yield put(requestFailed({ rId, description: e.response.description }));
       yield call(handleError, e, {
         'auth.signIn.form.invalid': formErrorHandler(modelPath),
         'auth.signIn.account.inactive': (error: APIError) => ([

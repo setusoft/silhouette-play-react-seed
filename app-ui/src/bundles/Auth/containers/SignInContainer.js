@@ -3,6 +3,9 @@ import { actions } from 'react-redux-form';
 import lifecycle from 'components/Lifecycle';
 import { modelPath, signIn } from 'bundles/Auth/modules/SignInModule';
 import SignIn from 'bundles/Auth/components/SignIn';
+import { initialRequest } from "modules/RequestStateModule";
+import get from 'lodash/get';
+
 
 /**
  * Maps the state properties to the React component `props`.
@@ -12,7 +15,7 @@ import SignIn from 'bundles/Auth/components/SignIn';
  */
 const mapStateToProps = state => ({
   form: state.auth.signIn.form,
-  ...state.auth.signIn.request,
+  request: get(state.request, signIn().type, initialRequest),
 });
 
 /**

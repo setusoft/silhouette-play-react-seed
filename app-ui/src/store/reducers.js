@@ -6,6 +6,7 @@ import configReducer from 'modules/ConfigModule';
 import i18nReducer from 'modules/I18nModule';
 import stateReducer from 'modules/StateModule';
 import userReducer from 'modules/UserModule';
+import requestReducer from 'modules/RequestStateModule';
 
 // https://github.com/zalmoxisus/redux-devtools-instrument/pull/19#issuecomment-400637274
 // https://github.com/reduxjs/redux/issues/2943
@@ -22,6 +23,7 @@ export const makeRootReducer = (asyncReducers) => {
     config: configReducer,
     i18n: i18nReducer,
     user: userReducer,
+    request: requestReducer,
     ...asyncReducers,
   });
 
