@@ -4,9 +4,7 @@ import signUpReducer, {
   formState,
   requestState,
   signUp,
-  signUpPending,
-  signUpFulfilled,
-  signUpRejected,
+  signUpRequest
 } from 'bundles/Auth/modules/SignUpModule';
 
 describe('(Redux Module) Auth/SignUpModule', () => {
@@ -20,11 +18,6 @@ describe('(Redux Module) Auth/SignUpModule', () => {
     expect(modelPath).to.equal('auth.signUp.data');
   });
 
-  it('Should export the initial request state', () => {
-    expect(requestState).to.eql({
-      isPending: false,
-    });
-  });
 
   it('Should export the initial form state', () => {
     expect(formState).to.eql({
@@ -44,33 +37,42 @@ describe('(Redux Module) Auth/SignUpModule', () => {
     });
   });
 
-  describe('(Action Creator) signUpPending', () => {
+  describe('(Action Creator) signUpRequest', () => {
+    it('Should be a function', () => {
+      expect(signUpRequest).to.be.a('function');
+    });
+    it('Should return its id', () => {
+      expect(signUpRequest()).to.be.equal(signUpRequest.id)
+    })
+  });
+
+  describe('(Action Creator) signUpRequest#pending', () => {
     it('Should be exported as a function', () => {
-      expect(signUpPending).to.be.a('function');
+      expect(signUpRequest.pending).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(signUpPending())).to.be.true();
+      expect(isFSA(signUpRequest.pending())).to.be.true();
     });
   });
 
-  describe('(Action Creator) signUpFulfilled', () => {
+  describe('(Action Creator) signUpRequest#success', () => {
     it('Should be exported as a function', () => {
-      expect(signUpFulfilled).to.be.a('function');
+      expect(signUpRequest.success).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(signUpFulfilled())).to.be.true();
+      expect(isFSA(signUpRequest.success())).to.be.true();
     });
   });
 
-  describe('(Action Creator) signUpRejected', () => {
+  describe('(Action Creator) signUpRequest#failed', () => {
     it('Should be exported as a function', () => {
-      expect(signUpRejected).to.be.a('function');
+      expect(signUpRequest.failed).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(signUpRejected())).to.be.true();
+      expect(isFSA(signUpRequest.failed())).to.be.true();
     });
   });
 
@@ -83,28 +85,5 @@ describe('(Redux Module) Auth/SignUpModule', () => {
       expect(signUpReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
     });
 
-    it('Should set `isPending` to true if the `signUpPending` action was dispatched', () => {
-      let state = signUpReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-
-      state = signUpReducer(state, signUpPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-    });
-
-    it('Should set `isPending` to false if the `signUpFulfilled` action was dispatched', () => {
-      let state = signUpReducer(undefined, signUpPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = signUpReducer(state, signUpFulfilled());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
-
-    it('Should set `isPending` to false if the `signUpRejected` action was dispatched', () => {
-      let state = signUpReducer(undefined, signUpPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = signUpReducer(state, signUpRejected());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
   });
 });

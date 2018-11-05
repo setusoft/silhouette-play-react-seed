@@ -1,16 +1,19 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'bundles/Auth/modules/SignUpModule';
 import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
-import Spinner from 'components/Spinner';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
+import { Request } from 'questrar';
+import { signUpRequest } from "bundles/Auth/modules/SignUpModule";
+import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
 
 import './SignUp.scss';
 
@@ -71,21 +74,17 @@ export const SignUpComponent = ({
             isRequired,
           }}
         />
-        <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
-          {isPending ? (
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Sign up
-              </Trans>
-            </div>
-          ) : (
-            <Trans>
-              Sign up
-            </Trans>
-          )}
-        </Button>
+        <Request
+          id={signUpRequest.id}
+          passivePending
+          successTooltip
+          className="sign-up-button"
+          inject={requestButtonProps(!form.$form.valid)}
+        >
+          <Button bsStyle="primary" type="submit"  block>
+            <Trans>Sign up</Trans>
+          </Button>
+        </Request>
       </Form>
       <p className="sign-in">
         <Trans>

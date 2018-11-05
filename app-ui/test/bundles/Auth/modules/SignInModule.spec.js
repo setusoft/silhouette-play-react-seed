@@ -4,9 +4,7 @@ import signInReducer, {
   formState,
   requestState,
   signIn,
-  signInPending,
-  signInFulfilled,
-  signInRejected,
+  signInRequest
 } from 'bundles/Auth/modules/SignInModule';
 
 describe('(Redux Module) Auth/SignInModule', () => {
@@ -18,12 +16,6 @@ describe('(Redux Module) Auth/SignInModule', () => {
 
   it('Should export the model path', () => {
     expect(modelPath).to.equal('auth.signIn.data');
-  });
-
-  it('Should export the initial request state', () => {
-    expect(requestState).to.eql({
-      isPending: false,
-    });
   });
 
   it('Should export the initial form state', () => {
@@ -44,33 +36,42 @@ describe('(Redux Module) Auth/SignInModule', () => {
     });
   });
 
-  describe('(Action Creator) signInPending', () => {
+  describe('(Action Creator) signInRequest', () => {
+    it('Should be a function', () => {
+      expect(signInRequest).to.be.a('function');
+    });
+    it('Should return its id', () => {
+      expect(signInRequest()).to.be.equal(signInRequest.id)
+    })
+  });
+
+  describe('(Action Creator) signInRequest#pending', () => {
     it('Should be exported as a function', () => {
-      expect(signInPending).to.be.a('function');
+      expect(signInRequest.pending).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(signInPending())).to.be.true();
+      expect(isFSA(signInRequest.pending())).to.be.true();
     });
   });
 
-  describe('(Action Creator) signInFulfilled', () => {
+  describe('(Action Creator) signInRequest#success', () => {
     it('Should be exported as a function', () => {
-      expect(signInFulfilled).to.be.a('function');
+      expect(signInRequest.success).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(signInFulfilled())).to.be.true();
+      expect(isFSA(signInRequest.success())).to.be.true();
     });
   });
 
-  describe('(Action Creator) signInRejected', () => {
+  describe('(Action Creator) signInRequest#failed', () => {
     it('Should be exported as a function', () => {
-      expect(signInRejected).to.be.a('function');
+      expect(signInRequest.failed).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(signInRejected())).to.be.true();
+      expect(isFSA(signInRequest.failed())).to.be.true();
     });
   });
 
@@ -83,28 +84,5 @@ describe('(Redux Module) Auth/SignInModule', () => {
       expect(signInReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
     });
 
-    it('Should set `isPending` to true if the `signInPending` action was dispatched', () => {
-      let state = signInReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-
-      state = signInReducer(state, signInPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-    });
-
-    it('Should set `isPending` to false if the `signInFulfilled` action was dispatched', () => {
-      let state = signInReducer(undefined, signInPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = signInReducer(state, signInFulfilled());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
-
-    it('Should set `isPending` to false if the `signInRejected` action was dispatched', () => {
-      let state = signInReducer(undefined, signInPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = signInReducer(state, signInRejected());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
   });
 });

@@ -10,9 +10,7 @@ import saga, { signInSaga } from 'bundles/Auth/sagas/SignInSaga';
 import {
   modelPath,
   signIn,
-  signInPending,
-  signInFulfilled,
-  signInRejected,
+  signInRequest
 } from 'bundles/Auth/modules/SignInModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -42,7 +40,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to pending', () => {
       const api = { signIn: () => successResponse };
       return expectSaga(signInSaga, api)
-        .put(signInPending())
+        .put(signInRequest.pending())
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -50,7 +48,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to fulfilled if the call to the API was successful', () => {
       const api = { signIn: () => successResponse };
       return expectSaga(signInSaga, api)
-        .put(signInFulfilled(successResponse))
+        .put(signInRequest.success(successResponse.description))
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -58,7 +56,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { signIn: () => { throw fatalError; } };
       return expectSaga(signInSaga, api)
-        .put(signInRejected(fatalError))
+        .put(signInRequest.failed(fatalError.response.description))
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -112,12 +110,5 @@ describe('(Saga) Auth/SignInSaga', () => {
         .silentRun();
     });
 
-    it('Should display the error alert box on error', () => {
-      const api = { signIn: () => { throw fatalError; } };
-      return expectSaga(signInSaga, api)
-        .call(Alert.error, fatalError.response.description)
-        .dispatch(signIn(payload))
-        .silentRun();
-    });
   });
 });

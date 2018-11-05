@@ -4,18 +4,18 @@ import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { isRequired } from 'util/Validator';
-import { modelPath } from 'bundles/Auth/modules/SignInModule';
+import { modelPath, signInRequest } from 'bundles/Auth/modules/SignInModule';
 import FormControl from 'components/FormControl';
-import Spinner from 'components/Spinner';
 import { SignInComponent } from 'bundles/Auth/components/SignIn/SignIn';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
+import { Request } from 'questrar';
 
 describe('(Component) Auth/SignIn', () => {
-  let isPending;
   let onSignIn;
   let wrapper;
 
@@ -26,14 +26,12 @@ describe('(Component) Auth/SignIn', () => {
         password: {},
         $form: { valid },
       }}
-      isPending={isPending}
       i18n={i18n}
       onSignIn={onSignIn}
     />,
   );
 
   beforeEach(() => {
-    isPending = true;
     onSignIn = sinon.spy();
     wrapper = getWrapper();
   });
@@ -145,6 +143,23 @@ describe('(Component) Auth/SignIn', () => {
         });
       });
 
+
+      describe('(Component) Request', () => {
+        it('Should track recover password request with id', () => {
+          expect(wrapper.find(Request).get(0).props.id).to.be.equal(signInRequest.id);
+        });
+
+        it('Should wrap reset password `Button`', () => {
+          expect(wrapper.find(Request).children().first().is(Button)).to.be.true()
+        });
+
+        it('Should provide request state props as `Button` props to wrapped `Button`', () => {
+          const resetButton = wrapper.find(Request).children().first();
+          expect(resetButton.props().loading).to.be.equal(false);
+          expect(resetButton.props().disabled).to.be.equal(true);
+        })
+      });
+
       describe('(Component) Button', () => {
         it('Should have prop `bsStyle` set to "primary"', () => {
           expect(wrapper.find(Button).get(0).props.bsStyle).to.equal('primary');
@@ -159,53 +174,11 @@ describe('(Component) Auth/SignIn', () => {
         });
 
         it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
-          isPending = false;
           wrapper = getWrapper(false);
 
           expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
         });
 
-        it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
-          isPending = true;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
-        });
-
-        it('Should have prop `disabled` set to false if `$form.valid` is set to true and'
-          + '`isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);
-        });
-
-        it('Should show the `Spinner` if `isPending` is set to true', () => {
-          isPending = true;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Spinner)).to.have.length(1);
-          expect(wrapper.find(Button).contains(
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Sign in
-              </Trans>
-            </div>,
-          )).to.be.true();
-        });
-
-        it('Should not show the `Spinner` if `isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Button).contains(
-            <Trans>
-              Sign in
-            </Trans>,
-          )).to.be.true();
-        });
       });
     });
   });

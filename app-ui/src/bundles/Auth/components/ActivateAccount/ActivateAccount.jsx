@@ -1,19 +1,22 @@
 /* @flow */
 import React from 'react';
 import { Trans } from '@lingui/react';
-import { Panel, Button } from 'react-bootstrap';
-import Spinner from 'components/Spinner';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
+import { Request } from 'questrar';
+import { emailActivationRequest } from "bundles/Auth/modules/ActivateAccountModule";
+import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
 
 import './ActivateAccount.scss';
 
 type Props = {
   email: string,
-  isPending: boolean,
   onSend: (email: string) => any,
+  onActivationSent: () => void,
 }
 
 export const ActivateAccountComponent = ({
-  email, isPending, onSend,
+  email, onSend, onActivationSent
 }: Props) => (
   <Panel className="activate-account">
     <Panel.Heading>
@@ -40,21 +43,18 @@ export const ActivateAccountComponent = ({
           Click the button to send the activation email again.
         </Trans>
       </p>
-      <Button bsStyle="primary" type="button" disabled={isPending} onClick={() => onSend(email)} block>
-        {isPending ? (
-          <div>
-            <Spinner />
-            {' '}
-            <Trans>
-              Send
-            </Trans>
-          </div>
-        ) : (
-          <Trans>
-            Send
-          </Trans>
-        )}
-      </Button>
+      <Request
+        id={emailActivationRequest.id}
+        passivePending
+        successTooltip
+        failTooltip
+        onCloseSuccess={onActivationSent}
+        inject={requestButtonProps(true)}
+      >
+        <Button bsStyle="primary" type="button" onClick={() => onSend(email)} block>
+          <Trans>Send</Trans>
+        </Button>
+      </Request>
     </Panel.Body>
   </Panel>
 );

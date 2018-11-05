@@ -4,20 +4,22 @@ import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { isRequired } from 'util/Validator';
-import { modelPath } from 'bundles/Auth/modules/RecoverPasswordModule';
+import { modelPath, recoverPasswordRequest } from 'bundles/Auth/modules/RecoverPasswordModule';
 import FormControl from 'components/FormControl';
 import Spinner from 'components/Spinner';
 import { RecoverPasswordComponent } from 'bundles/Auth/components/RecoverPassword/RecoverPassword';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
+import { Request } from 'questrar';
 
 describe('(Component) Auth/RecoverPassword', () => {
-  let isPending;
   let onSend;
   let wrapper;
+  let onRecover;
 
   const getWrapper = (valid = true) => shallow(
     <RecoverPasswordComponent
@@ -25,16 +27,16 @@ describe('(Component) Auth/RecoverPassword', () => {
         email: {},
         $form: { valid },
       }}
-      isPending={isPending}
       i18n={i18n}
       onSend={onSend}
+      onRecover={onRecover}
     />,
   );
 
   beforeEach(() => {
-    isPending = true;
     onSend = sinon.spy();
     wrapper = getWrapper();
+    onRecover = sinon.spy();
   });
 
   it('Should contain a Panel', () => {
@@ -125,6 +127,22 @@ describe('(Component) Auth/RecoverPassword', () => {
         });
       });
 
+      describe('(Component) Request', () => {
+        it('Should track recover password request with id', () => {
+          expect(wrapper.find(Request).get(0).props.id).to.be.equal(recoverPasswordRequest.id);
+        });
+
+        it('Should wrap recover password `Button`', () => {
+          expect(wrapper.find(Request).children().first().is(Button)).to.be.true()
+        });
+
+        it('Should provide request state props as `Button` props to wrapped `Button`', () => {
+          const requestButton = wrapper.find(Request).children().first();
+          expect(requestButton.props().loading).to.be.equal(false);
+          expect(requestButton.props().disabled).to.be.equal(true);
+        })
+      });
+
       describe('(Component) Button', () => {
         it('Should have prop `bsStyle` set to "primary"', () => {
           expect(wrapper.find(Button).get(0).props.bsStyle).to.equal('primary');
@@ -139,54 +157,11 @@ describe('(Component) Auth/RecoverPassword', () => {
         });
 
         it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
-          isPending = false;
           wrapper = getWrapper(false);
 
           expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
         });
 
-        it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
-          isPending = true;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
-        });
-
-        it('Should have prop `disabled` set to false if `$form.valid` is set to true and'
-          + '`isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);
-        });
-
-        it('Should show the `Spinner` if `isPending` is set to true', () => {
-          isPending = true;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Spinner)).to.have.length(1);
-          expect(wrapper.find(Button).contains(
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Submit
-              </Trans>
-            </div>,
-          )).to.be.true();
-        });
-
-        it('Should not show the `Spinner` if `isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Spinner)).to.have.length(0);
-          expect(wrapper.find(Button).contains(
-            <Trans>
-              Submit
-            </Trans>,
-          )).to.be.true();
-        });
       });
     });
   });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
+import { Provider as RequestStateProvider } from 'questrar';
 import {
   Switch, Router, Route, Redirect,
 } from 'react-router-dom';
@@ -10,6 +11,7 @@ import I18nLoaderContainer from 'containers/I18nLoaderContainer';
 import PreloaderContainer from 'containers/PreloaderContainer';
 import MaintenanceContainer from 'containers/MaintenanceContainer';
 import { CaptureNotFoundRoute, NotFoundRoute } from 'components/NotFound';
+
 import { createStore } from '../test-helpers';
 
 describe('(Component) App', () => {
@@ -25,8 +27,12 @@ describe('(Component) App', () => {
     expect(wrapper.first().is(Provider)).to.be.true();
   });
 
+  it('Should contain the `RequestStateProvider` component as child of the `Provider` component', () => {
+    expect(wrapper.find(Provider).children().first().is(RequestStateProvider)).to.be.true();
+  });
+
   it('Should contain the `I18nLoaderContainer` component as child of the `Provider` component', () => {
-    expect(wrapper.find(Provider).children().first().is(I18nLoaderContainer)).to.be.true();
+    expect(wrapper.find(RequestStateProvider).children().first().is(I18nLoaderContainer)).to.be.true();
   });
 
   it('Should contain the `PreloaderContainer` component as child of the `I18nLoaderContainer` component', () => {

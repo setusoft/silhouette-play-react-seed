@@ -4,6 +4,7 @@ import { history } from 'modules/LocationModule';
 import { sendActivationEmail } from 'bundles/Auth/modules/ActivateAccountModule';
 import ActivateAccount from 'bundles/Auth/components/ActivateAccount';
 import config from 'config/index';
+import { activateAccount } from "bundles/Auth/selectors/AuthSelectors";
 
 /**
  * Maps the state properties to the React component `props`.
@@ -11,9 +12,7 @@ import config from 'config/index';
  * @param {Object} state The application state.
  * @returns {Object} The props passed to the react component.
  */
-const mapStateToProps = state => ({
-  ...state.auth.activateAccount,
-});
+const mapStateToProps = state => activateAccount(state);
 
 /**
  * Maps the store `dispatch` function to the React component `props`.
@@ -22,6 +21,10 @@ const mapStateToProps = state => ({
  * @returns {Object} The props passed to the react component.
  */
 const mapDispatchToProps = dispatch => ({
+  onActivationSent: (r) => {
+    r.actions.remove(r.data.id);
+    history.push(config.route.auth.signIn);
+  },
   onSend: email => dispatch(sendActivationEmail(email)),
   componentWillMount: (email) => {
     if (!email) {

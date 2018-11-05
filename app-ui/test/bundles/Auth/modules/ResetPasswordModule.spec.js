@@ -4,9 +4,7 @@ import resetPasswordReducer, {
   formState,
   requestState,
   resetPassword,
-  resetPasswordPending,
-  resetPasswordFulfilled,
-  resetPasswordRejected,
+  resetPasswordRequest
 } from 'bundles/Auth/modules/ResetPasswordModule';
 
 describe('(Redux Module) Auth/ResetPasswordModule', () => {
@@ -18,12 +16,6 @@ describe('(Redux Module) Auth/ResetPasswordModule', () => {
 
   it('Should export the model path', () => {
     expect(modelPath).to.equal('auth.resetPassword.data');
-  });
-
-  it('Should export the initial request state', () => {
-    expect(requestState).to.eql({
-      isPending: false,
-    });
   });
 
   it('Should export the initial form state', () => {
@@ -42,33 +34,42 @@ describe('(Redux Module) Auth/ResetPasswordModule', () => {
     });
   });
 
-  describe('(Action Creator) resetPasswordPending', () => {
+  describe('(Action Creator) resetPasswordRequest', () => {
+    it('Should be a function', () => {
+      expect(resetPasswordRequest).to.be.a('function');
+    });
+    it('Should return its id', () => {
+      expect(resetPasswordRequest()).to.be.equal(resetPasswordRequest.id)
+    })
+  });
+
+  describe('(Action Creator) resetPasswordRequest#pending', () => {
     it('Should be exported as a function', () => {
-      expect(resetPasswordPending).to.be.a('function');
+      expect(resetPasswordRequest.pending).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(resetPasswordPending())).to.be.true();
+      expect(isFSA(resetPasswordRequest.pending())).to.be.true();
     });
   });
 
-  describe('(Action Creator) resetPasswordFulfilled', () => {
+  describe('(Action Creator) resetPasswordRequest#success', () => {
     it('Should be exported as a function', () => {
-      expect(resetPasswordFulfilled).to.be.a('function');
+      expect(resetPasswordRequest.success).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(resetPasswordFulfilled())).to.be.true();
+      expect(isFSA(resetPasswordRequest.success())).to.be.true();
     });
   });
 
-  describe('(Action Creator) resetPasswordRejected', () => {
+  describe('(Action Creator) resetPasswordRequest#failed', () => {
     it('Should be exported as a function', () => {
-      expect(resetPasswordRejected).to.be.a('function');
+      expect(resetPasswordRequest.failed).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(resetPasswordRejected())).to.be.true();
+      expect(isFSA(resetPasswordRequest.failed())).to.be.true();
     });
   });
 
@@ -81,28 +82,5 @@ describe('(Redux Module) Auth/ResetPasswordModule', () => {
       expect(resetPasswordReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
     });
 
-    it('Should set `isPending` to true if the `recoverPasswordPending` action was dispatched', () => {
-      let state = resetPasswordReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-
-      state = resetPasswordReducer(state, resetPasswordPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-    });
-
-    it('Should set `isPending` to false if the `resetPasswordFulfilled` action was dispatched', () => {
-      let state = resetPasswordReducer(undefined, resetPasswordPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = resetPasswordReducer(state, resetPasswordFulfilled());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
-
-    it('Should set `isPending` to false if the `resetPasswordRejected` action was dispatched', () => {
-      let state = resetPasswordReducer(undefined, resetPasswordPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = resetPasswordReducer(state, resetPasswordRejected());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
   });
 });

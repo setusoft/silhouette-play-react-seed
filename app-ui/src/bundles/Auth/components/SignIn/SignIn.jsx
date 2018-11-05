@@ -1,16 +1,19 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Panel, Button, Checkbox } from 'react-bootstrap';
+import { Panel, Checkbox } from 'react-bootstrap';
+import { Button } from 'components/Elements';
 import { Form, Control } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'bundles/Auth/modules/SignInModule';
 import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
-import Spinner from 'components/Spinner';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
+import { Request } from 'questrar';
+import { signInRequest } from "bundles/Auth/modules/SignInModule";
+import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
 
 import './SignIn.scss';
 
@@ -22,7 +25,7 @@ type Props = {
 }
 
 export const SignInComponent = ({
-  form, isPending, i18n, onSignIn,
+  form, i18n, onSignIn,
 }: Props) => (
   <Panel className="sign-in">
     <Panel.Heading>
@@ -63,21 +66,17 @@ export const SignInComponent = ({
             Remember my login on this computer
           </Trans>
         </Control.checkbox>
-        <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
-          {isPending ? (
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Sign in
-              </Trans>
-            </div>
-          ) : (
-            <Trans>
-              Sign in
-            </Trans>
-          )}
-        </Button>
+        <Request
+          id={signInRequest.id}
+          passivePending
+          failTooltip
+          passiveOnFailure
+          inject={requestButtonProps(!form.$form.valid)}
+        >
+          <Button bsStyle="primary" type="submit" block>
+            <Trans>Sign in</Trans>
+          </Button>
+        </Request>
       </Form>
       <p className="password-recovery-link">
         <Link to={config.route.auth.passwordRecovery}>

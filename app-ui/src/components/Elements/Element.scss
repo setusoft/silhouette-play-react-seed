@@ -1,0 +1,16 @@
+
+.buttonContentWrap {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  position: relative;
+
+  .buttonContent {
+    margin-left: 3px;
+  }
+
+  .sideSpinner {
+    margin-left: 5px;
+    position: relative;
+  }
+}

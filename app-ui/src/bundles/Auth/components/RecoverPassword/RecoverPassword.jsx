@@ -1,28 +1,31 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements'
 import { Form } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'bundles/Auth/modules/RecoverPasswordModule';
 import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
-import Spinner from 'components/Spinner';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
+import { recoverPasswordRequest } from "bundles/Auth/modules/RecoverPasswordModule";
+import { Request } from 'questrar';
+import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
 
 import './RecoverPassword.scss';
 
 type Props = {
   form: {[string]: FormProps},
-  isPending: boolean,
   i18n: Object,
   onSend: () => any,
+  onRecover: () => void,
 }
 
 export const RecoverPasswordComponent = ({
-  form, isPending, i18n, onSend,
+  form, onRecover, i18n, onSend,
 }: Props) => (
   <Panel className="recover-password">
     <Panel.Heading>
@@ -52,21 +55,17 @@ export const RecoverPasswordComponent = ({
             isEmail,
           }}
         />
-        <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
-          {isPending ? (
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Submit
-              </Trans>
-            </div>
-          ) : (
-            <Trans>
-              Submit
-            </Trans>
-          )}
-        </Button>
+        <Request
+          id={recoverPasswordRequest.id}
+          passivePending
+          successTooltip
+          onCloseSuccess={onRecover}
+          inject={requestButtonProps(!form.$form.valid)}
+        >
+          <Button bsStyle="primary" type="submit" block>
+            <Trans>Submit</Trans>
+          </Button>
+        </Request>
         <p className="sign-in-link">
           <Link to={config.route.auth.signIn}>
             <Trans>

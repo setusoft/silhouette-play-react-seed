@@ -28,16 +28,17 @@
     "messages:extract": "cross-env BABEL_ENV=i18n lingui extract"
   },
   "dependencies": {
+    "@lingui/core": "^2.2.0",
+    "@lingui/react": "^2.2.0",
     "flux-standard-action": "^2.0.3",
     "history": "^4.7.2",
     "intl": "^1.2.5",
     "js-cookie": "^2.2.0",
-    "@lingui/core": "^2.2.0",
-    "@lingui/react": "^2.2.0",
     "loadable-components": "^2.2.2",
     "lodash": "^4.17.10",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.0",
+    "questrar": "^1.0.4",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.0",
@@ -57,10 +58,10 @@
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
-    "@neutrinojs/karma": "^8.3.0",
-    "@neutrinojs/react": "^8.3.0",
     "@lingui/babel-preset-react": "^2.2.0",
     "@lingui/cli": "^2.2.0",
+    "@neutrinojs/karma": "^8.3.0",
+    "@neutrinojs/react": "^8.3.0",
     "babel-eslint": "^8.2.5",
     "babel-polyfill": "^6.26.0",
     "bootstrap-sass": "^3.3.7",

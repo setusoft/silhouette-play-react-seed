@@ -11,9 +11,8 @@ import saga, {
 import {
   activateAccount,
   sendActivationEmail,
-  sendActivationEmailPending,
-  sendActivationEmailFulfilled,
-  sendActivationEmailRejected,
+  emailActivationRequest,
+  resetActivationEmail
 } from 'bundles/Auth/modules/ActivateAccountModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -80,26 +79,35 @@ describe('(Saga) Auth/ActivateAccountSaga', () => {
       expect(sendActivationEmailWorker[Symbol.toStringTag]).to.equal('GeneratorFunction');
     });
 
-    it('Should set the state to pending', () => {
+    it('Should set the request state to pending if the call is awaited', () => {
       const api = { sendActivationMail: () => successResponse };
       return expectSaga(sendActivationEmailWorker, api)
-        .put(sendActivationEmailPending())
+        .put(emailActivationRequest.pending())
         .dispatch(sendActivationEmail(emailPayload))
         .silentRun();
     });
 
-    it('Should set the state to fulfilled if the call to the API was successful', () => {
+    it('Should set the request state to fulfilled if the call to the API was successful', () => {
       const api = { sendActivationMail: () => successResponse };
       return expectSaga(sendActivationEmailWorker, api)
-        .put(sendActivationEmailFulfilled(successResponse))
+        .put(emailActivationRequest.success(successResponse.description))
         .dispatch(sendActivationEmail(emailPayload))
         .silentRun();
     });
 
-    it('Should set the state to rejected if the call to the API failed', () => {
+    it('Should set the request state to rejected if the call to the API failed', () => {
       const api = { sendActivationMail: () => { throw fatalError; } };
       return expectSaga(sendActivationEmailWorker, api)
-        .put(sendActivationEmailRejected(fatalError))
+        .put(emailActivationRequest.failed(fatalError.response.description))
+        .dispatch(sendActivationEmail(emailPayload))
+        .silentRun();
+    });
+
+
+    it('Should reset activation email form on success', () => {
+      const api = { sendActivationMail: () => { throw fatalError; } };
+      return expectSaga(sendActivationEmailWorker, api)
+        .put(resetActivationEmail())
         .dispatch(sendActivationEmail(emailPayload))
         .silentRun();
     });

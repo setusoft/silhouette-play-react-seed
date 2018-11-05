@@ -1,13 +1,17 @@
 // @flow
 import React from 'react';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
 import { modelPath } from 'bundles/Auth/modules/ResetPasswordModule';
 import FormControl from 'components/FormControl';
-import Spinner from 'components/Spinner';
 import type { FormProps } from 'util/Form';
+import { Request } from 'questrar';
+import { resetPasswordRequest } from "bundles/Auth/modules/ResetPasswordModule";
+import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
+
 
 type Props = {
   token: string,
@@ -15,10 +19,12 @@ type Props = {
   isPending: boolean,
   i18n: Object,
   onReset: (token: string, data: Object) => any,
+  onResetFailure: () => void,
+  onResetSuccess: () => void,
 }
 
 export const ResetPasswordComponent = ({
-  token, form, isPending, i18n, onReset,
+  token, form, i18n, onReset, onResetSuccess, onResetFailure
 }: Props) => (
   <Panel className="reset-password">
     <Panel.Heading>
@@ -45,21 +51,18 @@ export const ResetPasswordComponent = ({
             isRequired,
           }}
         />
-        <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
-          {isPending ? (
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Reset
-              </Trans>
-            </div>
-          ) : (
-            <Trans>
-              Reset
-            </Trans>
-          )}
-        </Button>
+        <Request
+          id={resetPasswordRequest.id}
+          passivePending
+          failTooltip
+          onCloseFailure={onResetFailure}
+          onCloseSuccess={onResetSuccess}
+          inject={requestButtonProps(!form.$form.valid)}
+        >
+          <Button bsStyle="primary" type="submit" block>
+            <Trans>Reset</Trans>
+          </Button>
+        </Request>
       </Form>
     </Panel.Body>
   </Panel>

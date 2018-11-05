@@ -3,34 +3,42 @@ import sinon from 'sinon';
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { shallow } from 'enzyme';
-import { Panel, Button } from 'react-bootstrap';
-import Spinner from 'components/Spinner';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
+import { Request } from 'questrar';
 import { ActivateAccountComponent } from 'bundles/Auth/components/ActivateAccount/ActivateAccount';
+import { emailActivationRequest } from 'bundles/Auth/modules/ActivateAccountModule';
 
 describe('(Component) Auth/ActivateAccount', () => {
   let email;
-  let isPending;
   let onSend;
   let wrapper;
+  let onActivationSent;
 
   const getWrapper = () => shallow(
     <ActivateAccountComponent
       email={email}
-      isPending={isPending}
       i18n={i18n}
       onSend={onSend}
+      onActivationSent={onActivationSent}
     />,
   );
 
   beforeEach(() => {
     email = 'john@doe.com';
-    isPending = true;
     onSend = sinon.spy();
     wrapper = getWrapper();
+    onActivationSent = sinon.spy()
   });
 
   it('Should contain a Panel', () => {
     expect(wrapper.find(Panel)).to.have.length(1);
+  });
+
+  it('Should have a `Request` component on `Button`', () => {
+    const request = wrapper.find(Request);
+    expect(request).to.have.length(1);
+    expect(request.children().first().is(Button)).to.be.true();
   });
 
   it('Should contain 4 text paragraphs', () => {
@@ -81,20 +89,20 @@ describe('(Component) Auth/ActivateAccount', () => {
           expect(wrapper.find(Button).get(0).props.block).to.equal(true);
         });
 
-        it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
-          isPending = true;
+        /*it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
+          loading = true;
           wrapper = getWrapper();
 
           expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
-        });
+        });*/
 
-        it('Should have prop `disabled` set to false if `isPending` is set to false', () => {
+        /*it('Should have prop `disabled` set to false if `isPending` is set to false', () => {
           isPending = false;
           wrapper = getWrapper();
 
           expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);
         });
-
+*/
         it('Should execute the `onSend` handler on click', () => {
           wrapper.find(Button).simulate('click');
 
@@ -102,7 +110,7 @@ describe('(Component) Auth/ActivateAccount', () => {
           expect(onSend.firstCall.args[0]).to.eql(email);
         });
 
-        it('Should show the `Spinner` if `isPending` is set to true', () => {
+        /*it('Should show the `Spinner` if `isPending` is set to true', () => {
           isPending = true;
           wrapper = getWrapper();
 
@@ -128,7 +136,19 @@ describe('(Component) Auth/ActivateAccount', () => {
               Send
             </Trans>,
           )).to.be.true();
+        });*/
+
+      });
+      describe('(Component) Request', () => {
+        it('Should track email activation request with id', () => {
+          expect(wrapper.find(Request).get(0).props.id).to.be.equal(emailActivationRequest.id);
         });
+
+        it('Should provide request state props to wrapped `Button`', () => {
+          const requestButton = wrapper.find(Request).children().get(0);
+          expect(requestButton.props.loading).to.be.equal(false);
+          expect(requestButton.props.disabled).to.be.equal(false);
+        })
       });
     });
   });
