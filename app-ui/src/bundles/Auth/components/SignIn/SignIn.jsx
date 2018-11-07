@@ -6,20 +6,18 @@ import { Button } from 'components/Elements';
 import { Form, Control } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
-import { modelPath } from 'bundles/Auth/modules/SignInModule';
+import { modelPath, signInRequest } from 'bundles/Auth/modules/SignInModule';
 import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
 import { Request } from 'questrar';
-import { signInRequest } from "bundles/Auth/modules/SignInModule";
-import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
+import { requestButtonProps } from 'bundles/Auth/selectors/AuthSelectors';
 
 import './SignIn.scss';
 
 type Props = {
   form: {[string]: FormProps},
-  isPending: boolean,
   i18n: Object,
   onSignIn: () => any,
 }
@@ -69,12 +67,13 @@ export const SignInComponent = ({
         <Request
           id={signInRequest.id}
           passivePending
-          failTooltip
-          passiveOnFailure
+          popoverOnFail
           inject={requestButtonProps(!form.$form.valid)}
         >
           <Button bsStyle="primary" type="submit" block>
-            <Trans>Sign in</Trans>
+            <Trans>
+Sign in
+            </Trans>
           </Button>
         </Request>
       </Form>

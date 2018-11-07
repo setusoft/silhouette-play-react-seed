@@ -8,7 +8,7 @@ import { saveActivationEmail } from 'bundles/Auth/modules/ActivateAccountModule'
 import {
   modelPath,
   signIn,
-  signInRequest
+  signInRequest,
 } from 'bundles/Auth/modules/SignInModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 import config from 'config/index';
@@ -28,9 +28,9 @@ export function* signInSaga(api: AuthAPI): Generator<*, *, *> {
       yield put(signInRequest.failed());
       yield call(handleError, e, {
         'auth.signIn.form.invalid': formErrorHandler(modelPath),
-        "auth.signIn.credentials": (error: APIError) => ([
-          put(signInRequest.failed(error.response.description))
-          ]),
+        'auth.signIn.credentials': (error: APIError) => ([
+          put(signInRequest.failed(error.response.description)),
+        ]),
         'auth.signIn.account.inactive': (error: APIError) => ([
           put(saveActivationEmail(error.response.details.email)),
           call(history.push, config.route.auth.accountActivation),

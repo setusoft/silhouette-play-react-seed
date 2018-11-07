@@ -9,7 +9,7 @@ import {
   activateAccount,
   sendActivationEmail,
   emailActivationRequest,
-  resetActivationEmail
+  resetActivationEmail,
 } from 'bundles/Auth/modules/ActivateAccountModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 import config from 'config/index';
@@ -37,6 +37,7 @@ export function* sendActivationEmailWorker(api: AuthAPI): Generator<*, *, *> {
       yield put(emailActivationRequest.success(response.description));
       yield put(resetActivationEmail());
     } catch (e) {
+      yield put(emailActivationRequest.failed());
       yield call(handleError, e);
     }
   }

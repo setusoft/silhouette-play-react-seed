@@ -2,14 +2,12 @@ import { isFSA } from 'flux-standard-action';
 import resetPasswordReducer, {
   modelPath,
   formState,
-  requestState,
   resetPassword,
-  resetPasswordRequest
+  resetPasswordRequest,
 } from 'bundles/Auth/modules/ResetPasswordModule';
 
 describe('(Redux Module) Auth/ResetPasswordModule', () => {
   const initialState = {
-    request: requestState,
     form: {},
     data: formState,
   };
@@ -38,9 +36,10 @@ describe('(Redux Module) Auth/ResetPasswordModule', () => {
     it('Should be a function', () => {
       expect(resetPasswordRequest).to.be.a('function');
     });
-    it('Should return its id', () => {
-      expect(resetPasswordRequest()).to.be.equal(resetPasswordRequest.id)
-    })
+
+    it('Should extract its id', () => {
+      expect(resetPasswordRequest()).to.be.a('string').that.is.equal(resetPasswordRequest.id);
+    });
   });
 
   describe('(Action Creator) resetPasswordRequest#pending', () => {
@@ -81,6 +80,5 @@ describe('(Redux Module) Auth/ResetPasswordModule', () => {
     it('Should initialize with the initial state', () => {
       expect(resetPasswordReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
     });
-
   });
 });

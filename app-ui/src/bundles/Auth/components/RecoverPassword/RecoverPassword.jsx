@@ -2,18 +2,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Panel } from 'react-bootstrap';
-import { Button } from 'components/Elements'
+import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
-import { modelPath } from 'bundles/Auth/modules/RecoverPasswordModule';
+import { modelPath, recoverPasswordRequest } from 'bundles/Auth/modules/RecoverPasswordModule';
 import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
-import { recoverPasswordRequest } from "bundles/Auth/modules/RecoverPasswordModule";
 import { Request } from 'questrar';
-import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
+import { requestButtonProps } from 'bundles/Auth/selectors/AuthSelectors';
 
 import './RecoverPassword.scss';
 
@@ -58,12 +57,14 @@ export const RecoverPasswordComponent = ({
         <Request
           id={recoverPasswordRequest.id}
           passivePending
-          successTooltip
+          popoverOnSuccess
           onCloseSuccess={onRecover}
           inject={requestButtonProps(!form.$form.valid)}
         >
           <Button bsStyle="primary" type="submit" block>
-            <Trans>Submit</Trans>
+            <Trans>
+Submit
+            </Trans>
           </Button>
         </Request>
         <p className="sign-in-link">

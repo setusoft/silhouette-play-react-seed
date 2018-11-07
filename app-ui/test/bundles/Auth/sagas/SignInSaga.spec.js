@@ -1,4 +1,3 @@
-import Alert from 'react-s-alert';
 import config from 'config/index';
 import { actions } from 'react-redux-form';
 import { expectSaga } from 'redux-saga-test-plan';
@@ -10,7 +9,7 @@ import saga, { signInSaga } from 'bundles/Auth/sagas/SignInSaga';
 import {
   modelPath,
   signIn,
-  signInRequest
+  signInRequest,
 } from 'bundles/Auth/modules/SignInModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -48,7 +47,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to fulfilled if the call to the API was successful', () => {
       const api = { signIn: () => successResponse };
       return expectSaga(signInSaga, api)
-        .put(signInRequest.success(successResponse.description))
+        .put(signInRequest.success())
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -56,7 +55,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { signIn: () => { throw fatalError; } };
       return expectSaga(signInSaga, api)
-        .put(signInRequest.failed(fatalError.response.description))
+        .put(signInRequest.failed())
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -109,6 +108,5 @@ describe('(Saga) Auth/SignInSaga', () => {
         .dispatch(signIn(payload))
         .silentRun();
     });
-
   });
 });

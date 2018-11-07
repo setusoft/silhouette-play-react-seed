@@ -1,10 +1,9 @@
 // @flow
 import { combineReducers } from 'redux';
-import { createAction, handleActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import { formReducer, modelReducer } from 'react-redux-form';
 import { createRequestState } from 'questrar/redux';
 
-export const signInRequest = createRequestState('AUTH_SIGN_IN');
 
 export type SignInForm = {
   email: string,
@@ -20,6 +19,7 @@ export const formState: SignInForm = {
 };
 
 export const signIn = createAction('AUTH_SIGN_IN');
+export const signInRequest = createRequestState('AUTH_SIGN_IN');
 
 export default combineReducers({
   form: formReducer(modelPath, formState),

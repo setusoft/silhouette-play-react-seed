@@ -4,8 +4,8 @@ import { Trans } from '@lingui/react';
 import { Panel } from 'react-bootstrap';
 import { Button } from 'components/Elements';
 import { Request } from 'questrar';
-import { emailActivationRequest } from "bundles/Auth/modules/ActivateAccountModule";
-import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
+import { emailActivationRequest } from 'bundles/Auth/modules/ActivateAccountModule';
+import { requestButtonProps } from 'bundles/Auth/selectors/AuthSelectors';
 
 import './ActivateAccount.scss';
 
@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const ActivateAccountComponent = ({
-  email, onSend, onActivationSent
+  email, onSend, onActivationSent,
 }: Props) => (
   <Panel className="activate-account">
     <Panel.Heading>
@@ -46,13 +46,15 @@ export const ActivateAccountComponent = ({
       <Request
         id={emailActivationRequest.id}
         passivePending
-        successTooltip
-        failTooltip
+        popoverOnSuccess
+        popoverOnFail
         onCloseSuccess={onActivationSent}
-        inject={requestButtonProps(true)}
+        inject={requestButtonProps()}
       >
         <Button bsStyle="primary" type="button" onClick={() => onSend(email)} block>
-          <Trans>Send</Trans>
+          <Trans>
+Send
+          </Trans>
         </Button>
       </Request>
     </Panel.Body>

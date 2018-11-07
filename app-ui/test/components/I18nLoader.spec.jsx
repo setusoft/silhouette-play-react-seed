@@ -1,7 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
 import { I18nProvider } from '@lingui/react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import I18nLoader from 'components/I18nLoader';
 
 describe('(Component) I18nLoader', () => {
@@ -31,7 +31,7 @@ describe('(Component) I18nLoader', () => {
   });
 
   it('Should fetch the catalog on mount', () => {
-    wrapper = mount(
+    wrapper = shallow(
       <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}>
         <div />
       </I18nLoader>,
@@ -41,7 +41,7 @@ describe('(Component) I18nLoader', () => {
   });
 
   it('Should fetch the catalog if the language changes', () => {
-    wrapper = mount(
+    wrapper = shallow(
       <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}>
         <div />
       </I18nLoader>,
@@ -53,7 +53,7 @@ describe('(Component) I18nLoader', () => {
   });
 
   it('Should not fetch the catalog if the language keeps the same', () => {
-    wrapper = mount(
+    wrapper = shallow(
       <I18nLoader language={language} catalog={catalog} fetchCatalog={fetchCatalog}>
         <div />
       </I18nLoader>,

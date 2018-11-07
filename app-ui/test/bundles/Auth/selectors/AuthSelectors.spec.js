@@ -5,61 +5,58 @@ import {
   getSignUpForm,
   getResetToken,
   getResetPasswordForm,
-  getRecoverPasswordForm
-} from "bundles/Auth/selectors/AuthSelectors";
+  getRecoverPasswordForm,
+} from 'bundles/Auth/selectors/AuthSelectors';
 
 
-describe("(Selector) AuthSelectors", () => {
-
+describe('(Selector) AuthSelectors', () => {
   describe('requestButtonProps', () => {
     let requestProp;
     let pending;
-    let formValid;
+    let formInvalid;
 
     const getRequestProps = () => ({
       data: {
-        pending: pending,
+        pending,
         success: false,
-        failed: false
+        failed: false,
       },
-      actions: {}
+      actions: {},
     });
 
     before(() => {
       pending = true;
-      formValid = true;
+      formInvalid = false;
       requestProp = getRequestProps();
     });
 
     it('Should contain only two props `loading` and `disabled`', () => {
-      expect(requestButtonProps(formValid)(requestProp)).to.have.all.keys(['disabled', 'loading'])
+      expect(requestButtonProps(formInvalid)(requestProp)).to.have.all.keys(['disabled', 'loading']);
     });
 
     it('Should set button to loading if form is valid and request is pending', () => {
-      expect(requestButtonProps(formValid)(requestProp).loading).to.be.true();
+      expect(requestButtonProps(formInvalid)(requestProp).loading).to.be.true();
     });
     it('Should set button to loading if form is valid given a request prop', () => {
-
-      expect(requestButtonProps(formValid)(requestProp).loading).to.be.true();
+      expect(requestButtonProps(formInvalid)(requestProp).loading).to.be.true();
     });
 
     it('Should disable button if form is not valid given a request prop', () => {
-      formValid = false;
-      expect(requestButtonProps(formValid)(requestProp).disabled).to.be.equal(true);
+      formInvalid = true;
+      expect(requestButtonProps(formInvalid)(requestProp).disabled).to.be.equal(true);
     });
 
     it('Should disable button if form is valid and request is pending', () => {
-      formValid = true;
+      formInvalid = false;
       pending = true;
-      expect(requestButtonProps(formValid)(requestProp).disabled).to.be.equal(true);
+      expect(requestButtonProps(formInvalid)(requestProp).disabled).to.be.equal(true);
     });
-
   });
 
   describe('getActivateAccountEmail', () => {
     let state;
     before(() => {
-      state = { auth: { activateAccount: { email: 'john@doe.com' } } }
+      state = { auth: { activateAccount: { email: 'john@doe.com' } } };
     });
 
     it('Should select email from state', () => {
@@ -70,7 +67,7 @@ describe("(Selector) AuthSelectors", () => {
   describe('getRecoverPasswordForm', () => {
     let state;
     before(() => {
-      state = { auth: { recoverPassword: { form: { param: 'value' } } } }
+      state = { auth: { recoverPassword: { form: { param: 'value' } } } };
     });
 
     it('Should select recover password form from state', () => {
@@ -81,7 +78,7 @@ describe("(Selector) AuthSelectors", () => {
   describe('getResetPasswordForm', () => {
     let state;
     before(() => {
-      state = { auth: { resetPassword: { form: { param: 'value' } } } }
+      state = { auth: { resetPassword: { form: { param: 'value' } } } };
     });
 
     it('Should select reset password form from state', () => {
@@ -92,7 +89,7 @@ describe("(Selector) AuthSelectors", () => {
   describe('getResetToken', () => {
     let state;
     before(() => {
-      state = { match: { params: { token: 'hash-tk3' } } }
+      state = { match: { params: { token: 'hash-tk3' } } };
     });
 
     it('Should select reset token from provided props', () => {
@@ -103,7 +100,7 @@ describe("(Selector) AuthSelectors", () => {
   describe('getSignInForm', () => {
     let state;
     before(() => {
-      state = { auth: { signIn: { form: { param: 'value' } } } }
+      state = { auth: { signIn: { form: { param: 'value' } } } };
     });
 
     it('Should select sign up form from state', () => {
@@ -114,12 +111,11 @@ describe("(Selector) AuthSelectors", () => {
   describe('getSignUpForm', () => {
     let state;
     before(() => {
-      state = { auth: { signUp: { form: { param: 'value' } } } }
+      state = { auth: { signUp: { form: { param: 'value' } } } };
     });
 
     it('Should select sign up form from state', () => {
       expect(getSignUpForm(state)).to.have.all.keys('param');
     });
   });
-
 });

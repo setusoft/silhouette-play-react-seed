@@ -14,8 +14,11 @@ import { SignInComponent } from 'bundles/Auth/components/SignIn/SignIn';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 import { Request } from 'questrar';
+import wrapRequest, { initialRequestState } from 'questrar-test';
 
 describe('(Component) Auth/SignIn', () => {
+  let requestId;
+  let requestState;
   let onSignIn;
   let wrapper;
 
@@ -32,6 +35,11 @@ describe('(Component) Auth/SignIn', () => {
   );
 
   beforeEach(() => {
+    requestId = signInRequest.id;
+    requestState = {
+      ...initialRequestState,
+      id: requestId,
+    };
     onSignIn = sinon.spy();
     wrapper = getWrapper();
   });
@@ -145,19 +153,46 @@ describe('(Component) Auth/SignIn', () => {
 
 
       describe('(Component) Request', () => {
+        let node;
+
+        beforeEach(() => {
+          node = wrapper.find(Request);
+        });
+
         it('Should track recover password request with id', () => {
-          expect(wrapper.find(Request).get(0).props.id).to.be.equal(signInRequest.id);
+          expect(node.props().id).to.be.equal(requestId);
         });
 
-        it('Should wrap reset password `Button`', () => {
-          expect(wrapper.find(Request).children().first().is(Button)).to.be.true()
+        it('Should wrap on sign-in `Button`', () => {
+          wrapper = wrapRequest(node.dive())();
+
+          expect(wrapper.is(Button)).to.be.true();
         });
 
-        it('Should provide request state props as `Button` props to wrapped `Button`', () => {
-          const resetButton = wrapper.find(Request).children().first();
-          expect(resetButton.props().loading).to.be.equal(false);
-          expect(resetButton.props().disabled).to.be.equal(true);
-        })
+        it('Should provide request state props to wrapped `Button`', () => {
+          wrapper = wrapRequest(node.dive())(requestState);
+
+          expect(wrapper.is(Button)).to.be.true();
+          expect(wrapper.props().disabled).to.be.false();
+          expect(wrapper.props().loading).to.be.false();
+
+          requestState.pending = true;
+          wrapper = wrapRequest(node.dive())(requestState);
+          expect(wrapper.props().disabled).to.be.true();
+          expect(wrapper.props().loading).to.be.true();
+        });
+
+        it('Should have `passivePending` prop set to true', () => {
+          expect(node.props().passivePending).to.be.true();
+        });
+
+        it('Should have `popoverOnFail` prop set to true', () => {
+          expect(node.props().popoverOnFail).to.be.true();
+        });
+
+        it('Should have `inject` prop set as a function', () => {
+          expect(node.props().inject).to.be.a('function');
+        });
       });
 
       describe('(Component) Button', () => {
@@ -174,11 +209,11 @@ describe('(Component) Auth/SignIn', () => {
         });
 
         it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
-          wrapper = getWrapper(false);
+          const node = getWrapper(false).find(Request).dive();
+          wrapper = wrapRequest(node)({ ...initialRequestState, id: requestId });
 
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
+          expect(wrapper.props().disabled).to.equal(true);
         });
-
       });
     });
   });

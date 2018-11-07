@@ -1,11 +1,8 @@
 // @flow
 import { combineReducers } from 'redux';
-import { createAction, handleActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import { formReducer, modelReducer } from 'react-redux-form';
 import { createRequestState } from 'questrar/redux';
-
-export const resetPasswordRequest = createRequestState('AUTH_RESET_PASSWORD');
-
 
 export type ResetPasswordForm = {
   password: string,
@@ -15,6 +12,8 @@ export const modelPath: string = 'auth.resetPassword.data';
 export const formState: ResetPasswordForm = {
   password: '',
 };
+
+export const resetPasswordRequest = createRequestState('AUTH_RESET_PASSWORD');
 
 export const resetPassword = createAction('AUTH_RESET_PASSWORD');
 

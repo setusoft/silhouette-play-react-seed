@@ -11,8 +11,11 @@ import { modelPath, resetPasswordRequest } from 'bundles/Auth/modules/ResetPassw
 import FormControl from 'components/FormControl';
 import { ResetPasswordComponent } from 'bundles/Auth/components/ResetPassword/ResetPassword';
 import { Request } from 'questrar';
+import wrapRequest, { initialRequestState } from 'questrar-test';
 
 describe('(Component) Auth/ResetPassword', () => {
+  let requestId;
+  let requestState;
   const token = 'some-token';
   const password = 'some-password';
   let onReset;
@@ -29,10 +32,17 @@ describe('(Component) Auth/ResetPassword', () => {
       }}
       i18n={i18n}
       onReset={onReset}
+      onResetFailure={onResetFailure}
+      onResetSuccess={onResetSuccess}
     />,
   );
 
   beforeEach(() => {
+    requestId = resetPasswordRequest.id;
+    requestState = {
+      ...initialRequestState,
+      id: requestId,
+    };
     onReset = sinon.spy();
     wrapper = getWrapper();
   });
@@ -111,19 +121,46 @@ describe('(Component) Auth/ResetPassword', () => {
       });
 
       describe('(Component) Request', () => {
+        let node;
+
+        beforeEach(() => {
+          node = wrapper.find(Request);
+        });
+
         it('Should track recover password request with id', () => {
-          expect(wrapper.find(Request).get(0).props.id).to.be.equal(resetPasswordRequest.id);
+          expect(node.props().id).to.be.equal(requestId);
         });
 
         it('Should wrap reset password `Button`', () => {
-          expect(wrapper.find(Request).children().first().is(Button)).to.be.true()
+          wrapper = wrapRequest(node.dive())();
+
+          expect(wrapper.is(Button)).to.be.true();
         });
 
-        it('Should provide request state props as `Button` props to wrapped `Button`', () => {
-          const resetButton = wrapper.find(Request).children().first();
-          expect(resetButton.props().loading).to.be.equal(false);
-          expect(resetButton.props().disabled).to.be.equal(true);
-        })
+        it('Should provide request state props to wrapped `Button`', () => {
+          wrapper = wrapRequest(node.dive())(requestState);
+
+          expect(wrapper.is(Button)).to.be.true();
+          expect(wrapper.props().disabled).to.be.false();
+          expect(wrapper.props().loading).to.be.false();
+
+          requestState.pending = true;
+          wrapper = wrapRequest(node.dive())(requestState);
+          expect(wrapper.props().disabled).to.be.true();
+          expect(wrapper.props().loading).to.be.true();
+        });
+
+        it('Should have `passivePending` prop set to true', () => {
+          expect(node.props().passivePending).to.be.true();
+        });
+
+        it('Should have `popoverOnFail` prop set to true', () => {
+          expect(node.props().popoverOnFail).to.be.true();
+        });
+
+        it('Should have `inject` prop set as a function', () => {
+          expect(node.props().inject).to.be.a('function');
+        });
       });
 
       describe('(Component) Button', () => {
@@ -140,41 +177,11 @@ describe('(Component) Auth/ResetPassword', () => {
         });
 
         it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
-          wrapper = getWrapper(false);
+          const node = getWrapper(false).find(Request).dive();
+          wrapper = wrapRequest(node)(requestState);
 
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
+          expect(wrapper.props().disabled).to.equal(true);
         });
-
-
-        /*it('Should show the `Spinner` if `isPending` is set to true', () => {
-          isPending = true;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Spinner)).to.have.length(1);
-          expect(wrapper.find(Button).contains(
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Reset
-              </Trans>
-            </div>,
-          )).to.be.true();
-        });
-
-
-        it('Should not show the `Spinner` if `isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Spinner)).to.have.length(0);
-          expect(wrapper.find(Button).contains(
-            <Trans>
-              Reset
-            </Trans>,
-          )).to.be.true();
-        });
-         */
       });
     });
   });

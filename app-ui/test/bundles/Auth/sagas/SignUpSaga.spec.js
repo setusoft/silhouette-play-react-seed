@@ -6,7 +6,7 @@ import saga, { signUpSaga } from 'bundles/Auth/sagas/SignUpSaga';
 import {
   modelPath,
   signUp,
-  signUpRequest
+  signUpRequest,
 } from 'bundles/Auth/modules/SignUpModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -49,7 +49,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { signUp: () => { throw fatalError; } };
       return expectSaga(signUpSaga, api)
-        .put(signUpRequest.failed(fatalError.response.description))
+        .put(signUpRequest.failed())
         .dispatch(signUp(payload))
         .silentRun();
     });

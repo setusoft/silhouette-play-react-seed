@@ -2,14 +2,12 @@ import { isFSA } from 'flux-standard-action';
 import recoverPasswordReducer, {
   modelPath,
   formState,
-  requestState,
   recoverPassword,
-  recoverPasswordRequest
+  recoverPasswordRequest,
 } from 'bundles/Auth/modules/RecoverPasswordModule';
 
 describe('(Redux Module) Auth/RecoverPasswordModule', () => {
   const initialState = {
-    request: requestState,
     form: {},
     data: formState,
   };
@@ -39,8 +37,19 @@ describe('(Redux Module) Auth/RecoverPasswordModule', () => {
       expect(recoverPasswordRequest).to.be.a('function');
     });
     it('Should return its id', () => {
-      expect(recoverPasswordRequest()).to.be.equal(recoverPasswordRequest.id)
-    })
+      expect(recoverPasswordRequest()).to.be.equal(recoverPasswordRequest.id);
+    });
+  });
+
+  describe('(Action Creator) recoverPasswordRequest', () => {
+    it('Should be exported as a function', () => {
+      expect(recoverPasswordRequest).to.be.a('function');
+    });
+
+    it('Should extract request id', () => {
+      expect(recoverPasswordRequest()).to.be.a('string');
+      expect(recoverPasswordRequest.id).to.be.a('string');
+    });
   });
 
   describe('(Action Creator) recoverPasswordRequest#pending', () => {
@@ -81,6 +90,5 @@ describe('(Redux Module) Auth/RecoverPasswordModule', () => {
     it('Should initialize with the initial state', () => {
       expect(recoverPasswordReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
     });
-
   });
 });

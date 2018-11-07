@@ -40,6 +40,7 @@ export function* resetPasswordWorker(api: AuthAPI): Generator<*, *, *> {
       yield call(Alert.success, response.description);
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
+      yield put(resetPasswordRequest.failed());
       yield call(handleError, e, {
         'auth.password.reset.form.invalid': formErrorHandler(modelPath),
         'auth.password.reset.token.invalid': (error: APIError) => ([

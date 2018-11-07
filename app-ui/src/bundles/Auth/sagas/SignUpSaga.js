@@ -5,7 +5,7 @@ import { handleError, formErrorHandler } from 'util/Saga';
 import {
   modelPath,
   signUp,
-  signUpRequest
+  signUpRequest,
 } from 'bundles/Auth/modules/SignUpModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -15,7 +15,7 @@ export function* signUpSaga(api: AuthAPI): Generator<*, *, *> {
     try {
       yield put(signUpRequest.pending());
       const response = yield call([api, api.signUp], payload);
-      yield put(signUpRequest.success({ title: 'Signed Up', body: response.description }));
+      yield put(signUpRequest.success(response.description));
       yield put(actions.reset(modelPath));
     } catch (e) {
       yield put(signUpRequest.failed());

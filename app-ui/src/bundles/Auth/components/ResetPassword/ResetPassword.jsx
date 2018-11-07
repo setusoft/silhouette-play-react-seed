@@ -5,18 +5,16 @@ import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
-import { modelPath } from 'bundles/Auth/modules/ResetPasswordModule';
+import { modelPath, resetPasswordRequest } from 'bundles/Auth/modules/ResetPasswordModule';
 import FormControl from 'components/FormControl';
 import type { FormProps } from 'util/Form';
 import { Request } from 'questrar';
-import { resetPasswordRequest } from "bundles/Auth/modules/ResetPasswordModule";
-import { requestButtonProps } from "bundles/Auth/selectors/AuthSelectors";
+import { requestButtonProps } from 'bundles/Auth/selectors/AuthSelectors';
 
 
 type Props = {
   token: string,
   form: {[string]: FormProps},
-  isPending: boolean,
   i18n: Object,
   onReset: (token: string, data: Object) => any,
   onResetFailure: () => void,
@@ -24,7 +22,7 @@ type Props = {
 }
 
 export const ResetPasswordComponent = ({
-  token, form, i18n, onReset, onResetSuccess, onResetFailure
+  token, form, i18n, onReset, onResetSuccess, onResetFailure,
 }: Props) => (
   <Panel className="reset-password">
     <Panel.Heading>
@@ -54,13 +52,15 @@ export const ResetPasswordComponent = ({
         <Request
           id={resetPasswordRequest.id}
           passivePending
-          failTooltip
+          popoverOnFail
           onCloseFailure={onResetFailure}
           onCloseSuccess={onResetSuccess}
           inject={requestButtonProps(!form.$form.valid)}
         >
           <Button bsStyle="primary" type="submit" block>
-            <Trans>Reset</Trans>
+            <Trans>
+Reset
+            </Trans>
           </Button>
         </Request>
       </Form>

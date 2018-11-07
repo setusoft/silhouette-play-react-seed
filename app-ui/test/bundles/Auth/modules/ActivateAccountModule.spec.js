@@ -32,9 +32,9 @@ describe('(Redux Module) Auth/ActivateAccountModule', () => {
     it('Should be a function', () => {
       expect(emailActivationRequest).to.be.a('function');
     });
-    it('Should return its id', () => {
-      expect(emailActivationRequest()).to.be.equal(emailActivationRequest.id)
-    })
+    it('Should extract its id', () => {
+      expect(emailActivationRequest()).to.be.a('string').that.is.equal(emailActivationRequest.id);
+    });
   });
 
   describe('(Action Creator) emailActivationRequest#pending', () => {
@@ -100,6 +100,5 @@ describe('(Redux Module) Auth/ActivateAccountModule', () => {
       state = activateAccountReducer(state, saveActivationEmail('john@doe.com'));
       expect(state).to.eql({ ...initialState, email: 'john@doe.com' });
     });
-
   });
 });

@@ -8,7 +8,7 @@ import saga, { recoverPasswordSaga } from 'bundles/Auth/sagas/RecoverPasswordSag
 import {
   modelPath,
   recoverPassword,
-  recoverPasswordRequest
+  recoverPasswordRequest,
 } from 'bundles/Auth/modules/RecoverPasswordModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -51,7 +51,7 @@ describe('(Saga) Auth/RecoverPasswordSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { recoverPassword: () => { throw fatalError; } };
       return expectSaga(recoverPasswordSaga, api)
-        .put(recoverPasswordRequest.failed(fatalError.response.description))
+        .put(recoverPasswordRequest.failed())
         .dispatch(recoverPassword(payload))
         .silentRun();
     });
@@ -72,23 +72,6 @@ describe('(Saga) Auth/RecoverPasswordSaga', () => {
         .silentRun();
     });
 
-    /*it('Should display the success alert box on success', () => {
-      const api = { recoverPassword: () => successResponse };
-      return expectSaga(recoverPasswordSaga, api)
-        .call(Alert.success, successResponse.description, { timeout: 30000 })
-        .dispatch(recoverPassword(payload))
-        .silentRun();
-    });*/
-
-    //$remove
-   /* it('Should route to the sign-in page on success', () => {
-      const api = { recoverPassword: () => successResponse };
-      return expectSaga(recoverPasswordSaga, api)
-        .call(history.push, config.route.auth.signIn)
-        .dispatch(recoverPassword(payload))
-        .silentRun();
-    });*/
-
     it('Should handle an invalid form', () => {
       const api = { recoverPassword: () => { throw invalidFormError; } };
       return expectSaga(recoverPasswordSaga, api)
@@ -101,6 +84,23 @@ describe('(Saga) Auth/RecoverPasswordSaga', () => {
       const api = { recoverPassword: () => { throw fatalError; } };
       return expectSaga(recoverPasswordSaga, api)
         .call(Alert.error, fatalError.response.description)
+        .dispatch(recoverPassword(payload))
+        .silentRun();
+    });
+
+    xit('Should display the success alert box on success', () => {
+      const api = { recoverPassword: () => successResponse };
+      return expectSaga(recoverPasswordSaga, api)
+        .call(Alert.success, successResponse.description, { timeout: 30000 })
+        .dispatch(recoverPassword(payload))
+        .silentRun();
+    });
+
+
+    xit('Should route to the sign-in page on success', () => {
+      const api = { recoverPassword: () => successResponse };
+      return expectSaga(recoverPasswordSaga, api)
+        .call(history.push, config.route.auth.signIn)
         .dispatch(recoverPassword(payload))
         .silentRun();
     });

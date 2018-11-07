@@ -11,12 +11,11 @@ import MaintenanceContainer from 'containers/MaintenanceContainer';
 import { CaptureNotFoundRoute, NotFoundRoute } from 'components/NotFound';
 import { secured, unsecured } from 'util/Auth';
 import * as Bundles from 'bundles';
-import { Provider as RequestStateProvider  } from 'questrar';
+import { Provider as RequestStateProvider } from 'questrar';
 import { createStateProvider } from 'questrar/redux';
 
 type Props = {
   store: Object,
-  stateProvider: Object,
 }
 
 /**
@@ -44,11 +43,11 @@ export default class App extends React.Component<Props> {
    */
   render() {
     const { store } = this.props;
-    const stateProvider = createStateProvider(this.props.store)
+    const stateProvider = createStateProvider(store);
 
     return (
       <Provider store={store}>
-        <RequestStateProvider stateProvider={stateProvider} >
+        <RequestStateProvider stateProvider={stateProvider}>
           <I18nLoaderContainer>
             <PreloaderContainer>
               <MaintenanceContainer>

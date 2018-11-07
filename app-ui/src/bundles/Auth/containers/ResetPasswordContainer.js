@@ -4,8 +4,8 @@ import lifecycle from 'components/Lifecycle';
 import { modelPath, resetPassword, validatePasswordToken } from 'bundles/Auth/modules/ResetPasswordModule';
 import ResetPassword from 'bundles/Auth/components/ResetPassword';
 import config from 'config/index';
-import { history } from "modules/LocationModule";
-import { getResetPasswordForm, getResetToken } from "bundles/Auth/selectors/AuthSelectors";
+import { history } from 'modules/LocationModule';
+import { getResetPasswordForm, getResetToken } from 'bundles/Auth/selectors/AuthSelectors';
 
 /**
  * Maps the state properties to the React component `props`.
@@ -26,11 +26,11 @@ const mapStateToProps = (state, ownProps) => ({
  * @param {Object} ownProps   The props passed to the component.
  * @returns {Object} The props passed to the react component.
  */
-const mapDispatchToProps = (dispatch, ownProps) => ({
+export const mapDispatchToProps = (dispatch, ownProps) => ({
   onResetFailure: () => history.push(config.route.auth.passwordRecovery),
   onResetSuccess: () => history.push(config.route.auth.signIn),
   onReset: (token, data) => dispatch(resetPassword({ token, data })),
-  componentWillMount: () => dispatch(validatePasswordToken(resetToken(ownProps))),
+  componentWillMount: () => dispatch(validatePasswordToken(getResetToken(ownProps))),
   componentWillUnmount: () => dispatch(actions.reset(modelPath)),
 });
 

@@ -3,7 +3,7 @@ import { actions } from 'react-redux-form';
 import lifecycle from 'components/Lifecycle';
 import { modelPath, signIn } from 'bundles/Auth/modules/SignInModule';
 import SignIn from 'bundles/Auth/components/SignIn';
-import { getSignInForm } from "bundles/Auth/selectors/AuthSelectors";
+import { getSignInForm } from 'bundles/Auth/selectors/AuthSelectors';
 
 /**
  * Maps the state properties to the React component `props`.
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
  * @param {Function} dispatch The Redux store dispatch function.
  * @returns {Object} The props passed to the react component.
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onSignIn: data => dispatch(signIn(data)),
   componentWillUnmount: () => dispatch(actions.reset(modelPath)),
 });

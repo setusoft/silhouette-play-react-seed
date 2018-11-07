@@ -3,9 +3,9 @@ import { actions } from 'react-redux-form';
 import lifecycle from 'components/Lifecycle';
 import { modelPath, recoverPassword } from 'bundles/Auth/modules/RecoverPasswordModule';
 import RecoverPassword from 'bundles/Auth/components/RecoverPassword';
-import { history } from "modules/LocationModule";
-import config from 'config/index'
-import { recoverPasswordForm } from "bundles/Auth/selectors/AuthSelectors";
+import { history } from 'modules/LocationModule';
+import config from 'config/index';
+import { getRecoverPasswordForm } from 'bundles/Auth/selectors/AuthSelectors';
 
 /**
  * Maps the state properties to the React component `props`.
@@ -17,17 +17,24 @@ const mapStateToProps = state => ({
   form: getRecoverPasswordForm(state),
 });
 
+
+/**
+ * Attaches callback to on recover request success
+ * @param r
+ */
+export const onRecover = (r) => {
+  r.actions.remove(r.data.id);
+  history.push(config.route.auth.signIn);
+};
+
 /**
  * Maps the store `dispatch` function to the React component `props`.
  *
  * @param {Function} dispatch The Redux store dispatch function.
  * @returns {Object} The props passed to the react component.
  */
-const mapDispatchToProps = dispatch => ({
-  onRecover: (r) => {
-    r.actions.remove(r.data.id);
-    history.push(config.route.auth.signIn);
-  },
+export const mapDispatchToProps = dispatch => ({
+  onRecover,
   onSend: data => dispatch(recoverPassword(data)),
   componentWillUnmount: () => dispatch(actions.reset(modelPath)),
 });

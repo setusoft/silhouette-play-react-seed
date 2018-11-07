@@ -10,13 +10,16 @@ import { Form } from 'react-redux-form';
 import { isRequired } from 'util/Validator';
 import { modelPath, recoverPasswordRequest } from 'bundles/Auth/modules/RecoverPasswordModule';
 import FormControl from 'components/FormControl';
-import Spinner from 'components/Spinner';
 import { RecoverPasswordComponent } from 'bundles/Auth/components/RecoverPassword/RecoverPassword';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 import { Request } from 'questrar';
+import wrapRequest, { initialRequestState } from 'questrar-test';
+
 
 describe('(Component) Auth/RecoverPassword', () => {
+  let requestId;
+  let requestState;
   let onSend;
   let wrapper;
   let onRecover;
@@ -34,6 +37,11 @@ describe('(Component) Auth/RecoverPassword', () => {
   );
 
   beforeEach(() => {
+    requestId = recoverPasswordRequest.id;
+    requestState = {
+      ...initialRequestState,
+      id: requestId,
+    };
     onSend = sinon.spy();
     wrapper = getWrapper();
     onRecover = sinon.spy();
@@ -128,19 +136,46 @@ describe('(Component) Auth/RecoverPassword', () => {
       });
 
       describe('(Component) Request', () => {
-        it('Should track recover password request with id', () => {
-          expect(wrapper.find(Request).get(0).props.id).to.be.equal(recoverPasswordRequest.id);
+        let node;
+
+        beforeEach(() => {
+          node = wrapper.find(Request);
         });
 
-        it('Should wrap recover password `Button`', () => {
-          expect(wrapper.find(Request).children().first().is(Button)).to.be.true()
+        it('Should track recover password request with an id', () => {
+          expect(node.props().id).to.be.equal(requestId);
         });
 
-        it('Should provide request state props as `Button` props to wrapped `Button`', () => {
-          const requestButton = wrapper.find(Request).children().first();
-          expect(requestButton.props().loading).to.be.equal(false);
-          expect(requestButton.props().disabled).to.be.equal(true);
-        })
+        it('Should wrap recover password `Button` component', () => {
+          wrapper = wrapRequest(node.dive())();
+
+          expect(wrapper.is(Button)).to.be.true();
+        });
+
+        it('Should provide request state props to wrapped `Button`', () => {
+          wrapper = wrapRequest(node.dive())(requestState);
+
+          expect(wrapper.is(Button)).to.be.true();
+          expect(wrapper.props().disabled).to.be.false();
+          expect(wrapper.props().loading).to.be.false();
+
+          requestState.pending = true;
+          wrapper = wrapRequest(node.dive())(requestState);
+          expect(wrapper.props().disabled).to.be.true();
+          expect(wrapper.props().loading).to.be.true();
+        });
+
+        it('Should have `popoverOnSuccess` prop set to true', () => {
+          expect(node.props().popoverOnSuccess).to.be.true();
+        });
+
+        it('Should have `passivePending` prop set to true', () => {
+          expect(node.props().passivePending).to.be.true();
+        });
+
+        it('Should have `inject` prop set as a function', () => {
+          expect(node.props().inject).to.be.a('function');
+        });
       });
 
       describe('(Component) Button', () => {
@@ -157,11 +192,11 @@ describe('(Component) Auth/RecoverPassword', () => {
         });
 
         it('Should have prop `disabled` set to true if `$form.valid` is set to false', () => {
-          wrapper = getWrapper(false);
+          const node = getWrapper(false).find(Request).dive();
+          wrapper = wrapRequest(node)(requestState);
 
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
+          expect(wrapper.props().disabled).to.equal(true);
         });
-
       });
     });
   });

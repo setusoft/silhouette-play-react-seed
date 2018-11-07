@@ -1,13 +1,11 @@
 // @flow
-import Alert from 'react-s-alert';
 import { actions } from 'react-redux-form';
 import { call, put, take } from 'redux-saga/effects';
 import { handleError, formErrorHandler } from 'util/Saga';
-import { history } from 'modules/LocationModule';
 import {
   modelPath,
   recoverPassword,
-  recoverPasswordRequest
+  recoverPasswordRequest,
 } from 'bundles/Auth/modules/RecoverPasswordModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 

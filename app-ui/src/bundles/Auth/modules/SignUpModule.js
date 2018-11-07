@@ -1,11 +1,10 @@
 // @flow
 import { combineReducers } from 'redux';
-import { createAction, handleActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import { formReducer, modelReducer } from 'react-redux-form';
 import { createRequestState } from 'questrar/redux';
 
 
-export const signUpRequest = createRequestState('AUTH_SIGN_UP');
 
 
 export type SignUpForm = {
@@ -22,6 +21,7 @@ export const formState: SignUpForm = {
 };
 
 export const signUp = createAction('AUTH_SIGN_UP');
+export const signUpRequest = createRequestState('AUTH_SIGN_UP');
 
 export default combineReducers({
   form: formReducer(modelPath, formState),

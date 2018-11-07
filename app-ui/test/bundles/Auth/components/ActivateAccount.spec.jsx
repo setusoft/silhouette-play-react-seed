@@ -8,8 +8,11 @@ import { Button } from 'components/Elements';
 import { Request } from 'questrar';
 import { ActivateAccountComponent } from 'bundles/Auth/components/ActivateAccount/ActivateAccount';
 import { emailActivationRequest } from 'bundles/Auth/modules/ActivateAccountModule';
+import wrapRequest, { initialRequestState } from 'questrar-test';
 
 describe('(Component) Auth/ActivateAccount', () => {
+  let requestId;
+  let requestState;
   let email;
   let onSend;
   let wrapper;
@@ -25,6 +28,11 @@ describe('(Component) Auth/ActivateAccount', () => {
   );
 
   beforeEach(() => {
+    requestId = emailActivationRequest.id;
+    requestState = {
+      ...initialRequestState,
+      id: requestId
+    };
     email = 'john@doe.com';
     onSend = sinon.spy();
     wrapper = getWrapper();
@@ -33,12 +41,6 @@ describe('(Component) Auth/ActivateAccount', () => {
 
   it('Should contain a Panel', () => {
     expect(wrapper.find(Panel)).to.have.length(1);
-  });
-
-  it('Should have a `Request` component on `Button`', () => {
-    const request = wrapper.find(Request);
-    expect(request).to.have.length(1);
-    expect(request.children().first().is(Button)).to.be.true();
   });
 
   it('Should contain 4 text paragraphs', () => {
@@ -50,6 +52,13 @@ describe('(Component) Auth/ActivateAccount', () => {
 
     expect(paragraph).to.have.length(1);
     expect(paragraph.text()).to.equal(email);
+  });
+
+  it('Should have a `Request` component on `Button`', () => {
+    const request = wrapper.find(Request);
+
+    expect(request).to.have.length(1);
+    expect(request.children().first().is(Button)).to.be.true();
   });
 
   it('Should contain a Button', () => {
@@ -89,66 +98,61 @@ describe('(Component) Auth/ActivateAccount', () => {
           expect(wrapper.find(Button).get(0).props.block).to.equal(true);
         });
 
-        /*it('Should have prop `disabled` set to true if `isPending` is set to true', () => {
-          loading = true;
-          wrapper = getWrapper();
+        it('Should have prop `disabled` set to true if activation request is pending', () => {
+          requestState.pending = true;
+          const node = getWrapper().find(Request).dive();
+          wrapper = wrapRequest(node)(requestState);
 
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(true);
-        });*/
-
-        /*it('Should have prop `disabled` set to false if `isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Button).get(0).props.disabled).to.equal(false);
+          expect(wrapper.is(Button)).to.be.true();
+          expect(wrapper.props().disabled).to.equal(true);
         });
-*/
+
         it('Should execute the `onSend` handler on click', () => {
           wrapper.find(Button).simulate('click');
 
           expect(onSend.callCount).to.equal(1);
           expect(onSend.firstCall.args[0]).to.eql(email);
         });
+      });
 
-        /*it('Should show the `Spinner` if `isPending` is set to true', () => {
-          isPending = true;
-          wrapper = getWrapper();
+      describe('(Component) Request', () => {
+        let node;
 
-          expect(wrapper.find(Spinner)).to.have.length(1);
-          expect(wrapper.find(Button).contains(
-            <div>
-              <Spinner />
-              {' '}
-              <Trans>
-                Send
-              </Trans>
-            </div>,
-          )).to.be.true();
+        beforeEach(() => {
+          node = wrapper.find(Request);
         });
 
-        it('Should not show the `Spinner` if `isPending` is set to false', () => {
-          isPending = false;
-          wrapper = getWrapper();
-
-          expect(wrapper.find(Spinner)).to.have.length(0);
-          expect(wrapper.find(Button).contains(
-            <Trans>
-              Send
-            </Trans>,
-          )).to.be.true();
-        });*/
-
-      });
-      describe('(Component) Request', () => {
         it('Should track email activation request with id', () => {
-          expect(wrapper.find(Request).get(0).props.id).to.be.equal(emailActivationRequest.id);
+          expect(node.props().id).to.be.equal(requestId);
         });
 
         it('Should provide request state props to wrapped `Button`', () => {
-          const requestButton = wrapper.find(Request).children().get(0);
-          expect(requestButton.props.loading).to.be.equal(false);
-          expect(requestButton.props.disabled).to.be.equal(false);
-        })
+          wrapper = wrapRequest(node.dive())(requestState);
+
+          expect(wrapper.is(Button)).to.be.true();
+          expect(wrapper.props().loading).to.be.false();
+
+          requestState.pending = true;
+          wrapper = wrapRequest(node.dive())(requestState);
+
+          expect(wrapper.props().loading).to.be.true();
+        });
+
+        it('Should have `popoverOnSuccess` prop set to true', () => {
+          expect(node.props().popoverOnSuccess).to.be.true();
+        });
+
+        it('Should have `popoverOnFail` prop set to true', () => {
+          expect(node.props().popoverOnFail).to.be.true();
+        });
+
+        it('Should have `popoverOnFail` prop set to true', () => {
+          expect(node.props().passivePending).to.be.true();
+        });
+
+        it('Should have `inject` prop set to a function', () => {
+          expect(node.props().inject).to.be.a('function');
+        });
       });
     });
   });

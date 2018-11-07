@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { requestStateReducer } from 'questrar/redux'
+import { requestStateReducer } from 'questrar/redux';
 import initReducer from 'modules/InitModule';
 import locationReducer from 'modules/LocationModule';
 import healthReducer from 'modules/HealthModule';

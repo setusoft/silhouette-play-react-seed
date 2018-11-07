@@ -2,14 +2,12 @@ import { isFSA } from 'flux-standard-action';
 import signUpReducer, {
   modelPath,
   formState,
-  requestState,
   signUp,
-  signUpRequest
+  signUpRequest,
 } from 'bundles/Auth/modules/SignUpModule';
 
 describe('(Redux Module) Auth/SignUpModule', () => {
   const initialState = {
-    request: requestState,
     form: {},
     data: formState,
   };
@@ -41,9 +39,9 @@ describe('(Redux Module) Auth/SignUpModule', () => {
     it('Should be a function', () => {
       expect(signUpRequest).to.be.a('function');
     });
-    it('Should return its id', () => {
-      expect(signUpRequest()).to.be.equal(signUpRequest.id)
-    })
+    it('Should extract its id', () => {
+      expect(signUpRequest()).to.be.a('string').that.is.equal(signUpRequest.id);
+    });
   });
 
   describe('(Action Creator) signUpRequest#pending', () => {
@@ -84,6 +82,5 @@ describe('(Redux Module) Auth/SignUpModule', () => {
     it('Should initialize with the initial state', () => {
       expect(signUpReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
     });
-
   });
 });
