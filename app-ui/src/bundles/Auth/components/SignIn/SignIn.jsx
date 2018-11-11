@@ -68,7 +68,7 @@ export const SignInComponent = ({
           id={signInRequest.id}
           passivePending
           popoverOnFail
-          inject={requestButtonProps(!form.$form.valid)}
+          inject={requestButtonProps(form.$form.valid)}
         >
           <Button bsStyle="primary" type="submit" block>
             <Trans>

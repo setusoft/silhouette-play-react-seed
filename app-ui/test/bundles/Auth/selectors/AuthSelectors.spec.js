@@ -13,43 +13,56 @@ describe('(Selector) AuthSelectors', () => {
   describe('requestButtonProps', () => {
     let requestProp;
     let pending;
-    let formInvalid;
+    let formValid;
 
-    const getRequestProps = () => ({
-      data: {
-        pending,
-        success: false,
-        failed: false,
-      },
-      actions: {},
-    });
+    const getRequestProps = () => {
+      requestProp = {
+        data: {
+          pending,
+          success: false,
+          failed: false,
+        },
+        actions: {},
+      };
+    };
 
-    before(() => {
+    beforeEach(() => {
       pending = true;
-      formInvalid = false;
-      requestProp = getRequestProps();
+      formValid = true;
+      getRequestProps();
     });
 
-    it('Should contain only two props `loading` and `disabled`', () => {
-      expect(requestButtonProps(formInvalid)(requestProp)).to.have.all.keys(['disabled', 'loading']);
+    it('Should contain only two props: `loading` and `disabled`', () => {
+      expect(requestButtonProps(formValid)(requestProp)).to.have.all.keys(['disabled', 'loading']);
     });
 
-    it('Should set button to loading if form is valid and request is pending', () => {
-      expect(requestButtonProps(formInvalid)(requestProp).loading).to.be.true();
-    });
-    it('Should set button to loading if form is valid given a request prop', () => {
-      expect(requestButtonProps(formInvalid)(requestProp).loading).to.be.true();
+    it('Should set button to loading if request is pending', () => {
+      expect(requestButtonProps(formValid)(requestProp).loading).to.be.true();
     });
 
-    it('Should disable button if form is not valid given a request prop', () => {
-      formInvalid = true;
-      expect(requestButtonProps(formInvalid)(requestProp).disabled).to.be.equal(true);
+    it('Should disable button if form is not valid and request is not pending', () => {
+      formValid = false;
+      pending = false;
+      getRequestProps();
+
+      expect(requestButtonProps(formValid)(requestProp).disabled).to.be.equal(true);
     });
 
-    it('Should disable button if form is valid and request is pending', () => {
-      formInvalid = false;
-      pending = true;
-      expect(requestButtonProps(formInvalid)(requestProp).disabled).to.be.equal(true);
+    it('Should disable button if form is not valid and request is pending', () => {
+      formValid = false;
+
+      expect(requestButtonProps(formValid)(requestProp).disabled).to.be.equal(true);
+    });
+
+    it('Should disable button if form is valid or request is pending', () => {
+      expect(requestButtonProps(formValid)(requestProp).disabled).to.be.equal(true);
+    });
+
+    it('Should not disable button if form is valid and request is not pending', () => {
+      pending = false;
+      getRequestProps();
+
+      expect(requestButtonProps(formValid)(requestProp).disabled).to.be.equal(false);
     });
   });
 

@@ -20,11 +20,7 @@ describe('(Container) ActivateAccountContainer', () => {
       };
       onActivationSent(state);
 
-      expect(actions.remove)
-        .to
-        .have
-        .been
-        .calledOnceWithExactly(emailActivationRequest.id);
+      expect(actions.remove).to.have.been.calledOnceWithExactly(emailActivationRequest.id);
     });
 
     it('Should move user to SignIn page', () => {

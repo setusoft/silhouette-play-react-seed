@@ -59,11 +59,11 @@ export const RecoverPasswordComponent = ({
           passivePending
           popoverOnSuccess
           onCloseSuccess={onRecover}
-          inject={requestButtonProps(!form.$form.valid)}
+          inject={requestButtonProps(form.$form.valid)}
         >
           <Button bsStyle="primary" type="submit" block>
             <Trans>
-Submit
+              Submit
             </Trans>
           </Button>
         </Request>

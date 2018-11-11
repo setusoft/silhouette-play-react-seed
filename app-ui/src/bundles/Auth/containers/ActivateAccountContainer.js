@@ -15,11 +15,12 @@ import { getActivateAccountEmail } from 'bundles/Auth/selectors/AuthSelectors';
 const mapStateToProps = state => getActivateAccountEmail(state);
 
 /**
- * Attaches callback to on activation request success
- * @param r
+ * Account activation request on success callback
+ *
+ * @param request Request state
  */
-export const onActivationSent = (r) => {
-  r.actions.remove(r.data.id);
+export const onActivationSent = (request) => {
+  request.actions.remove(request.data.id);
   history.push(config.route.auth.signIn);
 };
 

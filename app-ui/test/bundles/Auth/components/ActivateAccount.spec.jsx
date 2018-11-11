@@ -31,12 +31,12 @@ describe('(Component) Auth/ActivateAccount', () => {
     requestId = emailActivationRequest.id;
     requestState = {
       ...initialRequestState,
-      id: requestId
+      id: requestId,
     };
     email = 'john@doe.com';
     onSend = sinon.spy();
     wrapper = getWrapper();
-    onActivationSent = sinon.spy()
+    onActivationSent = sinon.spy();
   });
 
   it('Should contain a Panel', () => {

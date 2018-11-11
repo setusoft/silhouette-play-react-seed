@@ -5,8 +5,6 @@ import { formReducer, modelReducer } from 'react-redux-form';
 import { createRequestState } from 'questrar/redux';
 
 
-
-
 export type SignUpForm = {
   name: string,
   email: string,

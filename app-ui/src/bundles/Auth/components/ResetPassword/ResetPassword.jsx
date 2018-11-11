@@ -55,11 +55,11 @@ export const ResetPasswordComponent = ({
           popoverOnFail
           onCloseFailure={onResetFailure}
           onCloseSuccess={onResetSuccess}
-          inject={requestButtonProps(!form.$form.valid)}
+          inject={requestButtonProps(form.$form.valid)}
         >
           <Button bsStyle="primary" type="submit" block>
             <Trans>
-Reset
+              Reset
             </Trans>
           </Button>
         </Request>

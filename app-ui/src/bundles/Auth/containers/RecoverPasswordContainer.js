@@ -19,11 +19,12 @@ const mapStateToProps = state => ({
 
 
 /**
- * Attaches callback to on recover request success
- * @param r
+ * Recover password request on success callback
+ *
+ *  @param request Request state
  */
-export const onRecover = (r) => {
-  r.actions.remove(r.data.id);
+export const onRecover = (request) => {
+  request.actions.remove(request.data.id);
   history.push(config.route.auth.signIn);
 };
 
