@@ -13,23 +13,14 @@ describe('(Container) ActivateAccountContainer', () => {
       };
     });
 
-    it('Should remove account activation request state', () => {
-      const state = {
-        data: { id: emailActivationRequest.id },
-        actions,
-      };
-      onActivationSent(state);
-
-      expect(actions.remove).to.have.been.calledOnceWithExactly(emailActivationRequest.id);
-    });
-
     it('Should move user to SignIn page', () => {
       const push = sinon.spy(history, 'push');
       const state = {
         data: { id: emailActivationRequest.id },
         actions,
       };
-      onActivationSent(state);
+      const event = {};
+      onActivationSent(event, state);
 
       expect(actions.remove).to.have.been.calledBefore(push);
       expect(push).to.have.been.calledOnceWithExactly(config.route.auth.signIn);

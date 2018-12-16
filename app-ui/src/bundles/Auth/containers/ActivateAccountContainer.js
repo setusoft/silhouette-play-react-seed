@@ -16,10 +16,10 @@ const mapStateToProps = state => getActivateAccountEmail(state);
 
 /**
  * Account activation request on success callback
- *
+ * @param event MouseEvent
  * @param request Request state
  */
-export const onActivationSent = (request) => {
+export const onActivationSent = (event, request) => {
   request.actions.remove(request.data.id);
   history.push(config.route.auth.signIn);
 };

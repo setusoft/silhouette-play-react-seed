@@ -20,10 +20,10 @@ const mapStateToProps = state => ({
 
 /**
  * Recover password request on success callback
- *
+ *  @param event MouseEvent
  *  @param request Request state
  */
-export const onRecover = (request) => {
+export const onRecover = (event, request) => {
   request.actions.remove(request.data.id);
   history.push(config.route.auth.signIn);
 };
