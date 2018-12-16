@@ -16,6 +16,12 @@ import {
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 import config from 'config/index';
 
+/**
+ * Validates password token with server api
+ *
+ * @param api
+ * @returns {IterableIterator<*>}
+ */
 export function* validatePasswordTokenWorker(api: AuthAPI): Generator<*, *, *> {
   while (true) {
     const { payload } = yield take(validatePasswordToken().type);
@@ -29,6 +35,12 @@ export function* validatePasswordTokenWorker(api: AuthAPI): Generator<*, *, *> {
   }
 }
 
+/**
+ * Calls server api to reset password with data provided the token is valid.
+ *
+ * @param api
+ * @returns {IterableIterator<*>}
+ */
 export function* resetPasswordWorker(api: AuthAPI): Generator<*, *, *> {
   while (true) {
     const { payload: { token, data } } = yield take(resetPassword().type);

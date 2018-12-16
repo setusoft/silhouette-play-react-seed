@@ -29,7 +29,6 @@ describe('(Container) ResetPasswordContainer', () => {
     it('Should have all required props', () => {
       expect(props).to.have.all.keys([
         'onResetFailure',
-        'onResetSuccess',
         'onReset',
         'componentWillMount',
         'componentWillUnmount',
@@ -42,12 +41,6 @@ describe('(Container) ResetPasswordContainer', () => {
       props.onResetFailure();
 
       expect(push).to.have.been.calledOnceWithExactly(config.route.auth.passwordRecovery);
-    });
-
-    it('#onResetSuccess Should direct user to signIn page', () => {
-      props.onResetSuccess();
-
-      expect(push).to.have.been.calledOnceWithExactly(config.route.auth.signIn);
     });
 
     it('#onReset Should dispatch `resetPassword` action with data', () => {

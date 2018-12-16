@@ -11,6 +11,7 @@ import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
+import { popoverOnSuccess } from 'util/Form';
 import { Request } from 'questrar';
 import { requestButtonProps } from 'bundles/Auth/selectors/AuthSelectors';
 
@@ -56,10 +57,15 @@ export const RecoverPasswordComponent = ({
         />
         <Request
           id={recoverPasswordRequest.id}
-          passivePending
-          popoverOnSuccess
-          onCloseSuccess={onRecover}
           inject={requestButtonProps(form.$form.valid)}
+          onSuccess={popoverOnSuccess({
+            title: (
+              <Trans>
+                Recovery Email Sent
+              </Trans>
+            ),
+            onClick: onRecover,
+          })}
         >
           <Button bsStyle="primary" type="submit" block>
             <Trans>

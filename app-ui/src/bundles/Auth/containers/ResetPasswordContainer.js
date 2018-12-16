@@ -28,7 +28,6 @@ const mapStateToProps = (state, ownProps) => ({
  */
 export const mapDispatchToProps = (dispatch, ownProps) => ({
   onResetFailure: () => history.push(config.route.auth.passwordRecovery),
-  onResetSuccess: () => history.push(config.route.auth.signIn),
   onReset: (token, data) => dispatch(resetPassword({ token, data })),
   componentWillMount: () => dispatch(validatePasswordToken(getResetToken(ownProps))),
   componentWillUnmount: () => dispatch(actions.reset(modelPath)),

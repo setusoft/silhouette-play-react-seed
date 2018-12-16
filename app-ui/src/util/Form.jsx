@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { HelpBlock } from 'react-bootstrap';
-
+import { HelpBlock, Popover, OverlayTrigger } from 'react-bootstrap';
+import type { RequestProp } from 'questrar';
 import type { Node } from 'react';
 
 /**
@@ -49,3 +49,66 @@ export const ErrorWrapper = ({ children }: { children: Node }) => (
     {React.Children.toArray(children)[0]}
   </HelpBlock>
 );
+
+
+/**
+ * Wraps a request message popup over a Request component child
+ * @param request
+ * @param child,
+ * @param overlayOptions
+ * @returns {*}
+ */
+export const popoverOnChild = (request: RequestProp, child: Node, overlayOptions: Object) => {
+  let onClickWithRequest;
+  const style = { };
+
+  if (typeof overlayOptions.onClick === 'function') {
+    style.cursor = 'pointer';
+    onClickWithRequest = (event: SyntheticEvent<MouseEvent>) => overlayOptions.onClick(event, request);
+  }
+
+  const popoverOverlay = (
+    <Popover
+      id={request.data.id}
+      {...overlayOptions}
+      onClick={onClickWithRequest}
+      style={style}
+    >
+      {request.data.message}
+    </Popover>
+  );
+
+  return (
+    <OverlayTrigger
+      delayShow={400}
+      defaultOverlayShown
+      trigger="click"
+      placement="right"
+      overlay={popoverOverlay}
+    >
+      {child}
+    </OverlayTrigger>
+  );
+};
+
+/**
+ * Wraps a request success message popup over a Request component child
+ * @param options
+ * @returns {*}
+ */
+export const popoverOnSuccess = (options: Object) => (request: RequestProp, child: Node) => {
+  return request.data.success && request.data.message
+    ? popoverOnChild(request, child, options)
+    : child;
+};
+
+/**
+ * Wraps a request failure message popover over a Request component child
+ * @param options
+ * @returns {*}
+ */
+export const popoverOnFailure = (options: Object) => (request: RequestProp, child: Node) => {
+  return request.data.failed && request.data.message
+    ? popoverOnChild(request, child, options)
+    : child;
+};
