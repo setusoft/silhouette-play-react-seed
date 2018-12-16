@@ -8,9 +8,8 @@ import { history } from 'modules/LocationModule';
 import {
   activateAccount,
   sendActivationEmail,
-  sendActivationEmailPending,
-  sendActivationEmailFulfilled,
-  sendActivationEmailRejected,
+  emailActivationRequest,
+  resetActivationEmail,
 } from 'bundles/Auth/modules/ActivateAccountModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 import config from 'config/index';
@@ -33,13 +32,12 @@ export function* sendActivationEmailWorker(api: AuthAPI): Generator<*, *, *> {
   while (true) {
     const { payload } = yield take(sendActivationEmail().type);
     try {
-      yield put(sendActivationEmailPending());
+      yield put(emailActivationRequest.pending());
       const response = yield call([api, api.sendActivationMail], payload);
-      yield put(sendActivationEmailFulfilled(response));
-      yield call(Alert.success, response.description, { timeout: 30000 });
-      yield call(history.push, config.route.auth.signIn);
+      yield put(emailActivationRequest.success(response.description));
+      yield put(resetActivationEmail());
     } catch (e) {
-      yield put(sendActivationEmailRejected(e));
+      yield put(emailActivationRequest.failed());
       yield call(handleError, e);
     }
   }

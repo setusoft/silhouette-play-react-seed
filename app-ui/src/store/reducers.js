@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { requestStateReducer } from 'questrar/redux';
 import initReducer from 'modules/InitModule';
 import locationReducer from 'modules/LocationModule';
 import healthReducer from 'modules/HealthModule';
@@ -22,6 +23,8 @@ export const makeRootReducer = (asyncReducers) => {
     config: configReducer,
     i18n: i18nReducer,
     user: userReducer,
+
+    ...requestStateReducer,
     ...asyncReducers,
   });
 

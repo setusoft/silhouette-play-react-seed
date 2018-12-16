@@ -4,3 +4,5 @@ node_modules/**
 dist/**
 src/index.html
 src/locale/**
+flow-typed/**
+flow-libs/**

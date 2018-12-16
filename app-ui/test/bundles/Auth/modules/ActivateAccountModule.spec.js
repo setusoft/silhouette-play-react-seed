@@ -3,9 +3,7 @@ import activateAccountReducer, {
   initialState,
   saveActivationEmail,
   sendActivationEmail,
-  sendActivationEmailPending,
-  sendActivationEmailFulfilled,
-  sendActivationEmailRejected,
+  emailActivationRequest,
   activateAccount,
 } from 'bundles/Auth/modules/ActivateAccountModule';
 
@@ -30,33 +28,42 @@ describe('(Redux Module) Auth/ActivateAccountModule', () => {
     });
   });
 
-  describe('(Action Creator) sendActivationEmailPending', () => {
-    it('Should be exported as a function', () => {
-      expect(sendActivationEmailPending).to.be.a('function');
+  describe('(Action Creator) emailActivationRequest', () => {
+    it('Should be a function', () => {
+      expect(emailActivationRequest).to.be.a('function');
     });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(sendActivationEmailPending())).to.be.true();
-    });
-  });
-
-  describe('(Action Creator) sendActivationEmailFulfilled', () => {
-    it('Should be exported as a function', () => {
-      expect(sendActivationEmailFulfilled).to.be.a('function');
-    });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(sendActivationEmailFulfilled())).to.be.true();
+    it('Should extract its id', () => {
+      expect(emailActivationRequest()).to.be.a('string').that.is.equal(emailActivationRequest.id);
     });
   });
 
-  describe('(Action Creator) sendActivationEmailRejected', () => {
+  describe('(Action Creator) emailActivationRequest#pending', () => {
     it('Should be exported as a function', () => {
-      expect(sendActivationEmailRejected).to.be.a('function');
+      expect(emailActivationRequest.pending).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(sendActivationEmailRejected())).to.be.true();
+      expect(isFSA(emailActivationRequest.pending())).to.be.true();
+    });
+  });
+
+  describe('(Action Creator) emailActivationRequest#success', () => {
+    it('Should be exported as a function', () => {
+      expect(emailActivationRequest.success).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(emailActivationRequest.success())).to.be.true();
+    });
+  });
+
+  describe('(Action Creator) emailActivationRequest#failed', () => {
+    it('Should be exported as a function', () => {
+      expect(emailActivationRequest.failed).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(emailActivationRequest.failed())).to.be.true();
     });
   });
 
@@ -84,10 +91,6 @@ describe('(Redux Module) Auth/ActivateAccountModule', () => {
       expect(state).to.eql(initialState);
       state = activateAccountReducer(state, { type: 'UNDEFINED' });
       expect(state).to.eql(initialState);
-      state = activateAccountReducer(state, sendActivationEmailPending());
-      expect(state).to.eql({ ...initialState, isPending: true });
-      state = activateAccountReducer(state, { type: 'UNDEFINED' });
-      expect(state).to.eql({ ...initialState, isPending: true });
     });
 
     it('Should set `email` if the `saveActivationEmail` action was dispatched', () => {
@@ -96,38 +99,6 @@ describe('(Redux Module) Auth/ActivateAccountModule', () => {
 
       state = activateAccountReducer(state, saveActivationEmail('john@doe.com'));
       expect(state).to.eql({ ...initialState, email: 'john@doe.com' });
-    });
-
-    it('Should set `isPending` to true if the `sendActivationEmailPending` action was dispatched', () => {
-      let state = activateAccountReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.eql({ ...initialState, isPending: false });
-
-      state = activateAccountReducer(state, sendActivationEmailPending());
-      expect(state).to.eql({ ...initialState, isPending: true });
-    });
-
-    it('Should set `isPending` to false if the `sendActivationEmailFulfilled` action was dispatched', () => {
-      let state = activateAccountReducer(undefined, sendActivationEmailPending());
-      expect(state).to.eql({ ...initialState, isPending: true });
-
-      state = activateAccountReducer(state, sendActivationEmailFulfilled());
-      expect(state).to.eql({ ...initialState, isPending: false });
-    });
-
-    it('Should set `email` to "" if the `sendActivationEmailFulfilled` action was dispatched', () => {
-      let state = activateAccountReducer(undefined, saveActivationEmail('john@doe.com'));
-      expect(state).to.eql({ ...initialState, email: 'john@doe.com' });
-
-      state = activateAccountReducer(state, sendActivationEmailFulfilled());
-      expect(state).to.eql({ ...initialState, email: '' });
-    });
-
-    it('Should set `isPending` to false if the `sendActivationEmailRejected` action was dispatched', () => {
-      let state = activateAccountReducer(undefined, sendActivationEmailPending());
-      expect(state).to.eql({ ...initialState, isPending: true });
-
-      state = activateAccountReducer(state, sendActivationEmailRejected());
-      expect(state).to.eql({ ...initialState, isPending: false });
     });
   });
 });

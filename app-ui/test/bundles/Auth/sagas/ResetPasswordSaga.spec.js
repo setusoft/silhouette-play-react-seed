@@ -12,9 +12,7 @@ import saga, {
 import {
   modelPath,
   resetPassword,
-  resetPasswordPending,
-  resetPasswordFulfilled,
-  resetPasswordRejected,
+  resetPasswordRequest,
   validatePasswordToken,
 } from 'bundles/Auth/modules/ResetPasswordModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
@@ -85,7 +83,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
     it('Should set the state to pending', () => {
       const api = { resetPassword: () => successResponse };
       return expectSaga(resetPasswordWorker, api)
-        .put(resetPasswordPending())
+        .put(resetPasswordRequest.pending())
         .dispatch(resetPassword(resetPayload))
         .silentRun();
     });
@@ -93,7 +91,16 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
     it('Should set the state to fulfilled if the call to the API was successful', () => {
       const api = { resetPassword: () => successResponse };
       return expectSaga(resetPasswordWorker, api)
-        .put(resetPasswordFulfilled(successResponse))
+        .put(resetPasswordRequest.success())
+        .dispatch(resetPassword(resetPayload))
+        .silentRun();
+    });
+
+    it('Should set the state to rejected with message '
+      + 'if the call to the API failed due to invalid token', () => {
+      const api = { resetPassword: () => { throw invalidTokenError; } };
+      return expectSaga(resetPasswordWorker, api)
+        .put(resetPasswordRequest.failed(invalidTokenError.response.description))
         .dispatch(resetPassword(resetPayload))
         .silentRun();
     });
@@ -101,7 +108,15 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { resetPassword: () => { throw fatalError; } };
       return expectSaga(resetPasswordWorker, api)
-        .put(resetPasswordRejected(fatalError))
+        .put(resetPasswordRequest.failed())
+        .dispatch(resetPassword(resetPayload))
+        .silentRun();
+    });
+
+    it('Should display the error alert box on unhandled rejection if the call to the API failed', () => {
+      const api = { resetPassword: () => { throw fatalError; } };
+      return expectSaga(resetPasswordWorker, api)
+        .call(Alert.error, fatalError.response.description)
         .dispatch(resetPassword(resetPayload))
         .silentRun();
     });
@@ -149,16 +164,7 @@ describe('(Saga) Auth/ResetPasswordSaga', () => {
     it('Should handle an invalid token', () => {
       const api = { resetPassword: () => { throw invalidTokenError; } };
       return expectSaga(resetPasswordWorker, api)
-        .call(history.push, config.route.auth.passwordRecovery)
-        .call(Alert.error, invalidTokenError.response.description)
-        .dispatch(resetPassword(resetPayload))
-        .silentRun();
-    });
-
-    it('Should display the error alert box on error', () => {
-      const api = { resetPassword: () => { throw fatalError; } };
-      return expectSaga(resetPasswordWorker, api)
-        .call(Alert.error, fatalError.response.description)
+        .put(resetPasswordRequest.failed(invalidTokenError.response.description))
         .dispatch(resetPassword(resetPayload))
         .silentRun();
     });

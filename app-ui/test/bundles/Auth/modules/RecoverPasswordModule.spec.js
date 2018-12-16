@@ -2,28 +2,18 @@ import { isFSA } from 'flux-standard-action';
 import recoverPasswordReducer, {
   modelPath,
   formState,
-  requestState,
   recoverPassword,
-  recoverPasswordPending,
-  recoverPasswordFulfilled,
-  recoverPasswordRejected,
+  recoverPasswordRequest,
 } from 'bundles/Auth/modules/RecoverPasswordModule';
 
 describe('(Redux Module) Auth/RecoverPasswordModule', () => {
   const initialState = {
-    request: requestState,
     form: {},
     data: formState,
   };
 
   it('Should export the model path', () => {
     expect(modelPath).to.equal('auth.recoverPassword.data');
-  });
-
-  it('Should export the initial request state', () => {
-    expect(requestState).to.eql({
-      isPending: false,
-    });
   });
 
   it('Should export the initial form state', () => {
@@ -42,33 +32,53 @@ describe('(Redux Module) Auth/RecoverPasswordModule', () => {
     });
   });
 
-  describe('(Action Creator) recoverPasswordPending', () => {
-    it('Should be exported as a function', () => {
-      expect(recoverPasswordPending).to.be.a('function');
+  describe('(Action Creator) recoverPasswordRequest', () => {
+    it('Should be a function', () => {
+      expect(recoverPasswordRequest).to.be.a('function');
     });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(recoverPasswordPending())).to.be.true();
-    });
-  });
-
-  describe('(Action Creator) recoverPasswordFulfilled', () => {
-    it('Should be exported as a function', () => {
-      expect(recoverPasswordFulfilled).to.be.a('function');
-    });
-
-    it('Should be a flux standard action', () => {
-      expect(isFSA(recoverPasswordFulfilled())).to.be.true();
+    it('Should return its id', () => {
+      expect(recoverPasswordRequest()).to.be.equal(recoverPasswordRequest.id);
     });
   });
 
-  describe('(Action Creator) recoverPasswordRejected', () => {
+  describe('(Action Creator) recoverPasswordRequest', () => {
     it('Should be exported as a function', () => {
-      expect(recoverPasswordRejected).to.be.a('function');
+      expect(recoverPasswordRequest).to.be.a('function');
+    });
+
+    it('Should extract request id', () => {
+      expect(recoverPasswordRequest()).to.be.a('string');
+      expect(recoverPasswordRequest.id).to.be.a('string');
+    });
+  });
+
+  describe('(Action Creator) recoverPasswordRequest#pending', () => {
+    it('Should be exported as a function', () => {
+      expect(recoverPasswordRequest.pending).to.be.a('function');
     });
 
     it('Should be a flux standard action', () => {
-      expect(isFSA(recoverPasswordRejected())).to.be.true();
+      expect(isFSA(recoverPasswordRequest.pending())).to.be.true();
+    });
+  });
+
+  describe('(Action Creator) recoverPasswordRequest#success', () => {
+    it('Should be exported as a function', () => {
+      expect(recoverPasswordRequest.success).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(recoverPasswordRequest.success())).to.be.true();
+    });
+  });
+
+  describe('(Action Creator) recoverPasswordRequest#failed', () => {
+    it('Should be exported as a function', () => {
+      expect(recoverPasswordRequest.failed).to.be.a('function');
+    });
+
+    it('Should be a flux standard action', () => {
+      expect(isFSA(recoverPasswordRequest.failed())).to.be.true();
     });
   });
 
@@ -79,30 +89,6 @@ describe('(Redux Module) Auth/RecoverPasswordModule', () => {
 
     it('Should initialize with the initial state', () => {
       expect(recoverPasswordReducer(undefined, { type: 'UNDEFINED' })).to.shallowDeepEqual(initialState);
-    });
-
-    it('Should set `isPending` to true if the `recoverPasswordPending` action was dispatched', () => {
-      let state = recoverPasswordReducer(undefined, { type: 'UNDEFINED' });
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-
-      state = recoverPasswordReducer(state, recoverPasswordPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-    });
-
-    it('Should set `isPending` to false if the `recoverPasswordFulfilled` action was dispatched', () => {
-      let state = recoverPasswordReducer(undefined, recoverPasswordPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = recoverPasswordReducer(state, recoverPasswordFulfilled());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
-    });
-
-    it('Should set `isPending` to false if the `recoverPasswordRejected` action was dispatched', () => {
-      let state = recoverPasswordReducer(undefined, recoverPasswordPending());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: true } });
-
-      state = recoverPasswordReducer(state, recoverPasswordRejected());
-      expect(state).to.shallowDeepEqual({ ...initialState, request: { isPending: false } });
     });
   });
 });

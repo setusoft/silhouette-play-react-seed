@@ -11,6 +11,8 @@ import MaintenanceContainer from 'containers/MaintenanceContainer';
 import { CaptureNotFoundRoute, NotFoundRoute } from 'components/NotFound';
 import { secured, unsecured } from 'util/Auth';
 import * as Bundles from 'bundles';
+import { Provider as RequestStateProvider } from 'questrar';
+import { createStateProvider } from 'questrar/redux';
 
 type Props = {
   store: Object,
@@ -41,25 +43,28 @@ export default class App extends React.Component<Props> {
    */
   render() {
     const { store } = this.props;
+    const stateProvider = createStateProvider(store);
 
     return (
       <Provider store={store}>
-        <I18nLoaderContainer>
-          <PreloaderContainer>
-            <MaintenanceContainer>
-              <Router history={history}>
-                <CaptureNotFoundRoute>
-                  <Switch>
-                    <Redirect exact from="/" to="/admin" />
-                    <Route path="/admin" component={secured(Bundles.admin(store))} />
-                    <Route path="/auth" component={unsecured(Bundles.auth(store))} />
-                    <NotFoundRoute />
-                  </Switch>
-                </CaptureNotFoundRoute>
-              </Router>
-            </MaintenanceContainer>
-          </PreloaderContainer>
-        </I18nLoaderContainer>
+        <RequestStateProvider stateProvider={stateProvider}>
+          <I18nLoaderContainer>
+            <PreloaderContainer>
+              <MaintenanceContainer>
+                <Router history={history}>
+                  <CaptureNotFoundRoute>
+                    <Switch>
+                      <Redirect exact from="/" to="/admin" />
+                      <Route path="/admin" component={secured(Bundles.admin(store))} />
+                      <Route path="/auth" component={unsecured(Bundles.auth(store))} />
+                      <NotFoundRoute />
+                    </Switch>
+                  </CaptureNotFoundRoute>
+                </Router>
+              </MaintenanceContainer>
+            </PreloaderContainer>
+          </I18nLoaderContainer>
+        </RequestStateProvider>
       </Provider>
     );
   }

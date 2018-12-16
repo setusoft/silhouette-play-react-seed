@@ -1,4 +1,3 @@
-import Alert from 'react-s-alert';
 import config from 'config/index';
 import { actions } from 'react-redux-form';
 import { expectSaga } from 'redux-saga-test-plan';
@@ -10,9 +9,7 @@ import saga, { signInSaga } from 'bundles/Auth/sagas/SignInSaga';
 import {
   modelPath,
   signIn,
-  signInPending,
-  signInFulfilled,
-  signInRejected,
+  signInRequest,
 } from 'bundles/Auth/modules/SignInModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -42,7 +39,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to pending', () => {
       const api = { signIn: () => successResponse };
       return expectSaga(signInSaga, api)
-        .put(signInPending())
+        .put(signInRequest.pending())
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -50,7 +47,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to fulfilled if the call to the API was successful', () => {
       const api = { signIn: () => successResponse };
       return expectSaga(signInSaga, api)
-        .put(signInFulfilled(successResponse))
+        .put(signInRequest.success())
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -58,7 +55,7 @@ describe('(Saga) Auth/SignInSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { signIn: () => { throw fatalError; } };
       return expectSaga(signInSaga, api)
-        .put(signInRejected(fatalError))
+        .put(signInRequest.failed())
         .dispatch(signIn(payload))
         .silentRun();
     });
@@ -108,14 +105,6 @@ describe('(Saga) Auth/SignInSaga', () => {
       return expectSaga(signInSaga, api)
         .put(saveActivationEmail(inactiveAccountError.response.details.email))
         .call(history.push, config.route.auth.accountActivation)
-        .dispatch(signIn(payload))
-        .silentRun();
-    });
-
-    it('Should display the error alert box on error', () => {
-      const api = { signIn: () => { throw fatalError; } };
-      return expectSaga(signInSaga, api)
-        .call(Alert.error, fatalError.response.description)
         .dispatch(signIn(payload))
         .silentRun();
     });

@@ -1,18 +1,14 @@
 import authReducer from 'bundles/Auth/modules/AuthModule';
 import {
-  requestState as signUpRequestState,
   formState as signUpFormState,
 } from 'bundles/Auth/modules/SignUpModule';
 import {
-  requestState as signInRequestState,
   formState as signInFormState,
 } from 'bundles/Auth/modules/SignInModule';
 import {
-  requestState as recoverPasswordRequestState,
   formState as recoverPasswordFormState,
 } from 'bundles/Auth/modules/RecoverPasswordModule';
 import {
-  requestState as resetPasswordRequestState,
   formState as resetPasswordFormState,
 } from 'bundles/Auth/modules/ResetPasswordModule';
 import { initialState as activateAccountInitialState } from 'bundles/Auth/modules/ActivateAccountModule';
@@ -20,22 +16,18 @@ import { initialState as activateAccountInitialState } from 'bundles/Auth/module
 describe('(Redux Module) Auth/AuthModule', () => {
   const defaultState = {
     signUp: {
-      request: signUpRequestState,
       form: {},
       data: signUpFormState,
     },
     signIn: {
-      request: signInRequestState,
       form: {},
       data: signInFormState,
     },
     recoverPassword: {
-      request: recoverPasswordRequestState,
       form: {},
       data: recoverPasswordFormState,
     },
     resetPassword: {
-      request: resetPasswordRequestState,
       form: {},
       data: resetPasswordFormState,
     },

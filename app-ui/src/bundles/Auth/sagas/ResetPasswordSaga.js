@@ -10,14 +10,18 @@ import { history } from 'modules/LocationModule';
 import {
   modelPath,
   resetPassword,
-  resetPasswordPending,
-  resetPasswordFulfilled,
-  resetPasswordRejected,
+  resetPasswordRequest,
   validatePasswordToken,
 } from 'bundles/Auth/modules/ResetPasswordModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 import config from 'config/index';
 
+/**
+ * Validates password token with server api
+ *
+ * @param api
+ * @returns {IterableIterator<*>}
+ */
 export function* validatePasswordTokenWorker(api: AuthAPI): Generator<*, *, *> {
   while (true) {
     const { payload } = yield take(validatePasswordToken().type);
@@ -31,23 +35,28 @@ export function* validatePasswordTokenWorker(api: AuthAPI): Generator<*, *, *> {
   }
 }
 
+/**
+ * Calls server api to reset password with data provided the token is valid.
+ *
+ * @param api
+ * @returns {IterableIterator<*>}
+ */
 export function* resetPasswordWorker(api: AuthAPI): Generator<*, *, *> {
   while (true) {
     const { payload: { token, data } } = yield take(resetPassword().type);
     try {
-      yield put(resetPasswordPending());
+      yield put(resetPasswordRequest.pending());
       const response = yield call([api, api.resetPassword], token, data);
-      yield put(resetPasswordFulfilled(response));
+      yield put(resetPasswordRequest.success());
       yield put(actions.reset(modelPath));
       yield call(Alert.success, response.description);
       yield call(history.push, config.route.auth.signIn);
     } catch (e) {
-      yield put(resetPasswordRejected(e));
+      yield put(resetPasswordRequest.failed());
       yield call(handleError, e, {
         'auth.password.reset.form.invalid': formErrorHandler(modelPath),
         'auth.password.reset.token.invalid': (error: APIError) => ([
-          call(history.push, config.route.auth.passwordRecovery),
-          call(Alert.error, error.response.description),
+          put(resetPasswordRequest.failed(error.response.description)),
         ]),
       });
     }

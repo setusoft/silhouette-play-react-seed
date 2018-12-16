@@ -6,9 +6,7 @@ import saga, { signUpSaga } from 'bundles/Auth/sagas/SignUpSaga';
 import {
   modelPath,
   signUp,
-  signUpPending,
-  signUpFulfilled,
-  signUpRejected,
+  signUpRequest,
 } from 'bundles/Auth/modules/SignUpModule';
 import AuthAPI from 'bundles/Auth/apis/AuthAPI';
 
@@ -35,7 +33,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
     it('Should set the state to pending', () => {
       const api = { signUp: () => successResponse };
       return expectSaga(signUpSaga, api)
-        .put(signUpPending())
+        .put(signUpRequest.pending())
         .dispatch(signUp(payload))
         .silentRun();
     });
@@ -43,7 +41,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
     it('Should set the state to fulfilled if the call to the API was successful', () => {
       const api = { signUp: () => successResponse };
       return expectSaga(signUpSaga, api)
-        .put(signUpFulfilled(successResponse))
+        .put(signUpRequest.success(successResponse.description))
         .dispatch(signUp(payload))
         .silentRun();
     });
@@ -51,7 +49,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
     it('Should set the state to rejected if the call to the API failed', () => {
       const api = { signUp: () => { throw fatalError; } };
       return expectSaga(signUpSaga, api)
-        .put(signUpRejected(fatalError))
+        .put(signUpRequest.failed())
         .dispatch(signUp(payload))
         .silentRun();
     });
@@ -72,14 +70,6 @@ describe('(Saga) Auth/SignUpSaga', () => {
         .silentRun();
     });
 
-    it('Should display the success alert box on success', () => {
-      const api = { signUp: () => successResponse };
-      return expectSaga(signUpSaga, api)
-        .call(Alert.success, successResponse.description, { timeout: 30000 })
-        .dispatch(signUp(payload))
-        .silentRun();
-    });
-
     it('Should handle an invalid form', () => {
       const api = { signUp: () => { throw invalidFormError; } };
       return expectSaga(signUpSaga, api)
@@ -87,6 +77,7 @@ describe('(Saga) Auth/SignUpSaga', () => {
         .dispatch(signUp(payload))
         .silentRun();
     });
+
 
     it('Should display the error alert box on error', () => {
       const api = { signUp: () => { throw fatalError; } };

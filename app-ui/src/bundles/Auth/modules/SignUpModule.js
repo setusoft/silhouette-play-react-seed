@@ -1,11 +1,9 @@
 // @flow
 import { combineReducers } from 'redux';
-import { createAction, handleActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import { formReducer, modelReducer } from 'react-redux-form';
+import { createRequestState } from 'questrar/redux';
 
-export type RequestState = {
-  isPending: boolean
-}
 
 export type SignUpForm = {
   name: string,
@@ -14,7 +12,6 @@ export type SignUpForm = {
 }
 
 export const modelPath: string = 'auth.signUp.data';
-export const requestState: RequestState = { isPending: false };
 export const formState: SignUpForm = {
   name: '',
   email: '',
@@ -22,16 +19,9 @@ export const formState: SignUpForm = {
 };
 
 export const signUp = createAction('AUTH_SIGN_UP');
-export const signUpPending = createAction('AUTH_SIGN_UP_PENDING');
-export const signUpFulfilled = createAction('AUTH_SIGN_UP_FULFILLED');
-export const signUpRejected = createAction('AUTH_SIGN_UP_REJECTED');
+export const signUpRequest = createRequestState('AUTH_SIGN_UP');
 
 export default combineReducers({
-  request: handleActions({
-    [signUpPending]: () => ({ isPending: true }),
-    [signUpFulfilled]: () => ({ isPending: false }),
-    [signUpRejected]: () => ({ isPending: false }),
-  }, requestState),
   form: formReducer(modelPath, formState),
   data: modelReducer(modelPath, formState),
 });

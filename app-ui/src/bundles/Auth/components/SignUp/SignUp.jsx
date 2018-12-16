@@ -1,28 +1,29 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import { Button } from 'components/Elements';
 import { Form } from 'react-redux-form';
 import { withI18n, Trans } from '@lingui/react';
 import { isRequired } from 'util/Validator';
-import { modelPath } from 'bundles/Auth/modules/SignUpModule';
+import { modelPath, signUpRequest } from 'bundles/Auth/modules/SignUpModule';
 import FormControl from 'components/FormControl';
 import isEmail from 'validator/lib/isEmail';
-import Spinner from 'components/Spinner';
 import config from 'config/index';
 import type { FormProps } from 'util/Form';
-
+import { popoverOnSuccess } from 'util/Form';
+import { Request } from 'questrar';
+import { requestButtonProps } from 'bundles/Auth/selectors/AuthSelectors';
 import './SignUp.scss';
 
 type Props = {
   form: {[string]: FormProps},
-  isPending: boolean,
   i18n: Object,
   onSignUp: () => any,
 }
 
 export const SignUpComponent = ({
-  form, isPending, i18n, onSignUp,
+  form, i18n, onSignUp,
 }: Props) => (
   <Panel className="sign-up">
     <Panel.Heading>
@@ -71,21 +72,23 @@ export const SignUpComponent = ({
             isRequired,
           }}
         />
-        <Button bsStyle="primary" type="submit" disabled={!form.$form.valid || isPending} block>
-          {isPending ? (
-            <div>
-              <Spinner />
-              {' '}
+        <Request
+          id={signUpRequest.id}
+          inject={requestButtonProps(form.$form.valid)}
+          onSuccess={popoverOnSuccess({
+            title: (
               <Trans>
-                Sign up
+                Signed Up
               </Trans>
-            </div>
-          ) : (
+            ),
+          })}
+        >
+          <Button bsStyle="primary" type="submit" block>
             <Trans>
               Sign up
             </Trans>
-          )}
-        </Button>
+          </Button>
+        </Request>
       </Form>
       <p className="sign-in">
         <Trans>
